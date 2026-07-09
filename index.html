@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Karen · Centro de Guías</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap');
+    :root{--ink:#1a1612;--cream:#fdf8f2;--fog:#e8e0d5;--deep:#12100e;--card:#fff;--verde:#2d6a4f;--verde-l:#74c69d;--verde-xl:#d8f3dc;--amarelo:#e9c46a;--rosa:#e76f51;--azul:#457b9d;}
+    *{margin:0;padding:0;box-sizing:border-box} body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);line-height:1.65} 
+    .hero{min-height:55vh;background:var(--deep);color:var(--cream);display:flex;align-items:center;justify-content:center;text-align:center;padding:5rem 1.5rem 4rem;position:relative;overflow:hidden}
+    .hero:before{content:'🌿';position:absolute;font-size:18rem;opacity:.035;top:50%;left:50%;transform:translate(-50%,-50%)}
+    .ey{font-family:'DM Mono',monospace;font-size:.68rem;letter-spacing:.15em;text-transform:uppercase;color:var(--verde-l);opacity:.85;margin-bottom:1rem;position:relative;z-index:1}
+    h1{font-family:'Lora',serif;font-weight:400;font-size:clamp(2.2rem,6vw,4rem);line-height:1.15;position:relative;z-index:1} h1 em{color:var(--amarelo);font-style:italic}
+    .sub{max-width:640px;margin:1rem auto 0;font-size:.95rem;opacity:.62;position:relative;z-index:1}
+    main{max-width:1050px;margin:0 auto;padding:3rem 1.25rem 4rem}.intro{margin-bottom:1.5rem}.intro h2{font-family:'Lora',serif;font-weight:400;font-size:clamp(1.5rem,3vw,2.2rem);color:var(--deep);margin-bottom:.35rem}.intro p{opacity:.68;max-width:680px;font-size:.92rem}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem}.card{background:var(--card);border:1.5px solid var(--fog);border-radius:16px;padding:1.4rem;text-decoration:none;color:var(--ink);transition:.2s;display:flex;flex-direction:column;min-height:210px}.card:hover{transform:translateY(-4px);border-color:var(--verde-l);box-shadow:0 14px 40px rgba(18,16,14,.08)}
+    .emoji{font-size:2rem;margin-bottom:.75rem}.label{font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--verde);opacity:.75;margin-bottom:.3rem}.card h3{font-family:'Lora',serif;font-size:1.25rem;font-weight:600;color:var(--deep);line-height:1.25;margin-bottom:.5rem}.card p{font-size:.84rem;opacity:.68;line-height:1.55;flex:1}.btn{margin-top:1rem;font-size:.78rem;font-weight:700;color:var(--verde)}
+    .note{margin-top:2rem;background:var(--verde-xl);border-left:4px solid var(--verde-l);border-radius:0 12px 12px 0;padding:1rem 1.2rem;font-size:.86rem;opacity:.9} footer{text-align:center;border-top:1px solid var(--fog);padding:2rem;font-size:.72rem;opacity:.4;letter-spacing:.05em}
+  </style>
+</head>
+<body>
+  <section class="hero">
+    <div>
+      <p class="ey">@karenartc · Centro de guías</p>
+      <h1>Tus códigos en<br>una sola <em>web.</em></h1>
+      <p class="sub">Estrategia de marca, guía creadora, guía de São Paulo y calendario de contenido reunidos en una página principal.</p>
+    </div>
+  </section>
+  <main>
+    <div class="intro">
+      <h2>Elige una guía</h2>
+      <p>Esta portada funciona como inicio. Cada botón abre uno de tus archivos HTML originales como una página independiente.</p>
+    </div>
+    <div class="grid">
+      <a class="card" href="estrategia-marca.html"><div class="emoji">🌿</div><div class="label">Marca personal</div><h3>Estrategia de Marca</h3><p>Identidad, pilares, contenido, hooks, series y mix editorial para @karenartc.</p><span class="btn">Abrir guía →</span></a>
+      <a class="card" href="guia-creadora.html"><div class="emoji">📱</div><div class="label">Instagram</div><h3>Guía Creadora</h3><p>Algoritmo, grabación, edición, publicación, métricas, hábitos y errores a evitar.</p><span class="btn">Abrir guía →</span></a>
+      <a class="card" href="guia-saopaulo.html"><div class="emoji">🇧🇷</div><div class="label">Viaje</div><h3>Guía São Paulo</h3><p>Lugares, tech, cultura, playa, comida, ideas de contenido y checklist del viaje.</p><span class="btn">Abrir guía →</span></a>
+      <a class="card" href="calendario-brasil.html"><div class="emoji">🗓️</div><div class="label">Contenido</div><h3>Calendario Brasil</h3><p>Plan completo de piezas antes, durante y después del viaje a Brasil.</p><span class="btn">Abrir guía →</span></a>
+    </div>
+    <div class="note"><strong>Tip:</strong> para que GitHub Pages abra esta web automáticamente, el archivo de inicio debe llamarse exactamente <strong>index.html</strong>. Esta carpeta ya lo incluye.</div>
+  </main>
+  <footer>Karen · Web estática lista para GitHub Pages</footer>
+</body>
+</html>

@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Karen · Estrategia v2</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400;1,600&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap');
+  :root {
+    --ink:#1e1a18;--warm:#fdf9f5;--cream:#f5efe8;--sage:#8aab96;--sage-l:#c8ddd1;
+    --moss:#4a7060;--blush:#deb8a8;--clay:#b5624a;--lav:#b8aed0;--gold:#c4a460;
+    --fog:#ddd5cc;--deep:#1e1a18;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'DM Sans',sans-serif;background:var(--warm);color:var(--ink);font-size:15px;line-height:1.7;}
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(253,249,245,.93);backdrop-filter:blur(14px);border-bottom:1px solid var(--fog);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:54px;}
+  .nav-logo{font-family:'Lora',serif;font-size:1rem;color:var(--moss);font-style:italic;}
+  .nav-links{display:flex;gap:.2rem;list-style:none;}
+  .nav-links a{font-size:.72rem;font-weight:500;color:var(--ink);text-decoration:none;padding:.3rem .65rem;border-radius:20px;transition:all .2s;opacity:.55;letter-spacing:.04em;text-transform:uppercase;}
+  .nav-links a:hover{background:var(--sage-l);opacity:1;}
+  .hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:8rem 2rem 5rem;position:relative;overflow:hidden;}
+  .hero::before{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:1px;height:45%;background:linear-gradient(to top,var(--sage-l),transparent);}
+  .hero-eyebrow{font-family:'DM Mono',monospace;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--moss);margin-bottom:2rem;opacity:.7;}
+  .hero h1{font-family:'Lora',serif;font-size:clamp(2.6rem,6.5vw,5rem);line-height:1.15;font-weight:400;max-width:780px;color:var(--deep);}
+  .hero h1 em{font-style:italic;color:var(--moss);}
+  .hero-bio{margin-top:2.5rem;background:var(--cream);border:1.5px solid var(--sage-l);border-radius:14px;padding:1.25rem 2rem;font-family:'Lora',serif;font-style:italic;font-size:1.05rem;color:var(--deep);line-height:1.7;}
+  .hero-bio span{display:block;font-family:'DM Mono',monospace;font-style:normal;font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;color:var(--moss);margin-bottom:.6rem;opacity:.7;}
+  .hero-ctx{margin-top:1.5rem;display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center;}
+  .ctx-tag{font-size:.78rem;padding:.3rem .9rem;border-radius:20px;border:1.5px solid var(--fog);color:var(--ink);opacity:.7;background:var(--cream);}
+  .scroll-hint{margin-top:4rem;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink);opacity:.3;display:flex;flex-direction:column;align-items:center;gap:.6rem;}
+  .scroll-hint::after{content:'';width:1px;height:36px;background:linear-gradient(to bottom,var(--fog),transparent);}
+  section{padding:5rem 2rem;max-width:880px;margin:0 auto;}
+  .divider{width:100%;height:1px;background:var(--fog);max-width:880px;margin:0 auto;}
+  .slabel{font-family:'DM Mono',monospace;font-size:.67rem;letter-spacing:.15em;text-transform:uppercase;color:var(--moss);margin-bottom:.75rem;opacity:.75;}
+  h2{font-family:'Lora',serif;font-size:clamp(1.7rem,3.5vw,2.6rem);font-weight:400;line-height:1.25;color:var(--deep);margin-bottom:1.25rem;}
+  h2 em{font-style:italic;color:var(--moss);}
+  .lead{font-size:1rem;font-weight:300;color:var(--ink);opacity:.75;max-width:660px;margin-bottom:2.5rem;line-height:1.75;}
+  .moment-card{background:var(--deep);color:var(--cream);border-radius:16px;padding:2.5rem 3rem;margin:2rem 0;position:relative;overflow:hidden;}
+  .moment-card::before{content:'🌿';position:absolute;top:1.5rem;right:2rem;font-size:3rem;opacity:.15;}
+  .moment-card p{font-family:'Lora',serif;font-size:clamp(1rem,2.2vw,1.35rem);font-style:italic;line-height:1.65;position:relative;z-index:1;}
+  .moment-card .attr{margin-top:1.25rem;font-family:'DM Mono',monospace;font-size:.67rem;letter-spacing:.1em;text-transform:uppercase;color:var(--sage);font-style:normal;opacity:.75;}
+  .themes-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem;margin:2rem 0;}
+  .tc{padding:1.5rem;border-radius:12px;border:1.5px solid var(--fog);background:var(--cream);transition:all .2s;}
+  .tc:hover{border-color:var(--sage-l);transform:translateY(-2px);}
+  .tc .icon{font-size:1.4rem;margin-bottom:.7rem;display:block;}
+  .tc h3{font-family:'Lora',serif;font-size:.95rem;color:var(--moss);margin-bottom:.4rem;font-weight:600;}
+  .tc p{font-size:.82rem;opacity:.7;line-height:1.55;}
+  .audience-box{background:linear-gradient(135deg,var(--cream),#ede5da);border:1.5px solid var(--sage-l);border-radius:16px;padding:2rem 2.5rem;margin:2rem 0;}
+  .audience-box h3{font-family:'Lora',serif;font-size:1.15rem;color:var(--moss);margin-bottom:.5rem;font-style:italic;}
+  .audience-traits{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:.75rem;margin-top:1.25rem;}
+  .trait{display:flex;gap:.6rem;align-items:flex-start;}
+  .trait-dot{width:5px;height:5px;border-radius:50%;background:var(--sage);margin-top:.55rem;flex-shrink:0;}
+  .trait p{font-size:.81rem;opacity:.75;line-height:1.45;}
+  .pillars{display:flex;flex-direction:column;gap:.85rem;margin:2rem 0;}
+  .pillar{display:grid;grid-template-columns:2.5rem 1fr;gap:1.25rem;padding:1.5rem;border-radius:12px;background:var(--cream);border:1.5px solid transparent;transition:border-color .2s;}
+  .pillar:hover{border-color:var(--sage-l);}
+  .pillar-num{font-family:'Lora',serif;font-size:1.6rem;color:var(--sage);opacity:.4;font-weight:600;line-height:1;padding-top:.2rem;}
+  .pillar h3{font-weight:600;font-size:.92rem;color:var(--deep);margin-bottom:.3rem;}
+  .pillar-topics{display:flex;flex-wrap:wrap;gap:.3rem;margin:.45rem 0;}
+  .pt{font-size:.68rem;padding:.12rem .55rem;background:var(--warm);border-radius:20px;border:1px solid var(--fog);color:var(--ink);opacity:.7;}
+  .pillar p{font-size:.81rem;opacity:.65;line-height:1.55;}
+  .tab-row{display:flex;gap:.4rem;margin-bottom:1.5rem;flex-wrap:wrap;}
+  .tbtn{padding:.38rem 1rem;border-radius:20px;border:1.5px solid var(--fog);background:transparent;font-family:'DM Sans',sans-serif;font-size:.76rem;font-weight:500;color:var(--ink);cursor:pointer;transition:all .2s;opacity:.6;}
+  .tbtn.active{background:var(--moss);border-color:var(--moss);color:white;opacity:1;}
+  .tbtn:hover:not(.active){border-color:var(--sage);opacity:1;}
+  .tab-pane{display:none;}
+  .tab-pane.active{display:block;}
+  .idea{border:1.5px solid var(--fog);border-radius:12px;padding:1.2rem 1.4rem;margin-bottom:.7rem;background:var(--cream);transition:border-color .2s;}
+  .idea:hover{border-color:var(--sage-l);}
+  .idea-top{display:flex;align-items:flex-start;gap:.75rem;margin-bottom:.65rem;}
+  .idea-n{font-family:'DM Mono',monospace;font-size:.62rem;color:var(--moss);opacity:.55;padding-top:.12rem;white-space:nowrap;}
+  .idea-hook{font-weight:600;font-size:.9rem;color:var(--deep);flex:1;line-height:1.4;}
+  .fmt{font-size:.63rem;padding:.13rem .5rem;border-radius:20px;font-weight:600;white-space:nowrap;}
+  .fr{background:rgba(74,112,96,.12);color:var(--moss);}
+  .fc{background:rgba(184,174,208,.2);color:#6b5e9a;}
+  .fp{background:rgba(196,164,96,.15);color:#7a5e1a;}
+  .fs{background:rgba(181,98,74,.12);color:var(--clay);}
+  .idea-body{font-size:.79rem;opacity:.68;line-height:1.55;margin-bottom:.65rem;}
+  .idea-meta{display:flex;flex-wrap:wrap;gap:.4rem;}
+  .mpill{font-size:.67rem;padding:.12rem .55rem;border-radius:20px;border:1px solid var(--fog);opacity:.65;}
+  .hooks-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:.7rem;margin:2rem 0;}
+  .hook{padding:1.2rem 1.25rem;border-radius:12px;border-left:3px solid var(--sage);background:var(--cream);font-size:.86rem;font-weight:500;font-family:'Lora',serif;font-style:italic;color:var(--deep);line-height:1.5;transition:transform .15s;}
+  .hook:hover{transform:translateX(3px);}
+  .series-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:.85rem;margin:2rem 0;}
+  .serie{padding:1.5rem;border-radius:12px;background:var(--deep);color:var(--cream);}
+  .serie .emoji{font-size:1.6rem;display:block;margin-bottom:.65rem;}
+  .serie h3{font-family:'Lora',serif;font-size:.95rem;color:var(--sage-l);margin-bottom:.4rem;font-style:italic;}
+  .serie p{font-size:.78rem;opacity:.6;line-height:1.5;}
+  .mix{display:flex;flex-direction:column;gap:.7rem;margin:2rem 0;}
+  .mix-row{display:grid;grid-template-columns:170px 1fr 3.5rem;align-items:center;gap:1rem;}
+  .mix-label{font-size:.82rem;font-weight:500;}
+  .mix-track{height:7px;background:var(--fog);border-radius:4px;overflow:hidden;}
+  .mix-fill{height:100%;border-radius:4px;}
+  .mix-pct{font-family:'DM Mono',monospace;font-size:.73rem;color:var(--moss);}
+  .format-box{background:var(--cream);border-radius:12px;padding:1.5rem 2rem;margin:2rem 0;border:1.5px solid var(--fog);}
+  .format-box h3{font-weight:600;font-size:.88rem;margin-bottom:1rem;color:var(--deep);}
+  .fgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:1rem;text-align:center;}
+  .fgrid-item .num{font-family:'Lora',serif;font-size:2rem;color:var(--moss);font-weight:600;line-height:1;}
+  .fgrid-item .lbl{font-size:.75rem;opacity:.6;margin-top:.3rem;}
+  .quad{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--fog);border-radius:12px;overflow:hidden;border:1.5px solid var(--fog);margin:2rem 0;}
+  .qcell{background:var(--cream);padding:1.4rem;}
+  .qcell h4{font-size:.73rem;font-weight:600;text-transform:uppercase;letter-spacing:.07em;margin-bottom:.7rem;color:var(--moss);}
+  .qcell ul{list-style:none;display:flex;flex-direction:column;gap:.4rem;}
+  .qcell li{font-size:.79rem;opacity:.72;padding-left:.75rem;position:relative;line-height:1.4;}
+  .qcell li::before{content:'→';position:absolute;left:0;color:var(--sage);font-size:.7rem;}
+  .pos-box{border:2px solid var(--sage);border-radius:16px;padding:2rem 2.5rem;margin:2rem 0;position:relative;}
+  .pos-box::before{content:'Posicionamiento de marca';position:absolute;top:-.55rem;left:1.5rem;background:var(--warm);padding:0 .5rem;font-family:'DM Mono',monospace;font-size:.63rem;letter-spacing:.1em;text-transform:uppercase;color:var(--moss);}
+  .pos-box p{font-family:'Lora',serif;font-size:1.05rem;font-style:italic;line-height:1.7;color:var(--deep);}
+  .pos-box strong{font-style:normal;color:var(--moss);}
+  .timeline{border-left:2px solid var(--sage-l);margin:2rem 0 2rem 1rem;padding-left:2rem;display:flex;flex-direction:column;gap:1.5rem;}
+  .tl-item{position:relative;}
+  .tl-item::before{content:'';position:absolute;left:-2.65rem;top:.45rem;width:10px;height:10px;border-radius:50%;background:var(--sage);border:2px solid var(--warm);}
+  .tl-label{font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;color:var(--moss);opacity:.75;margin-bottom:.3rem;}
+  .tl-item h4{font-weight:600;font-size:.9rem;margin-bottom:.3rem;}
+  .tl-item p{font-size:.81rem;opacity:.68;line-height:1.5;}
+  .story-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));gap:.75rem;margin:2rem 0;}
+  .sc{border:1.5px solid var(--fog);border-radius:12px;padding:1.2rem;background:var(--cream);transition:border-color .2s;}
+  .sc:hover{border-color:var(--sage-l);}
+  .sc h4{font-weight:600;font-size:.87rem;color:var(--deep);margin-bottom:.35rem;}
+  .sc p{font-size:.78rem;opacity:.65;line-height:1.5;}
+  footer{text-align:center;padding:4rem 2rem;border-top:1px solid var(--fog);font-size:.73rem;opacity:.35;letter-spacing:.05em;}
+  @media(max-width:600px){nav .nav-links{display:none;}.mix-row{grid-template-columns:110px 1fr 2.5rem;}.quad{grid-template-columns:1fr;}.moment-card{padding:1.5rem;}.pos-box{padding:1.5rem;}}
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="nav-logo">@karenartc</span>
+  <ul class="nav-links">
+    <li><a href="#identidad">Identidad</a></li>
+    <li><a href="#pilares">Pilares</a></li>
+    <li><a href="#contenido">Contenido</a></li>
+    <li><a href="#hooks">Hooks</a></li>
+    <li><a href="#series">Series</a></li>
+    <li><a href="#mix">Mix</a></li>
+  </ul>
+</nav>
+
+<div class="hero">
+  <p class="hero-eyebrow">Estrategia de Marca Personal · @karenartc · versión real</p>
+  <h1>Nadie me dijo<br>cómo era esto<br>de <em>crecer.</em></h1>
+  <div class="hero-bio">
+    <span>Tu bio</span>
+    nadie me dijo cómo era esto de crecer 🌿<br>
+    arte, baile, código y todo lo que va entre medio<br>
+    compartiendo mientras aprendo ✨
+  </div>
+  <div class="hero-ctx">
+    <span class="ctx-tag">🎓 último mes de ingeniería</span>
+    <span class="ctx-tag">🎨 artista de corazón</span>
+    <span class="ctx-tag">💃 bailarina</span>
+    <span class="ctx-tag">📸 fotógrafa</span>
+    <span class="ctx-tag">🌱 creciendo en público</span>
+  </div>
+  <div class="scroll-hint">tu estrategia completa</div>
+</div>
+
+<div class="divider"></div>
+
+<section id="identidad">
+  <p class="slabel">01 · La Persona Real</p>
+  <h2>Quién eres en <em>este momento exacto</em></h2>
+  <p class="lead">La versión anterior de esta estrategia te ponía como emprendedora con marca propia. Esta dice la verdad — y la verdad es mucho más interesante.</p>
+
+  <div class="moment-card">
+    <p>Estás en el umbral. Último mes de ingeniería informática, a punto de graduarte, empezando a trabajar. Al mismo tiempo eres artista, bailarina, fotógrafa. Nadie tiene un manual para ser todo eso a la vez. Tú lo estás viviendo en tiempo real — y eso es exactamente lo que la gente quiere ver.</p>
+    <p class="attr">El momento que define tu marca ahora mismo</p>
+  </div>
+
+  <div class="themes-grid">
+    <div class="tc"><span class="icon">🚪</span><h3>El Umbral</h3><p>Estás dejando atrás la universidad y entrando al mundo laboral siendo artista. Esa tensión — técnica vs. creativa, estudiante vs. profesional — es tu historia más poderosa.</p></div>
+    <div class="tc"><span class="icon">🌱</span><h3>Crecimiento Visible</h3><p>No llegas con respuestas. Llegas con preguntas honestas y la disposición de compartir lo que vas aprendiendo. Eso genera más lealtad que cualquier expertise perfecta.</p></div>
+    <div class="tc"><span class="icon">🎨</span><h3>La Doble Vida</h3><p>Ingeniera que pinta. Coder que baila. Técnica que tiene ojo artístico. Esa combinación es rara y fascina a la gente que se siente dividida entre sus propios mundos.</p></div>
+    <div class="tc"><span class="icon">💛</span><h3>Calidez Cotidiana</h3><p>La familia, las mascotas de tus hermanas, los momentos pequeños. Tu vida ordinaria, contada con honestidad, conecta más que cualquier highlight reel perfecto.</p></div>
+    <div class="tc"><span class="icon">📖</span><h3>La Voz que Aprende</h3><p>"Compartiendo mientras aprendo" no es una excusa — es tu propuesta de valor. La gente no quiere seguir a alguien que ya llegó. Quiere acompañar a alguien que va llegando.</p></div>
+    <div class="tc"><span class="icon">🧭</span><h3>Sin Mapa Previo</h3><p>"Nadie me dijo cómo era esto de crecer" toca a toda persona joven que navega la adultez sin instrucciones. Eres el espejo de lo que muchos están viviendo ahora mismo.</p></div>
+  </div>
+
+  <div class="pos-box">
+    <p>Soy <strong>Karen</strong> — ingeniera informática que se gradúa este mes, artista, bailarina, fotógrafa. No tengo todo resuelto. Estoy aprendiendo cómo se vive siendo todo eso al mismo tiempo, en el mundo real, sin manual. Si tú también vas descubriendo cómo ser adulta sin perder quién eres, este es tu lugar.</p>
+  </div>
+
+  <div class="audience-box">
+    <h3>La persona que te sigue porque se ve en ti</h3>
+    <p style="font-size:.84rem;opacity:.7;margin-top:.25rem;">No te sigue por un tema. Te sigue porque alguien, finalmente, está viviendo lo que ella también vive.</p>
+    <div class="audience-traits">
+      <div class="trait"><div class="trait-dot"></div><p>19–27 años, en transición (terminando carrera, entrando al mundo laboral)</p></div>
+      <div class="trait"><div class="trait-dot"></div><p>Tiene una parte "seria" y una parte creativa que no sabe cómo integrar</p></div>
+      <div class="trait"><div class="trait-dot"></div><p>Siente que la adultez no llegó con instrucciones — y eso la angustia un poco</p></div>
+      <div class="trait"><div class="trait-dot"></div><p>Admira la combinación arte + tecnología aunque no la tenga ella misma</p></div>
+      <div class="trait"><div class="trait-dot"></div><p>Prefiere feeds que se sienten reales, no curados al extremo</p></div>
+      <div class="trait"><div class="trait-dot"></div><p>Guarda posts más de lo que los comenta — construye referentes visuales</p></div>
+      <div class="trait"><div class="trait-dot"></div><p>Le cuesta elegir entre sus pasiones y necesita ver que se puede con todo</p></div>
+      <div class="trait"><div class="trait-dot"></div><p>Ama a los animales aunque no tenga los propios (se identifica con "las mascotas de mis hermanas")</p></div>
+    </div>
+  </div>
+
+  <h3 style="font-family:'Lora',serif;font-size:1.2rem;margin:2rem 0 .5rem;color:var(--deep);">Tu arco narrativo este año</h3>
+  <p style="font-size:.84rem;opacity:.65;margin-bottom:.5rem;">Esta transición no es un contexto — ES el contenido.</p>
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-label">Ahora · Último mes</div>
+      <h4>El cierre de una era</h4>
+      <p>Últimas semanas de universidad. La mezcla de alivio y nostalgia. Documenta esto — tu audiencia futura lo va a querer ver.</p>
+    </div>
+    <div class="tl-item">
+      <div class="tl-label">Pronto · Graduación</div>
+      <h4>El momento del umbral</h4>
+      <p>La graduación no es el final — es el punto de inflexión. Un reel de ese día puede ser uno de los más vistos de tu cuenta.</p>
+    </div>
+    <div class="tl-item">
+      <div class="tl-label">Siguiente · Primer trabajo</div>
+      <h4>Ingeniera en el mundo real</h4>
+      <p>¿Cómo es la primera semana? ¿Qué nadie te contó? ¿Cómo se mantiene el arte cuando tienes horario de oficina? Eso es contenido de oro.</p>
+    </div>
+    <div class="tl-item">
+      <div class="tl-label">Continuo · Siempre</div>
+      <h4>Arte, baile, vida — sin parar</h4>
+      <p>Pintar, bailar, fotografiar — eso siempre va a ser tuyo. Es el hilo que atraviesa toda tu historia.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="pilares">
+  <p class="slabel">02 · Arquitectura de Contenido</p>
+  <h2>Cuatro pilares que se <em>alimentan entre sí</em></h2>
+  <p class="lead">No son categorías separadas. Son lentes distintos sobre la misma persona.</p>
+  <div class="pillars">
+    <div class="pillar">
+      <div class="pillar-num">01</div>
+      <div>
+        <h3>La Creadora · Hacer con las manos y con el ojo</h3>
+        <div class="pillar-topics"><span class="pt">Arte & Pintura</span><span class="pt">Fotografía</span><span class="pt">Proyectos creativos</span></div>
+        <p>Tu pilar más diferenciador. Muestras el proceso, el desorden, las decisiones. No el resultado perfecto — el camino real hacia él.</p>
+      </div>
+    </div>
+    <div class="pillar">
+      <div class="pillar-num">02</div>
+      <div>
+        <h3>La Transición · Crecer en público</h3>
+        <div class="pillar-topics"><span class="pt">Vida universitaria</span><span class="pt">Primer trabajo</span><span class="pt">Crecimiento personal</span><span class="pt">Lo que nadie te dice</span></div>
+        <p>El pilar que construye comunidad más rápido ahora mismo. Estás viviendo algo que miles están viviendo o están a punto de vivir.</p>
+      </div>
+    </div>
+    <div class="pillar">
+      <div class="pillar-num">03</div>
+      <div>
+        <h3>La Expresión · Cuerpo, movimiento, estilo</h3>
+        <div class="pillar-topics"><span class="pt">Danza</span><span class="pt">Moda & Estilo</span><span class="pt">Lectura</span></div>
+        <p>Tu mayor potencial viral. Reels de baile, outfits, ambientes de lectura. Este pilar atrae nuevos seguidores. Los otros los convierten en comunidad.</p>
+      </div>
+    </div>
+    <div class="pillar">
+      <div class="pillar-num">04</div>
+      <div>
+        <h3>El Corazón · Vida cotidiana y calor humano</h3>
+        <div class="pillar-topics"><span class="pt">Familia</span><span class="pt">Mascotas de las hermanas</span><span class="pt">Momentos pequeños</span></div>
+        <p>Este pilar hace que la gente se quede. "Las mascotas de mis hermanas" es más relatable y honesto que si fueran tuyas. Lo cotidiano auténtico siempre gana.</p>
+      </div>
+    </div>
+  </div>
+  <div class="quad">
+    <div class="qcell"><h4>🎨 Arte + Código</h4><ul><li>Cómo la ingeniería cambió cómo pinto</li><li>Usar lógica para resolver problemas creativos</li><li>Lo que ambas tienen en común</li><li>Proyectos donde se mezclan</li></ul></div>
+    <div class="qcell"><h4>💃 Baile + Transición</h4><ul><li>Bailar cuando estás bloqueada</li><li>Movimiento como reset mental</li><li>Lo que el baile enseña sobre soltar</li><li>Baile en cada etapa del proceso</li></ul></div>
+    <div class="qcell"><h4>📸 Fotografía + Vida</h4><ul><li>Fotos que casi no publico</li><li>Lo que mi ojo fotografía sin querer</li><li>Documentar la transición visualmente</li><li>Las fotos que nadie más tomaría</li></ul></div>
+    <div class="qcell"><h4>🌿 Crecer + Arte</h4><ul><li>Pintar cuando todo cambia</li><li>Lo que aprendí de mí misma pintando</li><li>Arte como forma de procesar emociones</li><li>Mi estilo visual evolucionando</li></ul></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="contenido">
+  <p class="slabel">03 · Ideas de Contenido</p>
+  <h2>30 ideas, <em>ninguna inventada</em></h2>
+  <p class="lead">Todas nacen de tu vida real. Filtra por lo que quieres lograr hoy.</p>
+
+  <div class="tab-row">
+    <button class="tbtn active" onclick="switchT('all',this)">Todas · 30</button>
+    <button class="tbtn" onclick="switchT('atraer',this)">Atraer</button>
+    <button class="tbtn" onclick="switchT('conectar',this)">Conectar</button>
+    <button class="tbtn" onclick="switchT('autoridad',this)">Autoridad</button>
+    <button class="tbtn" onclick="switchT('comunidad',this)">Comunidad</button>
+  </div>
+
+  <div id="tab-all" class="tab-pane active">
+    <div class="idea"><div class="idea-top"><span class="idea-n">001</span><span class="idea-hook">"Me gradúo en un mes. Nadie me dijo cómo se siente esto."</span><span class="fmt fr">Reel</span></div><div class="idea-body">Voz en off honesta sobre la mezcla de emociones — alivio, miedo, nostalgia, emoción. Imágenes de tu facultad, tus apuntes, tus cosas. No tiene que ser perfecta. Tiene que ser real.</div><div class="idea-meta"><span class="mpill">🥹 Nostalgia + Esperanza</span><span class="mpill">🔁 Muy alta compartición</span><span class="mpill">atraer</span></div></div>
+
+    <div class="idea"><div class="idea-top"><span class="idea-n">002</span><span class="idea-hook">"Un día en mi vida: estudiante de ingeniería que también pinta"</span><span class="fmt fr">Reel</span></div><div class="idea-body">Día en la vida real — código por la mañana, pincel por la tarde. La transición entre los dos mundos en 60 segundos dice más que cualquier caption largo.</div><div class="idea-meta"><span class="mpill">🤩 Admiración</span><span class="mpill">👁️ Alto watch time</span><span class="mpill">atraer</span></div></div>
+
+    <div class="idea"><div class="idea-top"><span class="idea-n">003</span><span class="idea-hook">"Lo que nadie te dice sobre terminar la universidad"</span><span class="fmt fc">Carrusel</span></div><div class="idea-body">10 cosas honestas. No el discurso motivacional — la realidad. El cansancio, la identidad post-título, el "¿y ahora qué?". Esto se guarda y se comparte masivamente.</div><div class="idea-meta"><span class="mpill">💯 Validación</span><span class="mpill">💾 Muy alto guardado</span><span class="mpill">comunidad</span></div></div>
+
+    <div class="idea"><div class="idea-top"><span class="idea-n">004</span><span class="idea-hook">"Pinté algo esta semana. No salió como esperaba. Lo muestro igual."</span><span class="fmt fp">Foto</span></div><div class="idea-body">La foto de la pintura "fallida" con un caption honesto sobre el proceso. Rompe la expectativa de que los creadores solo muestran lo mejor. Genera conexión inmediata.</div><div class="idea-meta"><span class="mpill">🥹 Honestidad</span><span class="mpill">💬 Muchos comentarios</span><span class="mpill">conectar</span></div></div>
+
+    <div class="idea"><div class="idea-top"><span class="idea-n">005</span><span class="idea-hook">"Primera semana de trabajo. Esto no me lo enseñaron en la U."</span><span class="fmt fr">Reel</span></div><div class="idea-body">El contenido más buscado por personas en tu situación. Habla de lo que te sorprendió, lo que nadie te preparó, lo que está siendo diferente. Oro puro en alcance.</div><div class="idea-meta"><span class="mpill">😯 Reconocimiento</span><span class="mpill">🔁 Alta compartición</span><span class="mpill">atraer</span></div></div>
+
+    <div class="idea"><div class="idea-top"><span class="idea-n">006</span><span class="idea-hook">"Cómo mantener el arte cuando tienes horario de oficina"</span><span class="fmt fc">Carrusel</span></div><div class="idea-body">La pregunta que se hacen miles de creativos con trabajos "normales". No tienes que tener la respuesta perfecta — compartir cómo lo estás intentando es suficiente y más honesto.</div><div class="idea-meta"><span class="mpill">🧠 Utilidad</span><span class="mpill">💾 Alto guardado</span><span class="mpill">autoridad</span></div></div>
+
+    <div class="idea"><div class="idea-top"><span class="idea-n">007</span><span class="idea-hook">"Las mascotas de mis hermanas me ayudan a estudiar (documentación)"</span><span class="fmt fr">Reel</span></div><div class="idea-body">Video de las mascotas interrumpiéndote mientras estudias. La honestidad del "son de mis hermanas" es más encantadora que si fueran tuyas. Serotonina pura.</div><div class="idea-meta"><span class="mpill">😂 Alegría</span><span class="mpill">🔁 Alta compartición</span><span class="mpill">atraer</span></div></div>
+
+    <div class="idea"><div class="idea-top"><span class="idea-n">008</span><span class="idea-hook">"Mi proceso creativo cuando estoy en medio de entregas de la U"</span><span class="fmt fs">Story</span></div><div class="idea-body">Stories en tiempo real de cómo te las arreglas para pintar aunque tengas semana de exámenes. El proceso desorganizado ES el contenido. Nada de filtros.</div><div class="idea-meta"><span class="mpill">😅 Alivio + Conexión</span><span class="mpill">💬 Muchos DMs</span><span class="mpill">conectar</span></div></div>
+
+    <div class="idea"><div class="idea-top"><span class="idea-n">009</span><span class="idea-hook">"Lo que la ingeniería informática me enseñó sobre el arte (y viceversa)"</span><span class="fmt fc">Carrusel</span></div><div class="idea-body">El cruce más original que puedes hacer. Pensamiento lógico → creatividad. Creatividad → resolución de problemas. Una perspectiva que nadie más tiene exactamente igual.</div><div class="idea-meta"><span class="mpill">🤯 Sorpresa</span><span class="mpill">💾 Muy alto guardado</span><span class="mpill">autoridad</span></div></div>
+
+    <div class="idea"><div class="idea-top"><span class="idea-n">010</span><span class="idea-hook">"Bailo cuando estoy bloqueada creativamente. No es un chiste."</span><span class="fmt fr">Reel</span></div><div class="idea-body">Reel de baile con narración sobre por qué funciona. El movimiento como reset. Une dos de tus mundos de una forma auténtica y visualmente atractiva.</div><div class="idea-meta"><span class="mpill">✨ Inspiración</span><span class="mpill">👁️ Alto watch time</span><span class="mpill">atraer</span></div></div>
+
+    <div class="idea"><div class="idea-top"><span class="idea-n">011</span><span class="idea-hook">"Foto que tomé y casi no publico (y por qué sí la publico)"</span><span class="fmt fp">Foto</span></div><div class="idea-body">Una imagen imperfecta con un caption que explica por qué te importa. Enseña a tu audiencia a ver con tus ojos. El tipo de post que genera los comentarios más bonitos.</div><div class="idea-meta"><span class="mpill">🥹 Ternura</span><span class="mpill">💬 Comentarios profundos</span><span class="mpill">conectar</span></div></div>
+
+    <div class="idea"><div class="idea-top"><span class="idea-n">012</span><span class="idea-hook">"Mis últimas semanas en la universidad en fotos"</span><span class="fmt fc">Carrusel</span></div><div class="idea-body">Dump de fotos de los últimos días — la facultad, las personas, los espacios que vas a dejar. Sin dramatizar, con honestidad. Un documento de un momento irrepetible.</div><div class="idea-meta"><span class="mpill">🥹 Nostalgia</span><span class="mpill">💾 Alto guardado</span><span class="mpill">conectar</span></div></div>
+
+    <div class="idea"><div class="idea-top"><span class="idea-n">013</span><span class="idea-hook">"Mi escritorio a las 8am vs a las 11pm durante exámenes"</span><span class="fmt fp">Foto</span></div><div class="idea-body">Dos fotos, cero explicación. El caos habla solo. Potencial altísimo de "etiqueta a alguien que se identifica". Universal entre estudiantes.</div><div class="idea-meta"><span class="mpill">😂 Reconocimiento</span><span class="mpill">🔁 Muy alta compartición</span><span class="mpill">atraer</span></div></div>
+
+    <div class="idea"><div class="idea-top"><span class="idea-n">014</span><span class="idea-hook">"Libros que me acompañaron en esta última etapa de la carrera"</span><span class="fmt fc">Carrusel</span></div><div class="idea-body">Fotos estéticas con una sola frase de cada libro aplicada a tu transición personal. No una reseña — tus notas de campo como persona que está creciendo.</div><div class="idea-meta"><span class="mpill">📚 Curiosidad</span><span class="mpill">💾 Alto guardado</span><span class="mpill">autoridad</span></div></div>
+
+    <div class="idea"><div class="idea-top"><span class="idea-n">015</span><span class="idea-hook">"Outfit para mi primer día de trabajo (como persona que también pinta)"</span><span class="fmt fr">Reel</span></div><div class="idea-body">Transición de outfits — el look "profesional" vs. cómo realmente quieres ir. Moda + humor + mundo laboral. Muy compartible entre personas en la misma situación.</div><div class="idea-meta"><span class="mpill">😂 Reconocimiento</span><span class="mpill">🔁 Alta compartición</span><span class="mpill">atraer</span></div></div>
+
+    <div class="idea"><div class="idea-top"><span class="idea-n">016</span><span class="idea-hook">"La pintura que hice cuando más agobiada estuve en la U"</span><span class="fmt fp">Foto</span></div><div class="idea-body">Una pintura con la historia detrás. Qué estabas viviendo, qué significa, qué te enseñó. El arte como procesamiento emocional — esto conecta profundamente.</div><div class="idea-meta"><span class="mpill">🥹 Conexión profunda</span><span class="mpill">💬 Comentarios personales</span><span class="mpill">conectar</span></div></div>
+
+    <div class="idea"><div class="idea-top"><span class="idea-n">017</span><span class="idea-hook">"Cosas que aprendí de mi familia sin darme cuenta hasta ahora"</span><span class="fmt fc">Carrusel</span></div><div class="idea-body">En el momento de graduarte, miras atrás. Un carrusel cálido sobre lo que tu entorno familiar te formó sin que te dieras cuenta. Se comparte de hijo a madre.</div><div class="idea-meta"><span class="mpill">💛 Calor</span><span class="mpill">🔁 Muy alta compartición</span><span class="mpill">comunidad</span></div></div>
+
+    <div class="idea"><div class="idea-top"><span class="idea-n">018</span><span class="idea-hook">"Ayudé a mi hermana con su marca. Esto aprendí sobre el mundo real."</span><span class="fmt fc">Carrusel</span></div><div class="idea-body">No "mi emprendimiento" — lo que eres es más interesante. Apoyar a tu hermana te enseñó cosas concretas. Esa perspectiva de colaboradora es fresca y honesta.</div><div class="idea-meta"><span class="mpill">🧠 Perspectiva</span><span class="mpill">💾 Alto guardado</span><span class="mpill">autoridad</span></div></div>
+
+    <div class="idea"><div class="idea-top"><span class="idea-n">019</span><span class="idea-hook">"Un baile para cada etapa de esta tesis / proyecto final"</span><span class="fmt fr">Reel</span></div><div class="idea-body">Humor + danza + vida universitaria. Un baile diferente para cada emoción del proceso. Alta compartición entre estudiantes. Tendencia adaptada a tu historia real.</div><div class="idea-meta"><span class="mpill">😂 Alegría</span><span class="mpill">🔁 Alta compartición</span><span class="mpill">atraer</span></div></div>
+
+    <div class="idea"><div class="idea-top"><span class="idea-n">020</span><span class="idea-hook">"Preguntas que me hago antes de graduarme"</span><span class="fmt fs">Story</span></div><div class="idea-body">Stories de preguntas reales que te estás haciendo — sobre el trabajo, el arte, la identidad, el futuro. Sin respuestas perfectas. Invitas a tu audiencia a que también las piensen.</div><div class="idea-meta"><span class="mpill">🤔 Reflexión</span><span class="mpill">💬 Respuestas en DM</span><span class="mpill">comunidad</span></div></div>
+
+    <div class="idea"><div class="idea-top"><span class="idea-n">021</span><span class="idea-hook">"El mes en fotos que tomé sin querer"</span><span class="fmt fc">Carrusel</span></div><div class="idea-body">Fotos espontáneas, borrosas, raras. Un caption sobre qué te llama la atención sin que lo decidas. Entrena a tu audiencia en tu visión del mundo.</div><div class="idea-meta"><span class="mpill">👁️ Placer estético</span><span class="mpill">💾 Alto guardado</span><span class="mpill">conectar</span></div></div>
+
+    <div class="idea"><div class="idea-top"><span class="idea-n">022</span><span class="idea-hook">"Ser artista con cerebro de ingeniera: cómo funciona esto"</span><span class="fmt fc">Carrusel</span></div><div class="idea-body">Tu perspectiva única sobre cómo el pensamiento analítico convive con el creativo. No es un conflicto — es una ventaja. Nadie más tiene este cruce exacto.</div><div class="idea-meta"><span class="mpill">🤯 Originalidad</span><span class="mpill">💾 Muy alto guardado</span><span class="mpill">autoridad</span></div></div>
+
+    <div class="idea"><div class="idea-top"><span class="idea-n">023</span><span class="idea-hook">"Una carta a la Karen que entró a la universidad hace 5 años"</span><span class="fmt fp">Foto</span></div><div class="idea-body">Foto emotiva + carta larga en caption. Lo que sabes ahora, lo que le dirías, lo que no cambiarías. Contenido de graduación que se comparte masivamente.</div><div class="idea-meta"><span class="mpill">🥹 Emoción profunda</span><span class="mpill">🔁 Muy alta compartición</span><span class="mpill">comunidad</span></div></div>
+
+    <div class="idea"><div class="idea-top"><span class="idea-n">024</span><span class="idea-hook">"Cómo me visto cuando quiero sentirme creativa (no solo profesional)"</span><span class="fmt fr">Reel</span></div><div class="idea-body">Outfits que representan tu lado artístico vs. el lado "debo parecer adulta responsable". La tensión entre ambas identidades expresada en ropa.</div><div class="idea-meta"><span class="mpill">✨ Aspiración</span><span class="mpill">🔁 Alta compartición</span><span class="mpill">atraer</span></div></div>
+
+    <div class="idea"><div class="idea-top"><span class="idea-n">025</span><span class="idea-hook">"Las mascotas de mis hermanas tienen opiniones sobre mi arte"</span><span class="fmt fc">Carrusel</span></div><div class="idea-body">Fotos de las mascotas cerca de tus pinturas con reacciones inventadas como captions. Humor + arte + animales = combinación imbatible en Instagram.</div><div class="idea-meta"><span class="mpill">😂 Alegría pura</span><span class="mpill">💬 Muchos comentarios</span><span class="mpill">comunidad</span></div></div>
+
+    <div class="idea"><div class="idea-top"><span class="idea-n">026</span><span class="idea-hook">"Mi espacio de trabajo cambia según lo que estoy creando"</span><span class="fmt fc">Carrusel</span></div><div class="idea-body">Fotos de tu escritorio en modo código vs. en modo pintura. El espacio como reflejo de las múltiples versiones de ti. Muy estético y revelador.</div><div class="idea-meta"><span class="mpill">👁️ Curiosidad estética</span><span class="mpill">💾 Alto guardado</span><span class="mpill">conectar</span></div></div>
+
+    <div class="idea"><div class="idea-top"><span class="idea-n">027</span><span class="idea-hook">"Cosas que tuve que dejar para terminar la carrera (y cómo las voy retomando)"</span><span class="fmt fc">Carrusel</span></div><div class="idea-body">Honesto, sin victimismo. Qué sacrificaste y qué significa recuperarlo ahora. Una de las experiencias más universales de los estudiantes.</div><div class="idea-meta"><span class="mpill">💯 Validación</span><span class="mpill">💬 Comentarios personales</span><span class="mpill">comunidad</span></div></div>
+
+    <div class="idea"><div class="idea-top"><span class="idea-n">028</span><span class="idea-hook">"Lo que el baile me enseñó sobre soltar el control"</span><span class="fmt fr">Reel</span></div><div class="idea-body">Baile + voz en off reflexiva. La improvisación en danza como metáfora de la vida después de la universidad. Corto, visual, con un insight que la gente guarda.</div><div class="idea-meta"><span class="mpill">✨ Inspiración</span><span class="mpill">💾 Alto guardado</span><span class="mpill">conectar</span></div></div>
+
+    <div class="idea"><div class="idea-top"><span class="idea-n">029</span><span class="idea-hook">"Pregúntame algo que nadie te diga sobre estudiar ingeniería siendo creativa"</span><span class="fmt fs">Story</span></div><div class="idea-body">Q&A en stories. Las mejores respuestas se convierten en un carrusel la semana siguiente. Crea conversación directa y genera contenido de autoridad desde tu audiencia.</div><div class="idea-meta"><span class="mpill">💬 Conexión</span><span class="mpill">🔁 Genera más contenido</span><span class="mpill">comunidad</span></div></div>
+
+    <div class="idea"><div class="idea-top"><span class="idea-n">030</span><span class="idea-hook">"Para quien también está aprendiendo cómo se hace esto de ser adulta"</span><span class="fmt fp">Foto</span></div><div class="idea-body">Una foto cotidiana y hermosa + un caption que es una carta. No tienes respuestas. Tienes compañía. Ese es el contenido que construye comunidad real.</div><div class="idea-meta"><span class="mpill">🥹 Pertenencia</span><span class="mpill">🔁 Muy alta compartición</span><span class="mpill">comunidad</span></div></div>
+  </div>
+
+  <div id="tab-atraer" class="tab-pane">
+    <p style="font-size:.83rem;opacity:.6;margin-bottom:1.25rem;">Optimizados para alcance y nuevos seguidores.</p>
+    <div class="idea"><div class="idea-top"><span class="idea-n">001</span><span class="idea-hook">"Me gradúo en un mes. Nadie me dijo cómo se siente esto."</span><span class="fmt fr">Reel</span></div><div class="idea-body">La emoción de un umbral universal. Alcance masivo entre estudiantes y recién graduados de todo el mundo.</div><div class="idea-meta"><span class="mpill">🥹 Nostalgia + Esperanza</span><span class="mpill">🔁 Viral</span></div></div>
+    <div class="idea"><div class="idea-top"><span class="idea-n">002</span><span class="idea-hook">"Un día en mi vida: estudiante de ingeniería que también pinta"</span><span class="fmt fr">Reel</span></div><div class="idea-body">La combinación inesperada detiene el scroll inmediatamente.</div><div class="idea-meta"><span class="mpill">🤩 Admiración</span><span class="mpill">👁️ Watch time</span></div></div>
+    <div class="idea"><div class="idea-top"><span class="idea-n">005</span><span class="idea-hook">"Primera semana de trabajo. Esto no me lo enseñaron en la U."</span><span class="fmt fr">Reel</span></div><div class="idea-body">El contenido más buscado por tu audiencia exacta.</div><div class="idea-meta"><span class="mpill">😯 Reconocimiento</span><span class="mpill">🔁 Alta compartición</span></div></div>
+    <div class="idea"><div class="idea-top"><span class="idea-n">007</span><span class="idea-hook">"Las mascotas de mis hermanas me ayudan a estudiar"</span><span class="fmt fr">Reel</span></div><div class="idea-body">Animales + estudiante. Dos algoritmos favoritos en uno.</div><div class="idea-meta"><span class="mpill">😂 Alegría</span><span class="mpill">🔁 Alta compartición</span></div></div>
+    <div class="idea"><div class="idea-top"><span class="idea-n">010</span><span class="idea-hook">"Bailo cuando estoy bloqueada creativamente."</span><span class="fmt fr">Reel</span></div><div class="idea-body">Baile + insight = combinación perfecta de entretenimiento y valor.</div><div class="idea-meta"><span class="mpill">✨ Inspiración</span><span class="mpill">👁️ Watch time</span></div></div>
+    <div class="idea"><div class="idea-top"><span class="idea-n">013</span><span class="idea-hook">"Mi escritorio a las 8am vs a las 11pm"</span><span class="fmt fp">Foto</span></div><div class="idea-body">Universal. Potencial masivo de "etiqueta a alguien".</div><div class="idea-meta"><span class="mpill">😂 Reconocimiento</span><span class="mpill">🔁 Muy viral</span></div></div>
+    <div class="idea"><div class="idea-top"><span class="idea-n">019</span><span class="idea-hook">"Un baile para cada etapa de esta tesis"</span><span class="fmt fr">Reel</span></div><div class="idea-body">Tendencia + humor + contexto tuyo = alto alcance con identidad.</div><div class="idea-meta"><span class="mpill">😂 Alegría</span><span class="mpill">🔁 Alta compartición</span></div></div>
+    <div class="idea"><div class="idea-top"><span class="idea-n">024</span><span class="idea-hook">"Cómo me visto cuando quiero sentirme creativa"</span><span class="fmt fr">Reel</span></div><div class="idea-body">Moda + identidad dual = muy compartible entre tu audiencia exacta.</div><div class="idea-meta"><span class="mpill">✨ Aspiración</span><span class="mpill">🔁 Alta compartición</span></div></div>
+  </div>
+
+  <div id="tab-conectar" class="tab-pane">
+    <p style="font-size:.83rem;opacity:.6;margin-bottom:1.25rem;">Profundizan la relación con quienes ya te siguen.</p>
+    <div class="idea"><div class="idea-top"><span class="idea-n">004</span><span class="idea-hook">"Pinté algo esta semana. No salió como esperaba."</span><span class="fmt fp">Foto</span></div><div class="idea-body">La vulnerabilidad honesta genera más confianza que cualquier resultado perfecto.</div><div class="idea-meta"><span class="mpill">🥹 Honestidad</span><span class="mpill">💬 Comentarios</span></div></div>
+    <div class="idea"><div class="idea-top"><span class="idea-n">008</span><span class="idea-hook">"Mi proceso creativo cuando estoy en medio de entregas"</span><span class="fmt fs">Story</span></div><div class="idea-body">Tiempo real = sentirse adentro de tu vida.</div><div class="idea-meta"><span class="mpill">😅 Alivio</span><span class="mpill">💬 DMs</span></div></div>
+    <div class="idea"><div class="idea-top"><span class="idea-n">011</span><span class="idea-hook">"Foto que casi no publico"</span><span class="fmt fp">Foto</span></div><div class="idea-body">Enseña a tu audiencia a ver con tus ojos.</div><div class="idea-meta"><span class="mpill">🥹 Ternura</span><span class="mpill">💬 Profundos</span></div></div>
+    <div class="idea"><div class="idea-top"><span class="idea-n">016</span><span class="idea-hook">"La pintura que hice cuando más agobiada estuve"</span><span class="fmt fp">Foto</span></div><div class="idea-body">Arte como procesamiento emocional = conexión muy profunda.</div><div class="idea-meta"><span class="mpill">🥹 Profundidad</span><span class="mpill">💬 Personales</span></div></div>
+    <div class="idea"><div class="idea-top"><span class="idea-n">028</span><span class="idea-hook">"Lo que el baile me enseñó sobre soltar el control"</span><span class="fmt fr">Reel</span></div><div class="idea-body">Reflexión + movimiento = la combinación que hace que la gente guarde y vuelva.</div><div class="idea-meta"><span class="mpill">✨ Inspiración</span><span class="mpill">💾 Guardado</span></div></div>
+    <div class="idea"><div class="idea-top"><span class="idea-n">030</span><span class="idea-hook">"Para quien también está aprendiendo cómo se hace esto"</span><span class="fmt fp">Foto</span></div><div class="idea-body">No da respuestas — da compañía. El mayor regalo para una comunidad.</div><div class="idea-meta"><span class="mpill">🥹 Pertenencia</span><span class="mpill">🔁 Compartición</span></div></div>
+  </div>
+
+  <div id="tab-autoridad" class="tab-pane">
+    <p style="font-size:.83rem;opacity:.6;margin-bottom:1.25rem;">Establecen tu perspectiva y credibilidad única.</p>
+    <div class="idea"><div class="idea-top"><span class="idea-n">006</span><span class="idea-hook">"Cómo mantener el arte cuando tienes horario de oficina"</span><span class="fmt fc">Carrusel</span></div><div class="idea-body">La pregunta de millones de creativos. Tu respuesta honesta vale oro.</div><div class="idea-meta"><span class="mpill">🧠 Utilidad</span><span class="mpill">💾 Guardado</span></div></div>
+    <div class="idea"><div class="idea-top"><span class="idea-n">009</span><span class="idea-hook">"Lo que la ingeniería me enseñó sobre el arte (y viceversa)"</span><span class="fmt fc">Carrusel</span></div><div class="idea-body">Tu crossover más original. Nadie más lo tiene exactamente igual.</div><div class="idea-meta"><span class="mpill">🤯 Originalidad</span><span class="mpill">💾 Muy alto guardado</span></div></div>
+    <div class="idea"><div class="idea-top"><span class="idea-n">018</span><span class="idea-hook">"Ayudé a mi hermana con su marca. Esto aprendí."</span><span class="fmt fc">Carrusel</span></div><div class="idea-body">Perspectiva fresca de colaboradora. Más honesta y más interesante.</div><div class="idea-meta"><span class="mpill">🧠 Perspectiva</span><span class="mpill">💾 Guardado</span></div></div>
+    <div class="idea"><div class="idea-top"><span class="idea-n">022</span><span class="idea-hook">"Ser artista con cerebro de ingeniera"</span><span class="fmt fc">Carrusel</span></div><div class="idea-body">Tu perspectiva más única. Contenido que solo tú puedes hacer exactamente así.</div><div class="idea-meta"><span class="mpill">🤯 Originalidad</span><span class="mpill">💾 Muy alto guardado</span></div></div>
+    <div class="idea"><div class="idea-top"><span class="idea-n">014</span><span class="idea-hook">"Libros que me acompañaron en esta última etapa"</span><span class="fmt fc">Carrusel</span></div><div class="idea-body">Muestra que piensas y que te nutres. Establece profundidad de carácter.</div><div class="idea-meta"><span class="mpill">📚 Curiosidad</span><span class="mpill">💾 Guardado</span></div></div>
+  </div>
+
+  <div id="tab-comunidad" class="tab-pane">
+    <p style="font-size:.83rem;opacity:.6;margin-bottom:1.25rem;">Convierten seguidores en personas que sienten que te conocen.</p>
+    <div class="idea"><div class="idea-top"><span class="idea-n">003</span><span class="idea-hook">"Lo que nadie te dice sobre terminar la universidad"</span><span class="fmt fc">Carrusel</span></div><div class="idea-body">Validación masiva. "Eso exactamente me pasa" en los comentarios.</div><div class="idea-meta"><span class="mpill">💯 Validación</span><span class="mpill">💾 Guardado</span></div></div>
+    <div class="idea"><div class="idea-top"><span class="idea-n">017</span><span class="idea-hook">"Cosas que aprendí de mi familia sin darme cuenta"</span><span class="fmt fc">Carrusel</span></div><div class="idea-body">Se comparte de hijo a madre. El máximo potencial de compartición emocional.</div><div class="idea-meta"><span class="mpill">💛 Calor</span><span class="mpill">🔁 Muy alta compartición</span></div></div>
+    <div class="idea"><div class="idea-top"><span class="idea-n">023</span><span class="idea-hook">"Una carta a la Karen que entró a la U hace 5 años"</span><span class="fmt fp">Foto</span></div><div class="idea-body">Contenido de graduación con potencial viral masivo.</div><div class="idea-meta"><span class="mpill">🥹 Emoción</span><span class="mpill">🔁 Muy alta compartición</span></div></div>
+    <div class="idea"><div class="idea-top"><span class="idea-n">025</span><span class="idea-hook">"Las mascotas de mis hermanas tienen opiniones sobre mi arte"</span><span class="fmt fc">Carrusel</span></div><div class="idea-body">Humor + arte + animales = imán de comentarios.</div><div class="idea-meta"><span class="mpill">😂 Alegría</span><span class="mpill">💬 Comentarios</span></div></div>
+    <div class="idea"><div class="idea-top"><span class="idea-n">029</span><span class="idea-hook">"Pregúntame algo sobre ingeniería siendo creativa"</span><span class="fmt fs">Story</span></div><div class="idea-body">Genera conversación directa y crea el contenido de la semana siguiente.</div><div class="idea-meta"><span class="mpill">💬 Conversación</span><span class="mpill">🔁 Genera contenido</span></div></div>
+    <div class="idea"><div class="idea-top"><span class="idea-n">027</span><span class="idea-hook">"Cosas que tuve que dejar para terminar la carrera"</span><span class="fmt fc">Carrusel</span></div><div class="idea-body">Experiencia universal entre estudiantes. Reconocimiento instantáneo.</div><div class="idea-meta"><span class="mpill">💯 Validación</span><span class="mpill">💬 Personales</span></div></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="hooks">
+  <p class="slabel">04 · Hooks Virales</p>
+  <h2>20 primeras líneas que hacen <em>parar el scroll</em></h2>
+  <p class="lead">En tu voz. Para tu momento. Ninguno inventado para alguien más.</p>
+  <div class="hooks-grid">
+    <div class="hook">"Nadie me preparó para que graduarse se sintiera así."</div>
+    <div class="hook">"Soy ingeniera. También pinto. La gente no sabe qué hacer con eso — yo tampoco, a veces."</div>
+    <div class="hook">"Último mes de universidad. Primera vez que me pregunto quién soy sin ser 'la estudiante'."</div>
+    <div class="hook">"Pinté esta semana aunque tenía que estudiar. No me arrepiento."</div>
+    <div class="hook">"La gente me pregunta cómo hago todo. La verdad es que no lo hago todo bien al mismo tiempo."</div>
+    <div class="hook">"Estudié código 5 años. Lo que más me enseñó fue sobre hacer arte."</div>
+    <div class="hook">"Bailo cuando me bloqueo. No es metáfora — funciona."</div>
+    <div class="hook">"Las mascotas de mis hermanas no entienden mis plazos de entrega. Eso me encanta."</div>
+    <div class="hook">"Hay una versión de mí que es muy seria y técnica. Hay otra que pinta hasta las 2am. Son la misma persona."</div>
+    <div class="hook">"El mundo real empieza el otro mes. Estoy documentando lo que pasa antes."</div>
+    <div class="hook">"No tengo todo resuelto. Tengo ganas de compartir lo que voy descubriendo."</div>
+    <div class="hook">"Esta pintura la hice cuando estaba al límite con la universidad. La muestro porque importa."</div>
+    <div class="hook">"Una cosa que la ingeniería y el arte tienen en común: ambas te enseñan a fallar mejor."</div>
+    <div class="hook">"Me voy a graduar siendo la misma persona que entró, solo que con más preguntas."</div>
+    <div class="hook">"Mi escritorio tiene código abierto y pintura seca al mismo tiempo. Así está bien."</div>
+    <div class="hook">"Nadie me dijo cómo se hace esto de crecer. Así que lo estoy descubriendo en voz alta."</div>
+    <div class="hook">"Tomé esta foto y casi la borré. Luego entendí que era la más honesta de todas."</div>
+    <div class="hook">"Cinco años aprendiendo a programar. Todo ese tiempo también aprendiendo a ser yo."</div>
+    <div class="hook">"Compartiendo mientras aprendo. Porque esperar a tener todo resuelto no tiene gracia."</div>
+    <div class="hook">"Para quien también siente que nadie le explicó cómo era esto de ser adulta."</div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section>
+  <p class="slabel">05 · Formatos de Storytelling</p>
+  <h2>10 estructuras que hacen tu historia <em>memorable</em></h2>
+  <div class="story-cards">
+    <div class="sc"><h4>El Umbral</h4><p>Contenido sobre estar "entre" — no es el before ni el after. Es el medio. La transición en tiempo real. Tu momento más poderoso ahora mismo.</p></div>
+    <div class="sc"><h4>La Doble Vida</h4><p>Lo que haces en la U vs. lo que haces cuando nadie te pide nada. El contraste entre tus mundos sin resolver la tensión — la tensión es el contenido.</p></div>
+    <div class="sc"><h4>El Diario de Proceso</h4><p>Documentar algo mientras sucede, sin editar la realidad. Una pintura, una semana de exámenes, la primera semana de trabajo. Testigos, no audiencia.</p></div>
+    <div class="sc"><h4>Lo Que Aprendí De</h4><p>"Lo que el baile me enseñó sobre soltar." "Lo que la ingeniería me enseñó sobre el arte." Conexiones inesperadas que solo tú puedes hacer.</p></div>
+    <div class="sc"><h4>La Carta</h4><p>A tu yo de hace 5 años. A quien está donde tú estabas. A quien también navega esto sin mapa. Escrita a una persona, sentida por miles.</p></div>
+    <div class="sc"><h4>El Inventario Honesto</h4><p>"Cosas que nadie te dice." "Lo que descubrí." Sin filtro motivacional. Solo observaciones reales de alguien que está viviéndolo.</p></div>
+    <div class="sc"><h4>La Foto Que Casi No Publico</h4><p>La imagen imperfecta con su historia. Rompe la ilusión de curaduría perfecta. Genera los comentarios más profundos de todos.</p></div>
+    <div class="sc"><h4>El Pequeño Momento</h4><p>Un instante cotidiano tratado con atención extraordinaria. Las mascotas de tus hermanas. El café frío. La hoja en blanco. Lo ordinario, sagrado.</p></div>
+    <div class="sc"><h4>La Revelación</h4><p>Algo oculto al inicio, mostrado al final. Una pintura. Un insight. Una decisión. La arquitectura de la anticipación en 30 segundos.</p></div>
+    <div class="sc"><h4>El Informe de Fallo</h4><p>Qué no salió como esperaba, qué costó, qué enseñó. Sin arco de redención obligatorio. Solo honestidad. Genera más confianza que cualquier logro.</p></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="series">
+  <p class="slabel">06 · Series Recurrentes</p>
+  <h2>10 series que hacen que la gente <em>vuelva cada semana</em></h2>
+  <div class="series-grid">
+    <div class="serie"><span class="emoji">🎓</span><h3>El Último Mes</h3><p>Serie temporal urgente: documenta las últimas semanas de universidad. Cada post es un capítulo de algo irrepetible.</p></div>
+    <div class="serie"><span class="emoji">🌱</span><h3>Aprendiendo en Voz Alta</h3><p>Semanal: una cosa que aprendiste esa semana — sobre arte, trabajo, crecer. No tienes que tener razón. Solo ser honesta.</p></div>
+    <div class="serie"><span class="emoji">🎨</span><h3>Estudio Viernes</h3><p>Lo que salió del estudio esa semana — bueno, malo, sin terminar. Crea un ritual que tu audiencia espera cada semana.</p></div>
+    <div class="serie"><span class="emoji">📸</span><h3>El Mes en Mi Ojo</h3><p>Mensual: las fotos que tomaste sin intención de publicar. Un documento de cómo ves el mundo en este momento de tu vida.</p></div>
+    <div class="serie"><span class="emoji">💻</span><h3>Arte con Cerebro de Ingeniera</h3><p>Bi-semanal: los momentos donde la lógica y la creatividad se encuentran. Tu crossover más original — nadie más puede hacer esta serie.</p></div>
+    <div class="serie"><span class="emoji">💃</span><h3>Baile Como Reset</h3><p>Semanal: un reel de baile con contexto — qué emoción había antes, qué hay después. Movimiento como herramienta, no solo entretenimiento.</p></div>
+    <div class="serie"><span class="emoji">🌙</span><h3>Domingo Lento</h3><p>Stories semanales: qué estás leyendo, qué tienes en el escritorio, cómo están las mascotas de tus hermanas. Calor cotidiano que crea fidelidad.</p></div>
+    <div class="serie"><span class="emoji">📚</span><h3>Qué Leo y Qué Me Enseña</h3><p>Mensual: un libro, una idea aplicada a tu vida real. No una reseña — tus notas de campo como persona que crece.</p></div>
+    <div class="serie"><span class="emoji">🪞</span><h3>Lo Real vs. Lo Publicado</h3><p>Mensual: la foto curada vs. la realidad detrás. Un ritual de honestidad que tu comunidad espera y te diferencia.</p></div>
+    <div class="serie"><span class="emoji">✉️</span><h3>Notas Para Después</h3><p>Cuando algo merece ser recordado: cómo te sientes en este momento exacto. Tu audiencia como testigo de tu historia.</p></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="mix">
+  <p class="slabel">07 · Distribución de Contenido</p>
+  <h2>El mix ideal para <em>tu momento</em></h2>
+  <p class="lead">La transición que estás viviendo ahora le da más peso al pilar de crecimiento. Es temporal — y es tuyo.</p>
+
+  <div class="mix">
+    <div class="mix-row"><span class="mix-label">🌱 Transición & Vida</span><div class="mix-track"><div class="mix-fill" style="width:28%;background:var(--sage);"></div></div><span class="mix-pct">28%</span></div>
+    <div class="mix-row"><span class="mix-label">🎨 Arte & Proceso</span><div class="mix-track"><div class="mix-fill" style="width:22%;background:var(--clay);"></div></div><span class="mix-pct">22%</span></div>
+    <div class="mix-row"><span class="mix-label">💃 Baile & Expresión</span><div class="mix-track"><div class="mix-fill" style="width:18%;background:var(--lav);"></div></div><span class="mix-pct">18%</span></div>
+    <div class="mix-row"><span class="mix-label">📸 Fotografía & Ojo</span><div class="mix-track"><div class="mix-fill" style="width:14%;background:var(--gold);"></div></div><span class="mix-pct">14%</span></div>
+    <div class="mix-row"><span class="mix-label">👗 Estilo & Moda</span><div class="mix-track"><div class="mix-fill" style="width:10%;background:var(--blush);"></div></div><span class="mix-pct">10%</span></div>
+    <div class="mix-row"><span class="mix-label">💛 Familia & Cotidiano</span><div class="mix-track"><div class="mix-fill" style="width:8%;background:var(--moss);"></div></div><span class="mix-pct">8%</span></div>
+  </div>
+
+  <div class="format-box">
+    <h3>Ritmo semanal sugerido</h3>
+    <div class="fgrid">
+      <div class="fgrid-item"><div class="num">3–4</div><div class="lbl">Reels por semana</div></div>
+      <div class="fgrid-item"><div class="num">1–2</div><div class="lbl">Carruseles por semana</div></div>
+      <div class="fgrid-item"><div class="num">1</div><div class="lbl">Foto por semana</div></div>
+      <div class="fgrid-item"><div class="num">Diario</div><div class="lbl">Stories (bajo esfuerzo)</div></div>
+    </div>
+  </div>
+
+  <div class="quad">
+    <div class="qcell"><h4>✦ Autenticidad</h4><ul><li>Las mascotas de tus hermanas son suficientemente tuyas</li><li>Apoyar a tu hermana es más honesto que "tener marca propia"</li><li>El desorden es parte de la historia</li><li>Nunca finjas que todo está bien</li></ul></div>
+    <div class="qcell"><h4>✦ Coherencia</h4><ul><li>Siempre TÚ, aunque cambien los temas</li><li>Tu voz es el hilo que une todo</li><li>El "uno a la vez" aplica a todo</li><li>La transición es el tema, no el contexto</li></ul></div>
+    <div class="qcell"><h4>✦ Ahora</h4><ul><li>Documenta la graduación — no vuelve</li><li>Primera semana de trabajo: grábala</li><li>La nostalgia de la U: exprésala mientras la sientes</li><li>Este mes es tu mayor activo de contenido</li></ul></div>
+    <div class="qcell"><h4>✦ Largo Plazo</h4><ul><li>Series sobre posts únicos, siempre</li><li>Profundidad gana a frecuencia</li><li>Construye personas, no solo alcance</li><li>Deja que tu evolución sea visible</li></ul></div>
+  </div>
+
+  <div class="moment-card" style="margin-top:2.5rem;">
+    <p>La gente no te va a seguir porque tienes gatos propios, o una marca propia, o respuestas propias. Te va a seguir porque eres alguien que está aprendiendo cómo vivir de manera auténtica — con arte y con código, con familia y con ambición, con todo lo que eres — en tiempo real, sin pretender que lo tiene resuelto. Eso es extraordinariamente raro. Y eso eres tú.</p>
+    <p class="attr">La esencia de @karenartc</p>
+  </div>
+</section>
+
+<footer>@karenartc · nadie me dijo cómo era esto de crecer 🌿 · compartiendo mientras aprendo ✨</footer>
+
+<script>
+function switchT(tab,btn){
+  document.querySelectorAll('.tab-pane').forEach(el=>el.classList.remove('active'));
+  document.querySelectorAll('.tbtn').forEach(el=>el.classList.remove('active'));
+  document.getElementById('tab-'+tab).classList.add('active');
+  btn.classList.add('active');
+}
+</script>
+</body>
+</html>

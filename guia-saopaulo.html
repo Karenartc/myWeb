@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Karen · Guía São Paulo 🇧🇷</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap');
+
+:root {
+  --verde:#2d6a4f;--verde-l:#74c69d;--verde-xl:#d8f3dc;--verde-m:#40916c;
+  --amarelo:#e9c46a;--laranja:#f4a261;--rosa:#e76f51;--azul:#457b9d;--roxo:#6b4fa0;
+  --ink:#1a1612;--cream:#fdf8f2;--fog:#e8e0d5;--deep:#12100e;--card:#fff;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);font-size:14px;line-height:1.65;}
+
+/* NAV */
+.topbar{position:fixed;top:0;left:0;right:0;z-index:300;background:rgba(253,248,242,.96);backdrop-filter:blur(14px);border-bottom:1px solid var(--fog);height:52px;display:flex;align-items:center;padding:0 1.5rem;gap:1rem;}
+.topbar-logo{font-family:'Lora',serif;font-size:.9rem;color:var(--verde);font-style:italic;white-space:nowrap;}
+.cat-nav{display:flex;gap:.25rem;overflow-x:auto;scrollbar-width:none;flex:1;}
+.cat-nav::-webkit-scrollbar{display:none;}
+.cnav{flex-shrink:0;padding:.3rem .75rem;border:1.5px solid var(--fog);border-radius:20px;background:transparent;font-family:'DM Sans',sans-serif;font-size:.7rem;font-weight:600;cursor:pointer;color:var(--ink);opacity:.6;transition:all .2s;white-space:nowrap;}
+.cnav.active,.cnav:hover{border-color:var(--verde);color:var(--verde);opacity:1;background:var(--verde-xl);}
+
+/* HERO */
+.hero{background:var(--deep);color:var(--cream);padding:5rem 2rem 3.5rem;text-align:center;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 60% 40%, rgba(45,106,79,.3) 0%, transparent 60%);}
+.flag{font-size:4rem;display:block;margin-bottom:1rem;position:relative;z-index:1;}
+.hero-ey{font-family:'DM Mono',monospace;font-size:.63rem;letter-spacing:.15em;text-transform:uppercase;color:var(--verde-l);opacity:.8;margin-bottom:.75rem;position:relative;z-index:1;}
+.hero h1{font-family:'Lora',serif;font-size:clamp(1.8rem,5vw,3.2rem);font-weight:400;line-height:1.2;position:relative;z-index:1;}
+.hero h1 em{font-style:italic;color:var(--amarelo);}
+.hero-sub{font-size:.88rem;opacity:.55;margin-top:.75rem;position:relative;z-index:1;}
+.hero-pills{display:flex;flex-wrap:wrap;gap:.4rem;justify-content:center;margin-top:1.5rem;position:relative;z-index:1;}
+.hpill{font-size:.68rem;padding:.25rem .75rem;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:20px;color:rgba(255,255,255,.7);}
+
+/* MAIN */
+.main{padding-top:52px;}
+.section{display:none;padding:2rem 1.5rem;max-width:920px;margin:0 auto;}
+.section.active{display:block;}
+.sec-header{margin-bottom:1.75rem;}
+.sec-label{font-family:'DM Mono',monospace;font-size:.63rem;letter-spacing:.14em;text-transform:uppercase;color:var(--verde);opacity:.75;margin-bottom:.35rem;}
+.sec-header h2{font-family:'Lora',serif;font-size:clamp(1.4rem,3vw,2rem);font-weight:400;color:var(--deep);}
+.sec-header h2 em{font-style:italic;color:var(--verde);}
+.sec-header p{font-size:.85rem;opacity:.62;margin-top:.4rem;max-width:620px;line-height:1.6;}
+
+/* PLACE CARD */
+.place-card{border:1.5px solid var(--fog);border-radius:14px;margin-bottom:.85rem;overflow:hidden;background:var(--card);}
+.pc-head{display:flex;align-items:flex-start;gap:.75rem;padding:1rem 1.2rem;cursor:pointer;transition:background .15s;}
+.pc-head:hover{background:#faf6f1;}
+.pc-emoji{font-size:1.4rem;line-height:1;flex-shrink:0;padding-top:.1rem;}
+.pc-info{flex:1;min-width:0;}
+.pc-name{font-weight:700;font-size:.92rem;color:var(--deep);margin-bottom:.15rem;}
+.pc-tagline{font-size:.76rem;opacity:.6;line-height:1.4;}
+.pc-tags{display:flex;flex-wrap:wrap;gap:.3rem;margin-top:.4rem;}
+.ptag{font-size:.62rem;padding:.1rem .45rem;border-radius:20px;font-weight:600;}
+.t-arte{background:rgba(233,196,106,.2);color:#7a5c00;}
+.t-tech{background:rgba(69,123,157,.15);color:var(--azul);}
+.t-cultura{background:rgba(45,106,79,.12);color:var(--verde);}
+.t-comida{background:rgba(244,162,97,.15);color:#8a4a00;}
+.t-foto{background:rgba(107,79,160,.12);color:var(--roxo);}
+.t-mujeres{background:rgba(231,111,81,.12);color:var(--rosa);}
+.pc-arrow{font-size:.8rem;opacity:.3;transition:transform .2s;flex-shrink:0;margin-top:.2rem;}
+.pc-arrow.open{transform:rotate(90deg);opacity:.7;}
+.pc-body{display:none;border-top:1px solid var(--fog);}
+.pc-body.open{display:block;}
+
+/* TABS INSIDE CARD */
+.inner-tabs{display:flex;border-bottom:1px solid var(--fog);overflow-x:auto;scrollbar-width:none;}
+.inner-tabs::-webkit-scrollbar{display:none;}
+.itab{flex-shrink:0;padding:.55rem 1rem;border:none;background:transparent;font-family:'DM Sans',sans-serif;font-size:.7rem;font-weight:600;cursor:pointer;color:var(--ink);opacity:.45;border-bottom:2px solid transparent;transition:all .2s;white-space:nowrap;}
+.itab.active{opacity:1;color:var(--verde);border-bottom-color:var(--verde);}
+.itab-pane{display:none;padding:1.1rem 1.2rem;}
+.itab-pane.active{display:block;}
+
+/* CONTENT INSIDE */
+.blabel{font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:var(--verde);opacity:.65;margin-bottom:.35rem;display:block;}
+.fact-box{background:var(--verde-xl);border-left:3px solid var(--verde-l);border-radius:0 8px 8px 0;padding:.7rem .9rem;font-size:.82rem;line-height:1.6;color:var(--ink);margin-bottom:.65rem;}
+.fact-box strong{color:var(--verde-m);font-weight:700;}
+.hook-box{background:#fff8ec;border-left:3px solid var(--amarelo);border-radius:0 8px 8px 0;padding:.7rem .9rem;font-family:'Lora',serif;font-style:italic;font-size:.88rem;color:var(--deep);margin-bottom:.65rem;line-height:1.55;}
+.tip{display:flex;gap:.5rem;align-items:flex-start;margin-bottom:.45rem;}
+.tdot{width:5px;height:5px;border-radius:50%;flex-shrink:0;margin-top:.55rem;}
+.tdot.verde{background:var(--verde-l);}
+.tdot.amarelo{background:var(--amarelo);}
+.tdot.rosa{background:var(--rosa);}
+.tip p{font-size:.8rem;opacity:.72;line-height:1.5;}
+.caption-box{background:#f5f0ff;border-radius:8px;padding:.85rem 1rem;font-size:.8rem;line-height:1.7;color:var(--ink);border:1px dashed #b8a0d8;margin-top:.5rem;}
+.info-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:.6rem;margin:.6rem 0;}
+.info-item{background:var(--cream);border:1px solid var(--fog);border-radius:8px;padding:.65rem .8rem;}
+.info-item .il{font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.08em;text-transform:uppercase;color:var(--verde);opacity:.65;margin-bottom:.2rem;}
+.info-item .iv{font-size:.8rem;font-weight:500;line-height:1.3;}
+.divl{height:1px;background:var(--fog);margin:.75rem 0;}
+.script-box{background:#f8f5f2;border-radius:8px;padding:.85rem 1rem;font-size:.8rem;line-height:1.65;border:1px solid var(--fog);}
+.script-box b{color:var(--verde-m);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;display:block;margin-bottom:.25rem;}
+
+/* BEACH DAY SPECIAL */
+.beach-hero{background:linear-gradient(135deg,#006994,#0099cc,#40c4aa);color:white;border-radius:16px;padding:2rem;margin-bottom:1.5rem;text-align:center;position:relative;overflow:hidden;}
+.beach-hero::before{content:'🌊';position:absolute;font-size:8rem;opacity:.08;bottom:-1rem;right:-1rem;}
+.beach-hero h3{font-family:'Lora',serif;font-size:1.4rem;font-style:italic;margin-bottom:.5rem;}
+.beach-hero p{font-size:.85rem;opacity:.8;}
+.beach-options{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:.75rem;margin:1.25rem 0;}
+.beach-opt{background:white;border-radius:12px;padding:1.25rem;border:1.5px solid var(--fog);}
+.beach-opt h4{font-weight:700;font-size:.9rem;margin-bottom:.3rem;color:var(--deep);}
+.beach-opt .bdist{font-family:'DM Mono',monospace;font-size:.62rem;color:var(--azul);letter-spacing:.07em;margin-bottom:.5rem;}
+.beach-opt p{font-size:.78rem;opacity:.68;line-height:1.5;}
+
+/* TECH MAP */
+.tech-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:.85rem;margin:1.25rem 0;}
+.tech-card{background:var(--card);border:1.5px solid var(--fog);border-radius:12px;padding:1.25rem;transition:border-color .2s;}
+.tech-card:hover{border-color:var(--verde-l);}
+.tech-card .tce{font-size:1.4rem;display:block;margin-bottom:.5rem;}
+.tech-card h4{font-weight:700;font-size:.88rem;color:var(--deep);margin-bottom:.25rem;}
+.tech-card .tcl{font-size:.7rem;color:var(--azul);font-weight:600;margin-bottom:.4rem;}
+.tech-card p{font-size:.78rem;opacity:.65;line-height:1.5;}
+.tech-card .learn{margin-top:.6rem;font-size:.76rem;font-weight:600;color:var(--verde);}
+
+/* CULTURAL MAP */
+.cult-timeline{border-left:2px solid var(--verde-l);margin:1.25rem 0 1.25rem 1rem;padding-left:1.75rem;display:flex;flex-direction:column;gap:1.25rem;}
+.ct-item{position:relative;}
+.ct-item::before{content:'';position:absolute;left:-2.4rem;top:.4rem;width:9px;height:9px;border-radius:50%;background:var(--verde);border:2px solid var(--cream);}
+.ct-label{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--verde);opacity:.7;margin-bottom:.2rem;}
+.ct-item h4{font-weight:600;font-size:.88rem;margin-bottom:.25rem;}
+.ct-item p{font-size:.8rem;opacity:.68;line-height:1.5;}
+
+/* FOOD GUIDE */
+.food-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.7rem;margin:1.25rem 0;}
+.food-item{background:var(--card);border:1.5px solid var(--fog);border-radius:10px;padding:1rem;}
+.food-emoji{font-size:1.6rem;display:block;margin-bottom:.4rem;}
+.food-item h4{font-weight:700;font-size:.85rem;margin-bottom:.2rem;}
+.food-item p{font-size:.76rem;opacity:.65;line-height:1.45;}
+.food-item .content-tip{margin-top:.5rem;font-size:.72rem;color:var(--verde);font-weight:600;}
+
+/* CONTENT IDEAS GRID */
+.ideas-list{display:flex;flex-direction:column;gap:.65rem;margin:1.25rem 0;}
+.idea-row{background:var(--card);border:1.5px solid var(--fog);border-radius:10px;padding:1rem 1.1rem;display:flex;gap:.75rem;align-items:flex-start;}
+.idea-fmt{font-size:.6rem;padding:.12rem .45rem;border-radius:20px;font-weight:700;white-space:nowrap;flex-shrink:0;margin-top:.1rem;}
+.ifr{background:rgba(45,106,79,.12);color:var(--verde);}
+.ifc{background:rgba(233,196,106,.2);color:#7a5c00;}
+.ifp{background:rgba(244,162,97,.15);color:#8a4a00;}
+.idea-text{font-size:.82rem;color:var(--deep);line-height:1.45;}
+.idea-text strong{font-weight:600;}
+
+/* CHECKLIST */
+.checklist{display:flex;flex-direction:column;gap:.4rem;margin:.75rem 0;}
+.citem{display:flex;gap:.6rem;align-items:flex-start;padding:.5rem .65rem;background:var(--card);border:1px solid var(--fog);border-radius:8px;}
+.cbox{width:16px;height:16px;border:2px solid var(--verde-l);border-radius:4px;flex-shrink:0;margin-top:.1rem;cursor:pointer;transition:all .2s;}
+.cbox.checked{background:var(--verde);border-color:var(--verde);}
+.citem p{font-size:.8rem;line-height:1.4;}
+
+footer{text-align:center;padding:3rem 1.5rem;border-top:1px solid var(--fog);font-size:.7rem;opacity:.35;letter-spacing:.05em;}
+
+@media(max-width:560px){
+  .hero{padding:4rem 1.25rem 2.5rem;}
+  .section{padding:1.5rem 1rem;}
+  .info-grid{grid-template-columns:1fr 1fr;}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <span class="topbar-logo">@karenartc · SP 🇧🇷</span>
+  <div class="cat-nav">
+    <button class="cnav active" onclick="showSec('lugares')">📍 Lugares</button>
+    <button class="cnav" onclick="showSec('tech')">💻 Tech</button>
+    <button class="cnav" onclick="showSec('cultura')">🎭 Cultura</button>
+    <button class="cnav" onclick="showSec('playa')">🌊 Playa</button>
+    <button class="cnav" onclick="showSec('comida')">🍽️ Comida</button>
+    <button class="cnav" onclick="showSec('contenido')">📱 Contenido</button>
+    <button class="cnav" onclick="showSec('checklist')">✅ Lista</button>
+  </div>
+</div>
+
+<div class="main">
+<div class="hero">
+  <span class="flag">🇧🇷</span>
+  <p class="hero-ey">Tu guía completa · São Paulo · Julio 2026</p>
+  <h1>Todo lo que necesitas saber,<br>aprender y <em>grabar.</em></h1>
+  <p class="hero-sub">Arte, tech, cultura, playa y contenido — todo en un solo lugar</p>
+  <div class="hero-pills">
+    <span class="hpill">📍 15 lugares</span>
+    <span class="hpill">💻 Tech & startups</span>
+    <span class="hpill">🎭 Historia & cultura</span>
+    <span class="hpill">🌊 Día de playa</span>
+    <span class="hpill">🍽️ Comida brasileña</span>
+    <span class="hpill">📱 Ideas de contenido</span>
+  </div>
+</div>
+
+<!-- ============ LUGARES ============ -->
+<div id="lugares" class="section active">
+  <div class="sec-header">
+    <p class="sec-label">Guía completa</p>
+    <h2>Los <em>lugares</em> que no te puedes perder</h2>
+    <p>Abre cada lugar para ver qué investigar, qué aprender, qué grabar y el caption listo para usar.</p>
+  </div>
+
+  <!-- PINACOTECA -->
+  <div class="place-card">
+    <div class="pc-head" onclick="togglePlace(this)">
+      <span class="pc-emoji">🖼️</span>
+      <div class="pc-info">
+        <div class="pc-name">Pinacoteca do Estado</div>
+        <div class="pc-tagline">El museo de artes visuales más antiguo de São Paulo — y el más honesto sobre la historia de Brasil</div>
+        <div class="pc-tags"><span class="ptag t-arte">Arte</span><span class="ptag t-cultura">Cultura</span><span class="ptag t-foto">Foto</span></div>
+      </div>
+      <span class="pc-arrow">›</span>
+    </div>
+    <div class="pc-body">
+      <div class="inner-tabs">
+        <button class="itab active" onclick="switchTab(this,'pina-aprender')">📚 Qué aprender</button>
+        <button class="itab" onclick="switchTab(this,'pina-grabar')">🎥 Qué grabar</button>
+        <button class="itab" onclick="switchTab(this,'pina-datos')">💡 Datos curiosos</button>
+        <button class="itab" onclick="switchTab(this,'pina-caption')">✍️ Caption</button>
+      </div>
+      <div id="pina-aprender" class="itab-pane active">
+        <span class="blabel">Investiga antes de ir</span>
+        <div class="fact-box">La Pinacoteca fue fundada en <strong>1905</strong> — es el museo de artes visuales más antiguo de São Paulo. Tiene +10.000 obras y es gratuita los sábados.</div>
+        <div class="cult-timeline">
+          <div class="ct-item"><div class="ct-label">Lo que te va a impactar</div><h4>Arte que muestra lo que Brasil preferiría olvidar</h4><p>La colección incluye obras del período colonial y imperial que retratan el trabajo esclavo, la vida indígena, y la construcción forzada de Brasil. Es arte incómodo y necesario.</p></div>
+          <div class="ct-item"><div class="ct-label">Artista clave</div><h4>Tarsila do Amaral — la Frida Kahlo de Brasil</h4><p>Pintora modernista brasileña (1886-1973). Su obra "Abaporu" (1928) fue vendida por la mayor cantidad pagada por una obra de arte latinoamericana. Mezcla arte europeo con iconografía brasileña. Busca "Antropofagia" — su manifiesto pictórico.</p></div>
+          <div class="ct-item"><div class="ct-label">Concepto para aprender</div><h4>Modernismo Brasileño vs. Modernismo Europeo</h4><p>Brasil no copió el modernismo europeo — lo "devoró" y lo convirtió en algo propio. El movimiento se llamó "Antropofagia Cultural": absorber lo extranjero y transformarlo en algo brasileño.</p></div>
+        </div>
+      </div>
+      <div id="pina-grabar" class="itab-pane">
+        <span class="blabel">Guía de grabación</span>
+        <div class="tip"><div class="tdot verde"></div><p><strong>No hagas la foto de turista estándar</strong> — tú de frente al cuadro sonriendo. En cambio: tú de espaldas mirando una obra enorme. El contraste humano/obra es poderoso.</p></div>
+        <div class="tip"><div class="tdot verde"></div><p><strong>Detalle de texturas</strong> — acércate a las pinceladas. Macro de la pintura. Como artista tú tienes el ojo para esto.</p></div>
+        <div class="tip"><div class="tdot verde"></div><p><strong>La luz natural</strong> — el edificio tiene arcos y ventanas que crean sombras perfectas. Busca esas sombras cayendo sobre las obras.</p></div>
+        <div class="tip"><div class="tdot amarelo"></div><p><strong>Reel idea</strong>: "Soy artista. Vine a Brasil a estudiar IA. Lo primero que hice fue ir a un museo de arte de 1905. Déjame explicarte por qué tiene sentido."</p></div>
+        <div class="tip"><div class="tdot amarelo"></div><p><strong>Contenido educativo</strong>: encuentra una obra que muestre la historia difícil de Brasil y explícala en 30 segundos. Es el tipo de contenido que se guarda y comparte.</p></div>
+      </div>
+      <div id="pina-datos" class="itab-pane">
+        <span class="blabel">Datos que nadie te cuenta y que puedes usar en contenido</span>
+        <div class="fact-box">🎨 <strong>Tarsila do Amaral:</strong> su cuadro "Abaporu" (1928) fue un regalo para su marido. Décadas después se vendió por millones y es considerado el ícono del modernismo latinoamericano.</div>
+        <div class="fact-box">🏛️ <strong>El edificio original</strong> era un almacén ferroviario. Lo convirtieron en museo. La arquitectura industrial + arte clásico es visualmente increíble.</div>
+        <div class="fact-box">🆓 <strong>Los sábados es gratis.</strong> Los paulistas hacen fila. Es uno de los museos más visitados de Brasil.</div>
+        <div class="fact-box">🌿 <strong>Antropofagia cultural:</strong> el movimiento artístico brasileño de los años 20 propuso "devorar" la cultura extranjera y transformarla. Como cuando el paladar absorbe algo nuevo y lo hace tuyo. Metáfora perfecta para tus pilares de contenido.</div>
+      </div>
+      <div id="pina-caption" class="itab-pane">
+        <span class="blabel">Caption listo</span>
+        <div class="caption-box">Vine a Brasil a aprender sobre inteligencia artificial. El primer día fui a un museo de arte de 1905 🖼️🇧🇷<br><br>La Pinacoteca do Estado guarda obras que muestran la historia de Brasil que no te enseñan en los libros — el trabajo esclavo, la vida indígena, los silencios del período colonial. Es arte que incomoda. Arte que es necesario ver.<br><br>Y también está Tarsila do Amaral — la artista que propuso "devorar" las influencias extranjeras y convertirlas en algo 100% brasileño. En los años 20. Sin disculparse por ello.<br><br>Como artista que también estudia sistemas y código... entendí algo hoy: las mejores obras de arte y los mejores sistemas tienen lo mismo en común — digieren el mundo y lo devuelven transformado.<br><br>#pinacoteca #saoPaulo #arte #tarsila #mujeresSTEM 🎨</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MUSEU DA LÍNGUA PORTUGUESA -->
+  <div class="place-card">
+    <div class="pc-head" onclick="togglePlace(this)">
+      <span class="pc-emoji">✨</span>
+      <div class="pc-info">
+        <div class="pc-name">Museu da Língua Portuguesa</div>
+        <div class="pc-tagline">El único museo del mundo dedicado a un idioma — que resurgió tras un incendio devastador</div>
+        <div class="pc-tags"><span class="ptag t-cultura">Cultura</span><span class="ptag t-foto">Foto icónica</span></div>
+      </div>
+      <span class="pc-arrow">›</span>
+    </div>
+    <div class="pc-body">
+      <div class="inner-tabs">
+        <button class="itab active" onclick="switchTab(this,'mlp-aprender')">📚 Qué aprender</button>
+        <button class="itab" onclick="switchTab(this,'mlp-grabar')">🎥 Qué grabar</button>
+        <button class="itab" onclick="switchTab(this,'mlp-datos')">💡 Datos curiosos</button>
+        <button class="itab" onclick="switchTab(this,'mlp-caption')">✍️ Caption</button>
+      </div>
+      <div id="mlp-aprender" class="itab-pane active">
+        <span class="blabel">Contexto que necesitas saber</span>
+        <div class="fact-box">Fundado en 2006 en la histórica <strong>Estação da Luz</strong>. En 2015 un incendio devastó el edificio. Estuvo cerrado 7 años y reabrió completamente renovado en <strong>2021</strong>. Es único en el mundo.</div>
+        <div class="cult-timeline">
+          <div class="ct-item"><div class="ct-label">Por qué importa</div><h4>El portugués es el 5° idioma más hablado del mundo</h4><p>280 millones de hablantes. Presente en 9 países: Brasil, Portugal, Angola, Mozambique, Cabo Verde, Guinea-Bisáu, São Tomé, Timor Oriental y Guinea Ecuatorial. Un idioma que cruzó océanos y se quedó.</p></div>
+          <div class="ct-item"><div class="ct-label">Lo más interesante para tu contenido</div><h4>Los "falsos amigos" — palabras iguales, significados distintos</h4><p>"Borracha" = goma de borrar. "Polvo" = techo/polvillo. "Embarazada" = enredada/confundida. "Exquisito" = extraño/raro. "Rato" = momento breve. Estas diferencias son contenido viral garantizado.</p></div>
+          <div class="ct-item"><div class="ct-label">Para tu ángulo tech</div><h4>El idioma como sistema de información</h4><p>Como ingeniera informática puedes conectar: un idioma es como un protocolo de comunicación — tiene sintaxis, reglas, versiones regionales (dialectos = forks). El portugués brasileño y el europeo son como dos versiones del mismo software.</p></div>
+        </div>
+      </div>
+      <div id="mlp-grabar" class="itab-pane">
+        <span class="blabel">Las fotos y videos que tienes que conseguir sí o sí</span>
+        <div class="tip"><div class="tdot verde"></div><p><strong>Las instalaciones de luz:</strong> el museo tiene palabras proyectadas en paredes y suelo con luz. Ponte en medio — las palabras caerán sobre ti. Foto absolutamente icónica.</p></div>
+        <div class="tip"><div class="tdot verde"></div><p><strong>La fachada exterior</strong> de la Estação da Luz: es neogótica, espectacular, muy fotogénica especialmente al atardecer.</p></div>
+        <div class="tip"><div class="tdot verde"></div><p><strong>Reel educativo:</strong> filma los paneles de "falsos amigos" y reacciona en tiempo real. Tu cara cuando descubres qué significa "borracha" en portugués es el contenido.</p></div>
+        <div class="tip"><div class="tdot amarelo"></div><p><strong>Story en tiempo real:</strong> "Estoy en el único museo del mundo dedicado a un idioma. Adivina cuál es."</p></div>
+      </div>
+      <div id="mlp-datos" class="itab-pane">
+        <span class="blabel">Lo que nadie te cuenta</span>
+        <div class="fact-box">🔥 <strong>El incendio de 2015</strong> destruyó archivos, instalaciones interactivas y documentos históricos irremplazables. La comunidad de São Paulo hizo campaña durante 7 años para que lo reconstruyeran. Es un museo que resurgió de sus cenizas — literalmente.</div>
+        <div class="fact-box">💬 <strong>Palabras que el portugués le prestó al español</strong> (y nadie lo sabe): "saudade" (la melancolía de extrañar algo que quizás nunca existió) no tiene traducción exacta al español. Es el sentimiento más brasileño que existe.</div>
+        <div class="fact-box">🖥️ <strong>Ángulo tech:</strong> el museo usa tecnología interactiva para enseñar el idioma — hologramas, pantallas táctiles, experiencias sonoras. Es un museo que usa tech para preservar cultura. Eso conecta todo lo que estás estudiando.</div>
+      </div>
+      <div id="mlp-caption" class="itab-pane">
+        <span class="blabel">Caption listo</span>
+        <div class="caption-box">En 2015 un incendio destruyó el único museo del mundo dedicado a un idioma. Hoy lo visité ✨🇧🇷<br><br>El Museu da Língua Portuguesa en São Paulo estuvo cerrado 7 años mientras lo reconstruían. Reabrió en 2021 más luminoso que antes — con instalaciones de luz que proyectan palabras en las paredes y en ti.<br><br>Cosas que aprendí que me explotaron el cerebro:<br>• "Borracha" en portugués = goma de borrar 😂<br>• "Saudade" no tiene traducción al español — es la melancolía de extrañar algo que quizás nunca existió<br>• El portugués y el español son como dos versiones del mismo software original: el latín<br><br>Un idioma es un sistema de información vivo. Como ingeniera informática, hoy entendí los idiomas de otra manera. 🌿<br><br>#museudolinguaportuguesa #saoPaulo #portugues #aprendiendo</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MASP -->
+  <div class="place-card">
+    <div class="pc-head" onclick="togglePlace(this)">
+      <span class="pc-emoji">🏛️</span>
+      <div class="pc-info">
+        <div class="pc-name">MASP — Museu de Arte de São Paulo</div>
+        <div class="pc-tagline">El edificio más icónico de SP, suspendido en el aire, diseñado por una mujer inmigrante</div>
+        <div class="pc-tags"><span class="ptag t-arte">Arte</span><span class="ptag t-foto">Foto icónica</span><span class="ptag t-mujeres">Mujeres</span></div>
+      </div>
+      <span class="pc-arrow">›</span>
+    </div>
+    <div class="pc-body">
+      <div class="inner-tabs">
+        <button class="itab active" onclick="switchTab(this,'masp-aprender')">📚 Qué aprender</button>
+        <button class="itab" onclick="switchTab(this,'masp-grabar')">🎥 Qué grabar</button>
+        <button class="itab" onclick="switchTab(this,'masp-datos')">💡 Datos curiosos</button>
+        <button class="itab" onclick="switchTab(this,'masp-caption')">✍️ Caption</button>
+      </div>
+      <div id="masp-aprender" class="itab-pane active">
+        <div class="fact-box">El MASP tiene obras de <strong>Picasso, Monet, Van Gogh, Renoir, Rembrandt y Tarsila do Amaral</strong>. Es el museo de arte más importante de Latinoamérica. Está en Avenida Paulista, la avenida más famosa de São Paulo.</div>
+        <div class="cult-timeline">
+          <div class="ct-item"><div class="ct-label">La arquitecta — tu ángulo de contenido</div><h4>Lina Bo Bardi: mujer, inmigrante, revolucionaria</h4><p>Italiana que emigró a Brasil en 1946. Diseñó el MASP en 1968 con una idea radical: el edificio suspendido en el aire para que el espacio de abajo perteneciera a la ciudad. Organizaba el arte en caballetes de vidrio para que el visitante caminara alrededor de las obras — no las mirara como en un pasillo. Visionaria absoluta.</p></div>
+          <div class="ct-item"><div class="ct-label">Lo que nadie te dice</div><h4>El espacio de abajo es de todos</h4><p>La plaza bajo el MASP se usa para mercados, protestas, conciertos, manifestaciones culturales. Es arte público por diseño — Lina Bo Bardi quería que la gente no necesitara entrar al museo para beneficiarse de él.</p></div>
+        </div>
+      </div>
+      <div id="masp-grabar" class="itab-pane">
+        <div class="tip"><div class="tdot verde"></div><p><strong>La foto icónica:</strong> desde abajo, mirando hacia arriba, con las vigas rojas como marco. El edificio suspendido en el aire sobre ti. Esta foto tiene millones de likes en Instagram.</p></div>
+        <div class="tip"><div class="tdot verde"></div><p><strong>Reel idea:</strong> "El edificio más icónico de São Paulo fue diseñado por una mujer italiana inmigrante. En 1968. Cuando todavía había dictadura en Brasil." — Este tipo de dato para tu audiencia de mujeres en STEM es oro.</p></div>
+        <div class="tip"><div class="tdot amarelo"></div><p><strong>Contraste visual:</strong> tú contemporánea + arquitectura de 1968 + arte de siglos anteriores. Las tres eras en una sola imagen.</p></div>
+      </div>
+      <div id="masp-datos" class="itab-pane">
+        <div class="fact-box">🏗️ <strong>El MASP fue terminado en 1968</strong> durante la dictadura militar brasileña. Lina Bo Bardi luchó contra censura y burocracia para construirlo. El arte como resistencia tiene una historia muy concreta acá.</div>
+        <div class="fact-box">👁️ <strong>Los caballetes de vidrio</strong> originales de Lina Bo Bardi fueron removidos y reemplazados por displays convencionales. En 2015 los restauraron. La visión original de la artista venció a la "modernización".</div>
+        <div class="fact-box">🌿 <strong>La frase de Lina Bo Bardi:</strong> "La arquitectura no puede salvar al mundo, pero puede dar un buen ejemplo." Perfecta para un caption.</div>
+      </div>
+      <div id="masp-caption" class="itab-pane">
+        <div class="caption-box">El edificio más icónico de São Paulo está suspendido en el aire. Lo diseñó una mujer italiana inmigrante. En 1968. Durante una dictadura 🏛️🇧🇷<br><br>Lina Bo Bardi llegó a Brasil en 1946. Cuando le encargaron el MASP, hizo algo radical: levantó el edificio del suelo para que el espacio de abajo perteneciera a la ciudad. Para que la gente no necesitara entrar al museo para beneficiarse del arte.<br><br>"La arquitectura no puede salvar al mundo, pero puede dar un buen ejemplo."<br><br>Hay algo en esta historia que me recuerda por qué importa diseñar bien — ya sea un edificio, un sistema de software, o una pieza de arte. Lo que construyes cambia cómo la gente se mueve por el mundo.<br><br>#MASP #linabobardi #saoPaulo #arquitectura #mujeresSTEM #arte 🌿</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BECO DO BATMAN -->
+  <div class="place-card">
+    <div class="pc-head" onclick="togglePlace(this)">
+      <span class="pc-emoji">🎨</span>
+      <div class="pc-info">
+        <div class="pc-name">Beco do Batman — Vila Madalena</div>
+        <div class="pc-tagline">El callejón de graffiti más famoso de Brasil — arte que puede desaparecer mañana y eso está bien</div>
+        <div class="pc-tags"><span class="ptag t-arte">Arte</span><span class="ptag t-foto">Foto</span><span class="ptag t-cultura">Cultura urbana</span></div>
+      </div>
+      <span class="pc-arrow">›</span>
+    </div>
+    <div class="pc-body">
+      <div class="inner-tabs">
+        <button class="itab active" onclick="switchTab(this,'beco-aprender')">📚 Qué aprender</button>
+        <button class="itab" onclick="switchTab(this,'beco-grabar')">🎥 Qué grabar</button>
+        <button class="itab" onclick="switchTab(this,'beco-datos')">💡 Datos curiosos</button>
+      </div>
+      <div id="beco-aprender" class="itab-pane active">
+        <div class="fact-box">El Beco do Batman lleva su nombre porque en los años 80 alguien pintó a <strong>Batman</strong> en una pared. Hoy ese Batman ya no existe — fue pintado encima múltiples veces. São Paulo tiene la mayor concentración de arte urbano de América Latina.</div>
+        <div class="cult-timeline">
+          <div class="ct-item"><div class="ct-label">La filosofía del lugar</div><h4>Arte efímero y colectivo</h4><p>Los murales se pintan encima de otros constantemente. No hay una pieza "permanente". El arte aquí es conversación — cada artista responde al que vino antes. Es radical y hermoso.</p></div>
+          <div class="ct-item"><div class="ct-label">Para tu ángulo de artista</div><h4>El graffiti como primer acto político de un artista</h4><p>En los años de dictadura brasileña (1964-1985), el graffiti era una de las pocas formas de expresión que no se podía censurar fácilmente. Pintar paredes era acto político. Hoy São Paulo tiene ley que protege ciertos murales. Esa evolución dice mucho.</p></div>
+        </div>
+      </div>
+      <div id="beco-grabar" class="itab-pane">
+        <div class="tip"><div class="tdot verde"></div><p><strong>La foto icónica:</strong> tú de espaldas frente a un mural enorme. El contraste de escala humana vs. obra monumental siempre funciona.</p></div>
+        <div class="tip"><div class="tdot verde"></div><p><strong>Reel caminando:</strong> transición entre murales mientras explicas qué ves como artista. No cualquiera puede hacer este video — tú tienes el vocabulario.</p></div>
+        <div class="tip"><div class="tdot amarelo"></div><p><strong>Tu reflexión artística:</strong> "¿Qué sientes haciendo arte que puede desaparecer mañana?" — Pregunta para tu audiencia al final del reel.</p></div>
+        <div class="tip"><div class="tdot verde"></div><p><strong>Ir temprano</strong> (8-10am) para evitar turistas y tener el callejón solo para ti.</p></div>
+      </div>
+      <div id="beco-datos" class="itab-pane">
+        <div class="fact-box">🦇 El Batman original fue pintado en los años 80 por artistas anónimos. Nadie recuerda quién lo hizo. Fue pintado encima tantas veces que ya no existe — y el callejón sigue llevando su nombre.</div>
+        <div class="fact-box">🎨 São Paulo tiene más de <strong>500 murales protegidos por ley</strong>. La ciudad reconoce el graffiti como patrimonio cultural. Fue la primera ciudad de América Latina en hacerlo.</div>
+        <div class="fact-box">🌐 Vila Madalena, el barrio donde está el Beco, es el equivalente paulistano de Palermo en Buenos Aires o Providencia en Santiago — bohemio, artístico, lleno de bares, galerías y cafés.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AVENIDA PAULISTA -->
+  <div class="place-card">
+    <div class="pc-head" onclick="togglePlace(this)">
+      <span class="pc-emoji">🌆</span>
+      <div class="pc-info">
+        <div class="pc-name">Avenida Paulista</div>
+        <div class="pc-tagline">El corazón financiero, cultural y político de São Paulo — todo a la vez</div>
+        <div class="pc-tags"><span class="ptag t-tech">Tech</span><span class="ptag t-cultura">Cultura</span><span class="ptag t-foto">Foto</span></div>
+      </div>
+      <span class="pc-arrow">›</span>
+    </div>
+    <div class="pc-body">
+      <div class="inner-tabs">
+        <button class="itab active" onclick="switchTab(this,'paulista-aprender')">📚 Qué aprender</button>
+        <button class="itab" onclick="switchTab(this,'paulista-grabar')">🎥 Qué grabar</button>
+        <button class="itab" onclick="switchTab(this,'paulista-datos')">💡 Datos curiosos</button>
+      </div>
+      <div id="paulista-aprender" class="itab-pane active">
+        <div class="fact-box">Avenida Paulista tiene 2.8km y concentra los principales bancos, empresas tech, el MASP, la FIESP (industria), museos y el símbolo más reconocible de São Paulo. Los domingos cierra al tráfico y se convierte en parque urbano.</div>
+        <div class="cult-timeline">
+          <div class="ct-item"><div class="ct-label">Historia</div><h4>De mansiones de café a sede del poder financiero</h4><p>A fines del siglo XIX era la calle de las mansiones de los "barões do café" — los magnates que hicieron ricos a Brasil con el café. En el siglo XX todas las mansiones fueron demolidas y reemplazadas por rascacielos. Hoy no queda ninguna. La historia del capitalismo en 2.8km.</p></div>
+          <div class="ct-item"><div class="ct-label">Para tu ángulo tech</div><h4>Silicon Paulista</h4><p>Varias empresas tech importantes tienen oficinas en Paulista. La avenida concentra startups, aceleradoras y fondos de inversión. Nubank tiene presencia cercana. Es el hub financiero-digital de Brasil.</p></div>
+        </div>
+      </div>
+      <div id="paulista-grabar" class="itab-pane">
+        <div class="tip"><div class="tdot verde"></div><p><strong>Los domingos</strong> la avenida cierra al tráfico — miles de personas caminan, andan en bici, hacen yoga. Es el São Paulo más humano que vas a ver. Si puedes ir un domingo, grábalo.</p></div>
+        <div class="tip"><div class="tdot verde"></div><p><strong>Walking tour con transitions:</strong> un reel caminando por Paulista con transiciones de outfit o de perspectiva (arquitectura → MASP → gente).</p></div>
+        <div class="tip"><div class="tdot amarelo"></div><p><strong>Ángulo educativo:</strong> "Esto era todo casas de millonarios del café. Las demolieron todas. En São Paulo, el pasado dura hasta que el dinero decide." — Reflexión de 30 segundos.</p></div>
+      </div>
+      <div id="paulista-datos" class="itab-pane">
+        <div class="fact-box">📊 Por Avenida Paulista circulan <strong>1.5 millones de personas por día</strong>. Es la dirección más cara de Brasil para oficinas.</div>
+        <div class="fact-box">🏦 Los 5 bancos más grandes de Brasil tienen sedes en Paulista. También tiene el MASP, el Instituto Itaú Cultural, el Museu da Casa Brasileira y varias galerías de arte gratuitas. Arte y capital, siempre juntos.</div>
+        <div class="fact-box">🎸 En 2016, Avenida Paulista fue el escenario de manifestaciones políticas masivas que cambiaron la historia de Brasil. El espacio público tiene memoria política.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LIBERDADE -->
+  <div class="place-card">
+    <div class="pc-head" onclick="togglePlace(this)">
+      <span class="pc-emoji">🏮</span>
+      <div class="pc-info">
+        <div class="pc-name">Liberdade — El barrio japonés</div>
+        <div class="pc-tagline">La mayor colonia japonesa fuera de Japón — y la historia de cómo llegaron aquí</div>
+        <div class="pc-tags"><span class="ptag t-cultura">Cultura</span><span class="ptag t-comida">Comida</span><span class="ptag t-foto">Foto</span></div>
+      </div>
+      <span class="pc-arrow">›</span>
+    </div>
+    <div class="pc-body">
+      <div class="inner-tabs">
+        <button class="itab active" onclick="switchTab(this,'lib-aprender')">📚 Qué aprender</button>
+        <button class="itab" onclick="switchTab(this,'lib-grabar')">🎥 Qué grabar</button>
+        <button class="itab" onclick="switchTab(this,'lib-datos')">💡 Datos curiosos</button>
+      </div>
+      <div id="lib-aprender" class="itab-pane active">
+        <div class="fact-box">Brasil tiene <strong>1.5 millones de japoneses y descendientes</strong> — la mayor colonia japonesa fuera de Japón. Llegaron entre 1908 y los años 50 para trabajar en las plantaciones de café después de la abolición de la esclavitud.</div>
+        <div class="cult-timeline">
+          <div class="ct-item"><div class="ct-label">La historia que no te cuentan</div><h4>El Kasato Maru — 1908</h4><p>El primer barco con inmigrantes japoneses llegó a Santos (el puerto de São Paulo) el 18 de junio de 1908. Traía 165 familias. Venían con un contrato de trabajo de 3 años en las fazendas de café. Muchos nunca pudieron volver. Sus hijos y nietos son los que hoy tienen el barrio Liberdade.</p></div>
+          <div class="ct-item"><div class="ct-label">Para tu contenido</div><h4>Migración como tecnología cultural</h4><p>Los inmigrantes japoneses transplantaron su cultura completa: el idioma, la gastronomía, las tradiciones, los festivales. Liberdade hoy tiene sushi auténtico, mercados de ingredientes japoneses, y festivales de Bon Odori. Una cultura sobrevivió cruzando el Pacífico.</p></div>
+        </div>
+      </div>
+      <div id="lib-grabar" class="itab-pane">
+        <div class="tip"><div class="tdot verde"></div><p><strong>Los faroles rojos</strong> de la calle principal son icónicos y muy fotogénicos, especialmente al atardecer.</p></div>
+        <div class="tip"><div class="tdot verde"></div><p><strong>El Mercado da Liberdade</strong> (los fines de semana): puestos de comida japonesa-brasileña, artesanías, productos importados. Graba la comida y las reacciones.</p></div>
+        <div class="tip"><div class="tdot amarelo"></div><p><strong>Hook educativo:</strong> "Brasil tiene más japoneses que cualquier país fuera de Japón. La historia de cómo llegaron es más oscura y más hermosa de lo que imaginas."</p></div>
+      </div>
+      <div id="lib-datos" class="itab-pane">
+        <div class="fact-box">🍣 La gastronomía japonesa-brasileña creó platos únicos en el mundo — el temaki de cream cheese, el sushi con ingredientes tropicales. La fusión como identidad.</div>
+        <div class="fact-box">🎋 El nombre "Liberdade" (libertad) es irónico — el barrio se fundó en una área donde antes había una cárcel. Los inmigrantes japoneses compraron las tierras baratas alrededor y construyeron su comunidad ahí.</div>
+        <div class="fact-box">🌸 Cada año Liberdade celebra el <strong>Bon Odori</strong> — el festival japonés de los ancestros — con decenas de miles de personas. Es el festival japonés más grande fuera de Japón.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ TECH ============ -->
+<div id="tech" class="section">
+  <div class="sec-header">
+    <p class="sec-label">Tecnología & Startups</p>
+    <h2>El ecosistema tech que <em>mueve Brasil</em></h2>
+    <p>Como ingeniera informática recién graduada, este es tu ángulo más poderoso. Brasil tiene el ecosistema tech más grande de Latinoamérica. Aprende esto y tu contenido se diferencia de cualquier travel creator.</p>
+  </div>
+
+  <div class="tech-grid">
+    <div class="tech-card">
+      <span class="tce">💜</span>
+      <h4>Nubank</h4>
+      <div class="tcl">Fintech · Fundada 2013 · São Paulo</div>
+      <p>El banco digital más grande de Latinoamérica. Más de 90 millones de clientes en Brasil, México y Colombia. Sin sucursales físicas. Valorado en +50 mil millones USD.</p>
+      <div class="learn">Preguntar en la visita: ¿Cómo manejan la seguridad de datos de 90M usuarios? ¿Qué lenguajes/stack usan? ¿Cómo es el equipo de ingeniería?</div>
+    </div>
+    <div class="tech-card">
+      <span class="tce">💻</span>
+      <h4>TOTVS</h4>
+      <div class="tcl">ERP/Software empresarial · Fundada 1983</div>
+      <p>El mayor proveedor de software empresarial de Latam. Sus sistemas de gestión corren en hospitales, escuelas, comercios y fábricas en toda la región. El 90% del mercado brasileño de software ERP.</p>
+      <div class="learn">Investigar: ¿Qué es un ERP y por qué importa? ¿Cómo una empresa de 40 años se adapta a la era cloud e IA?</div>
+    </div>
+    <div class="tech-card">
+      <span class="tce">🏦</span>
+      <h4>Pix — El sistema de pagos de Brasil</h4>
+      <div class="tcl">Creado por el Banco Central · Lanzado 2020</div>
+      <p>El sistema de pagos instantáneos creado por el gobierno brasileño. Hoy el 75% de los brasileños lo usa. Transferencias en segundos, 24/7, gratis. Es el sistema de pagos más avanzado del mundo.</p>
+      <div class="learn">En Chile existe CuentaRUT/transferencias. Pix va mucho más allá — es infraestructura pública de pagos. Compara los sistemas para tu contenido.</div>
+    </div>
+    <div class="tech-card">
+      <span class="tce">🌱</span>
+      <h4>iFood</h4>
+      <div class="tcl">Delivery · Fundada 2011 · São Paulo</div>
+      <p>El Uber Eats de Brasil pero más grande. Procesa millones de órdenes diarias. Lanzó pagos propios (iFood Pay) y finanzas para restaurantes. Del delivery al ecosistema financiero.</p>
+      <div class="learn">Caso de estudio: ¿Cómo un app de delivery se convierte en empresa fintech? La evolución de los superapps en Latam.</div>
+    </div>
+    <div class="tech-card">
+      <span class="tce">🤖</span>
+      <h4>IA en Brasil — El contexto</h4>
+      <div class="tcl">Ecosistema · Inversión creciente</div>
+      <p>Brasil invierte más en IA que cualquier otro país de Latam. Tiene la mayor base de desarrolladores de la región. El gobierno creó una estrategia nacional de IA en 2021.</p>
+      <div class="learn">Investigar: ¿Cuáles son los sesgos de la IA cuando se entrena principalmente con datos en inglés? ¿Qué pasa con los idiomas minoritarios?</div>
+    </div>
+    <div class="tech-card">
+      <span class="tce">🚗</span>
+      <h4>99 — El Uber brasileño</h4>
+      <div class="tcl">Ride-sharing · Fundada 2012 · São Paulo</div>
+      <p>Fundada en São Paulo, fue la primera startup latinoamericana en ser adquirida por una empresa china (DiDi, 2018). Compitió con Uber y ganó terreno. La historia de cómo una startup local sobrevivió al gigante americano.</p>
+      <div class="learn">Para moverte en SP usa 99 o Uber — y piensa en la historia detrás de cada app que abres.</div>
+    </div>
+  </div>
+
+  <div style="background:var(--verde-xl);border-radius:12px;padding:1.5rem;margin-top:1.5rem;border:1.5px solid var(--verde-l);">
+    <span class="blabel">Tu ángulo de contenido único para tech en Brasil</span>
+    <div class="fact-box" style="margin-bottom:.6rem;">Nubank vs. banco tradicional chileno: ¿por qué Brasil lo logró primero? — carrusel comparativo</div>
+    <div class="fact-box" style="margin-bottom:.6rem;">Pix vs. transferencias en Chile: la diferencia en infraestructura pública digital — educativo y relevante</div>
+    <div class="fact-box" style="margin-bottom:0;">¿Puede la IA hablar español latinoamericano? El problema del sesgo lingüístico — monólogo o carrusel</div>
+  </div>
+</div>
+
+<!-- ============ CULTURA ============ -->
+<div id="cultura" class="section">
+  <div class="sec-header">
+    <p class="sec-label">Historia & Cultura</p>
+    <h2>Lo que Brasil necesitas <em>entender</em> antes de llegar</h2>
+    <p>No para parecer que sabes mucho — sino para que lo que ves tenga profundidad real. Tu contenido cambia completamente cuando entiendes el contexto.</p>
+  </div>
+
+  <div class="cult-timeline">
+    <div class="ct-item">
+      <div class="ct-label">Historia esencial</div>
+      <h4>1500-1888: Colonia, esclavitud y café</h4>
+      <p>Brasil fue colonia portuguesa 322 años. Fue el país que más esclavos africanos recibió en la historia (4.8 millones). La abolición llegó en 1888 — fue el último país de América en abolirla. El café fue el motor económico que construyó São Paulo. Todo esto lo vas a ver en los museos.</p>
+    </div>
+    <div class="ct-item">
+      <div class="ct-label">Cultura</div>
+      <h4>La identidad brasileña — "somos todos mezclados"</h4>
+      <p>Brasil tiene la identidad más mezclada del mundo: indígena, portuguesa, africana, italiana, japonesa, alemana, árabe. El concepto de "mestiçagem" (mestizaje) es parte del orgullo nacional — aunque también esconde desigualdades. La diversidad visible en São Paulo es real y es compleja.</p>
+    </div>
+    <div class="ct-item">
+      <div class="ct-label">Música</div>
+      <h4>Samba, Bossa Nova, Funk Carioca, Baile Funk, Forró</h4>
+      <p>Brasil ha creado más géneros musicales influyentes que cualquier otro país de Latinoamérica. La Bossa Nova nació mezclando samba con jazz americano. El Funk Carioca de las favelas de Río hoy suena en clubes de todo el mundo. La Escola de Samba que vas a ver es el ensayo de Carnaval — todo el año preparan para 4 días de febrero.</p>
+    </div>
+    <div class="ct-item">
+      <div class="ct-label">Política</div>
+      <h4>1964-1985: Dictadura militar</h4>
+      <p>Brasil tuvo 21 años de dictadura. El arte, la música y la cultura fueron instrumentos de resistencia — Caetano Veloso, Gilberto Gil y otros artistas fueron exiliados. La capoeira, el graffiti, el teatro callejero eran actos políticos. Entender esto cambia cómo ves todo lo que veas en los museos.</p>
+    </div>
+    <div class="ct-item">
+      <div class="ct-label">Capoeira — profundidad</div>
+      <h4>Arte marcial, danza, música y resistencia en uno</h4>
+      <p>Fue practicada secretamente por esclavos africanos en Brasil. La disfrazaron de danza para que los dueños de plantaciones no la reconocieran como entrenamiento de combate. Fue prohibida en 1890 con la república. Ilegalizada hasta 1937. Hoy es Patrimonio Cultural Inmaterial de la UNESCO. Ningún otro arte tiene esa historia.</p>
+    </div>
+    <div class="ct-item">
+      <div class="ct-label">Comida como cultura</div>
+      <h4>La feijoada y el brigadeiro como historia política</h4>
+      <p>La feijoada (frijoles negros con carne) nació en las senzalas — los cuartos de los esclavos — con los cortes de carne que los dueños de plantaciones no querían. El brigadeiro fue inventado en los años 40 en campaña política. La comida guarda historia.</p>
+    </div>
+  </div>
+
+  <div style="background:var(--deep);color:var(--cream);border-radius:14px;padding:1.5rem 1.75rem;margin-top:1.5rem;">
+    <span style="font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--verde-l);opacity:.8;display:block;margin-bottom:.5rem;">Palabras que necesitas aprender</span>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.6rem;">
+      <div style="font-size:.8rem;"><strong style="color:var(--amarelo);">Saudade</strong> — la melancolía de extrañar algo que quizás nunca existió. Sin traducción en español.</div>
+      <div style="font-size:.8rem;"><strong style="color:var(--amarelo);">Gostoso/a</strong> — delicioso, pero también se usa para "atractivo". Cuidado con el contexto.</div>
+      <div style="font-size:.8rem;"><strong style="color:var(--amarelo);">Tudo bem?</strong> — ¿Todo bien? La forma de saludar. Respuesta: "Tudo bem!" o "Tudo bom!"</div>
+      <div style="font-size:.8rem;"><strong style="color:var(--amarelo);">Obrigada</strong> — gracias (mujer hablando). Obrigado si eres hombre.</div>
+      <div style="font-size:.8rem;"><strong style="color:var(--amarelo);">Saudade</strong> — úsala en conversación y los brasileños te van a querer inmediatamente.</div>
+      <div style="font-size:.8rem;"><strong style="color:var(--amarelo);">Jeitinho brasileiro</strong> — "la forma brasileña" de resolver problemas creativamente. Improvisar con lo que hay.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ PLAYA ============ -->
+<div id="playa" class="section">
+  <div class="sec-header">
+    <p class="sec-label">Día de playa</p>
+    <h2>De São Paulo al <em>Atlántico</em></h2>
+    <p>São Paulo no tiene playa — pero a 1-2 horas hay algunas de las más hermosas de Brasil. Este es tu día de contenido diferente: de ingeniera en clase a chilena en el mar brasileño.</p>
+  </div>
+
+  <div class="beach-hero">
+    <h3>🌊 Un día de playa en julio</h3>
+    <p>Julio es invierno en Brasil — pero São Paulo está a 20-25°C. En la costa hace algo más de frío (17-22°C), el mar está fresco pero hermoso. Menos gente que en verano. Perfecta para fotos.</p>
+  </div>
+
+  <span class="blabel">Las mejores opciones desde São Paulo</span>
+  <div class="beach-options">
+    <div class="beach-opt">
+      <h4>🥇 Guarujá — La recomendación</h4>
+      <div class="bdist">88 km · 1h30 en bus o auto</div>
+      <p>La más cercana y con mejor infraestructura. Praia da Enseada tiene 5km de arena y aguas variables. Buena para caminar, nadar en zonas tranquilas y comer frutos del mar frescos.</p>
+      <div style="margin-top:.6rem;font-size:.75rem;color:var(--verde);font-weight:600;">✓ Bus desde Terminal Jabaquara · Pedir Uber desde Santos via balsa</div>
+    </div>
+    <div class="beach-opt">
+      <h4>🏄 Maresias — Para las más aventureras</h4>
+      <div class="bdist">190 km · 2h30 en auto</div>
+      <p>3km de arena blanca y olas perfectas para surf. Ambiente más relajado, menos masificada. Si consigues transporte, vale mucho la pena. Pasar la noche si pueden.</p>
+      <div style="margin-top:.6rem;font-size:.75rem;color:var(--azul);font-weight:600;">→ Mejor opción si el programa tiene fin de semana largo</div>
+    </div>
+    <div class="beach-opt">
+      <h4>🏛️ Santos — La histórica</h4>
+      <div class="bdist">72 km · 1h en bus</div>
+      <p>La ciudad portuaria más importante de Latam. Tiene playa + historia + el centro histórico de Santos donde Pelé nació. Combinar playa con cultura.</p>
+      <div style="margin-top:.6rem;font-size:.75rem;color:var(--verde);font-weight:600;">✓ Bus directo desde Terminal Jabaquara muy frecuente</div>
+    </div>
+  </div>
+
+  <div class="divl"></div>
+  <span class="blabel">Cómo ir a Guarujá — Paso a paso</span>
+  <div class="checklist">
+    <div class="citem"><div class="cbox" onclick="this.classList.toggle('checked')"></div><p>Metro hasta la estación <strong>Jabaquara</strong> (línea azul, última estación)</p></div>
+    <div class="citem"><div class="cbox" onclick="this.classList.toggle('checked')"></div><p>Terminal Rodoviário Jabaquara: buscar bus a <strong>Santos o Guarujá</strong> (empresa Cometa o similar)</p></div>
+    <div class="citem"><div class="cbox" onclick="this.classList.toggle('checked')"></div><p>Viaje ~1h30-2h dependiendo del tráfico (evitar viernes tarde y domingo regreso)</p></div>
+    <div class="citem"><div class="cbox" onclick="this.classList.toggle('checked')"></div><p>En Guarujá: Uber/taxi a Praia da Enseada o Praia de Pitangueiras</p></div>
+    <div class="citem"><div class="cbox" onclick="this.classList.toggle('checked')"></div><p>Llevar: protector solar (el sol de Brasil es otro nivel), agua, ropa de cambio, reales en efectivo para quioscos</p></div>
+  </div>
+
+  <div class="divl"></div>
+  <span class="blabel">Contenido del día de playa</span>
+  <div class="ideas-list">
+    <div class="idea-row">
+      <span class="idea-fmt ifr">Reel</span>
+      <div class="idea-text"><strong>"De la clase de IA a la playa del Atlántico. Todo en 24 horas. Brasil no entiende de categorías."</strong> — Cortes de tu escritorio con notas de IA → bus → playa → agua. El contraste es el contenido.</div>
+    </div>
+    <div class="idea-row">
+      <span class="idea-fmt ifp">Foto</span>
+      <div class="idea-text"><strong>Foto en el mar con caption reflexivo</strong> — "Primera vez que toco el Océano Atlántico. El mismo océano que cruzaron los barcos que trajeron inmigrantes japoneses a Brasil en 1908." Conectas el viaje a la playa con la historia que aprendiste en Liberdade.</div>
+    </div>
+    <div class="idea-row">
+      <span class="idea-fmt ifr">Reel</span>
+      <div class="idea-text"><strong>GRWM playa edition</strong> — Outfit de playa con tu estilo + el bus + llegada + primer contacto con el mar. Contenido de transición que encanta.</div>
+    </div>
+    <div class="idea-row">
+      <span class="idea-fmt ifc">Carrusel</span>
+      <div class="idea-text"><strong>"La playa brasileña vs. la playa chilena — lo que nadie te dice"</strong> — Comparación cultural, gastronómica y visual. Los quioscos de playa en Brasil son completamente diferentes a los de Chile. El ambiente, la música, la comida.</div>
+    </div>
+    <div class="idea-row">
+      <span class="idea-fmt ifr">Reel</span>
+      <div class="idea-text"><strong>Bailar en la playa</strong> — Un reel de baile en la arena. Audio brasileño (axé, pagode, forró). Tu mundo del baile + Brasil + playa en 30 segundos. Viralmente perfecto.</div>
+    </div>
+  </div>
+
+  <div class="hook-box" style="margin-top:1rem;">"São Paulo no tiene playa. Pero tiene buses. En 90 minutos estaba en el Océano Atlántico comiendo camarão y sin procesar nada de lo que pasó esta semana. 🌊🇧🇷"</div>
+</div>
+
+<!-- ============ COMIDA ============ -->
+<div id="comida" class="section">
+  <div class="sec-header">
+    <p class="sec-label">Gastronomía</p>
+    <h2>Todo lo que tienes que <em>probar</em> y grabar</h2>
+    <p>La comida es la forma más fácil de conectar con tu audiencia. Reacciones en tiempo real, datos curiosos, la historia detrás de cada plato. Contenido garantizado.</p>
+  </div>
+
+  <div class="food-grid">
+    <div class="food-item">
+      <span class="food-emoji">🍫</span>
+      <h4>Brigadeiro</h4>
+      <p>Leche condensada + mantequilla + chocolate. Inventado en los años 40 en campaña política. El postre más amado de Brasil.</p>
+      <div class="content-tip">📱 Grabarte haciéndolo en el workshop + dato histórico = reel perfecto</div>
+    </div>
+    <div class="food-item">
+      <span class="food-emoji">🧀</span>
+      <h4>Pão de Queijo</h4>
+      <p>Bolita de pan de yuca con queso. Crujiente afuera, suave adentro. Se come caliente. Adictivo. Existe desde el siglo XVIII en Minas Gerais.</p>
+      <div class="content-tip">📱 Primera reacción en tiempo real — tu cara lo va a decir todo</div>
+    </div>
+    <div class="food-item">
+      <span class="food-emoji">🫘</span>
+      <h4>Feijoada</h4>
+      <p>Frijoles negros con carne de cerdo. Plato nacional. Nació en las senzalas (cuartos de esclavos) con los cortes que los dueños rechazaban. Historia en cada cucharada.</p>
+      <div class="content-tip">📱 El contexto histórico hace este plato contenido educativo poderoso</div>
+    </div>
+    <div class="food-item">
+      <span class="food-emoji">🍗</span>
+      <h4>Coxinha</h4>
+      <p>Croqueta de pollo en forma de muslo. La vas a ver en cada padaria y restaurante. Es el snack más democrático de Brasil.</p>
+      <div class="content-tip">📱 "Probé la comida de calle de Brasil. Ranking honesto."</div>
+    </div>
+    <div class="food-item">
+      <span class="food-emoji">🫐</span>
+      <h4>Açaí auténtico</h4>
+      <p>Oscuro, espeso, casi amargo. Nada que ver con lo que llaman açaí en Chile. Con granola y fruta tropical. La diferencia te va a sorprender.</p>
+      <div class="content-tip">📱 "El açaí que conocemos NO existe. El real es esto:" — reel corto</div>
+    </div>
+    <div class="food-item">
+      <span class="food-emoji">🥤</span>
+      <h4>Caldo de Cana</h4>
+      <p>Jugo de caña de azúcar fresco, exprimido en el momento. Dulce, refrescante, completamente diferente a cualquier jugo que conozcas. Los vendedores ambulantes lo tienen en toda la ciudad.</p>
+      <div class="content-tip">📱 La máquina de exprimir caña es muy visual para video</div>
+    </div>
+    <div class="food-item">
+      <span class="food-emoji">🥪</span>
+      <h4>Mortadella del Mercado Municipal</h4>
+      <p>El sandwich de mortadela del Mercadão es un rito de paso en São Paulo. Enorme, barato, icónico. Existe desde 1933.</p>
+      <div class="content-tip">📱 La cara cuando ves el tamaño por primera vez = contenido sin editar</div>
+    </div>
+    <div class="food-item">
+      <span class="food-emoji">🍤</span>
+      <h4>Camarão (playa)</h4>
+      <p>En los quioscos de playa de Guarujá: camarões frescos a la plancha o fritos. Con limón. Simplísimo y perfecto. El mejor almuerzo del viaje.</p>
+      <div class="content-tip">📱 "El almuerzo más rico del viaje costó 30 reales en un quiosco de playa" — honesto y compartible</div>
+    </div>
+  </div>
+
+  <div class="hook-box" style="margin-top:1rem;">"La feijoada nació con los cortes de carne que los esclavos recibían porque los dueños no los querían. Hoy es el plato nacional de Brasil. Eso dice todo sobre cómo funciona la cultura." 🫘</div>
+</div>
+
+<!-- ============ CONTENIDO ============ -->
+<div id="contenido" class="section">
+  <div class="sec-header">
+    <p class="sec-label">Ideas de contenido extra</p>
+    <h2>Lo que no está en el <em>itinerario oficial</em></h2>
+    <p>Ideas adicionales que puedes filmar en cualquier momento del viaje.</p>
+  </div>
+
+  <div class="ideas-list">
+    <div class="idea-row">
+      <span class="idea-fmt ifr">Reel</span>
+      <div class="idea-text"><strong>"Soy ingeniera informática en un programa de IA en Brasil. Esto es un día normal de mi semana."</strong> — Formato day-in-the-life. Clase → museo → comida → paseo. El ritmo de Brasil es diferente y eso se graba.</div>
+    </div>
+    <div class="idea-row">
+      <span class="idea-fmt ifc">Carrusel</span>
+      <div class="idea-text"><strong>"Brasil tiene el ecosistema startup más grande de Latam. Lo que nadie te cuenta desde adentro."</strong> — Con lo que aprendas en Nubank y TOTVS. Datos concretos, perspectiva de ingeniera. Tu audiencia de mujeres en STEM lo va a guardar.</div>
+    </div>
+    <div class="idea-row">
+      <span class="idea-fmt ifr">Reel</span>
+      <div class="idea-text"><strong>Trend del momento adaptado:</strong> Busca 3-5 audios trending la semana antes de viajar. Guárdalos. Úsalos en Brasil con contexto propio. El audio viraliza, el contexto te diferencia.</div>
+    </div>
+    <div class="idea-row">
+      <span class="idea-fmt ifc">Carrusel</span>
+      <div class="idea-text"><strong>"Español vs. Portugués: los 10 errores que cometí en Brasil"</strong> — Los falsos amigos más graciosos que encontraste. Educativo, divertido, muy compartible entre hispanohablantes.</div>
+    </div>
+    <div class="idea-row">
+      <span class="idea-fmt ifr">Reel</span>
+      <div class="idea-text"><strong>"Intenté hablar portugués todo el día. Esto pasó."</strong> — Monólogo honesto de los momentos de confusión lingüística. El ridículo adorable conecta con todo el mundo.</div>
+    </div>
+    <div class="idea-row">
+      <span class="idea-fmt ifp">Foto</span>
+      <div class="idea-text"><strong>Serie fotográfica: "Los colores de São Paulo"</strong> — São Paulo es una ciudad de colores intensos: el verde-amarillo de Brasil, el rojo del MASP, los faroles de Liberdade, los murales del Beco do Batman. Una foto por color, curada visualmente.</div>
+    </div>
+    <div class="idea-row">
+      <span class="idea-fmt ifr">Reel</span>
+      <div class="idea-text"><strong>"Lo que la capoeira me enseñó como bailarina"</strong> — Monólogo reflexivo después de la clase. Conecta tu mundo del baile con la historia de la capoeira. Profundidad en 60 segundos.</div>
+    </div>
+    <div class="idea-row">
+      <span class="idea-fmt ifc">Carrusel</span>
+      <div class="idea-text"><strong>"Pix, el sistema de pagos que Brasil inventó y el mundo debería copiar"</strong> — Educativo tech, explicado simple. Compara con Chile. Tu perspectiva de ingeniera hace que tengas autoridad para hablar de esto.</div>
+    </div>
+    <div class="idea-row">
+      <span class="idea-fmt ifr">Reel</span>
+      <div class="idea-text"><strong>"Sketch/monólogo: soy chilena en Brasil y no entiendo nada del menú"</strong> — Humor del extranjero hispanohablante enfrentando el portugués. Relatable para millones.</div>
+    </div>
+    <div class="idea-row">
+      <span class="idea-fmt ifp">Foto</span>
+      <div class="idea-text"><strong>OOTD cada día con dato del lugar</strong> — Una foto de outfit por día + un dato curioso del lugar que visitaste ese día en el caption. Moda + cultura = tu fórmula.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ CHECKLIST ============ -->
+<div id="checklist" class="section">
+  <div class="sec-header">
+    <p class="sec-label">Lista completa</p>
+    <h2>Todo lo que necesitas <em>antes de viajar</em></h2>
+    <p>Marca cada item mientras te preparas. Toca los cuadrados para tacharlos.</p>
+  </div>
+
+  <span class="blabel" style="margin-top:1rem;display:block;">📚 Investigar antes de ir</span>
+  <div class="checklist">
+    <div class="citem"><div class="cbox" onclick="this.classList.toggle('checked')"></div><p>Leer sobre Tarsila do Amaral y el modernismo brasileño</p></div>
+    <div class="citem"><div class="cbox" onclick="this.classList.toggle('checked')"></div><p>Ver 1 video sobre la historia de la capoeira (YouTube)</p></div>
+    <div class="citem"><div class="cbox" onclick="this.classList.toggle('checked')"></div><p>Buscar qué es Pix y cómo funciona</p></div>
+    <div class="citem"><div class="cbox" onclick="this.classList.toggle('checked')"></div><p>Investigar Nubank: historia, fundadores, modelo de negocio</p></div>
+    <div class="citem"><div class="cbox" onclick="this.classList.toggle('checked')"></div><p>Ver documental/video sobre la dictadura brasileña 1964-1985</p></div>
+    <div class="citem"><div class="cbox" onclick="this.classList.toggle('checked')"></div><p>Aprender 20 palabras básicas en portugués (App Duolingo, 1 semana)</p></div>
+    <div class="citem"><div class="cbox" onclick="this.classList.toggle('checked')"></div><p>Buscar los "falsos amigos" portugués-español más importantes</p></div>
+    <div class="citem"><div class="cbox" onclick="this.classList.toggle('checked')"></div><p>Leer sobre Lina Bo Bardi — arquitecta del MASP</p></div>
+  </div>
+
+  <span class="blabel" style="margin-top:1.25rem;display:block;">🎥 Para el contenido</span>
+  <div class="checklist">
+    <div class="citem"><div class="cbox" onclick="this.classList.toggle('checked')"></div><p>Guardar 5 audios trending en Instagram antes de salir</p></div>
+    <div class="citem"><div class="cbox" onclick="this.classList.toggle('checked')"></div><p>Comprar/traer trípode pequeño o clip de celular</p></div>
+    <div class="citem"><div class="cbox" onclick="this.classList.toggle('checked')"></div><p>Cargar batería extra y cable</p></div>
+    <div class="citem"><div class="cbox" onclick="this.classList.toggle('checked')"></div><p>Instalar CapCut o app de edición en el teléfono</p></div>
+    <div class="citem"><div class="cbox" onclick="this.classList.toggle('checked')"></div><p>Preparar presets/filtros consistentes para todas las fotos</p></div>
+    <div class="citem"><div class="cbox" onclick="this.classList.toggle('checked')"></div><p>Crear carpeta en el teléfono por día para organizar el material</p></div>
+    <div class="citem"><div class="cbox" onclick="this.classList.toggle('checked')"></div><p>Llevar cuaderno pequeño para anotar datos curiosos en tiempo real</p></div>
+  </div>
+
+  <span class="blabel" style="margin-top:1.25rem;display:block;">🌊 Para el día de playa</span>
+  <div class="checklist">
+    <div class="citem"><div class="cbox" onclick="this.classList.toggle('checked')"></div><p>Guardar la ruta: Metro Jabaquara → Terminal Jabaquara → Bus a Santos/Guarujá</p></div>
+    <div class="citem"><div class="cbox" onclick="this.classList.toggle('checked')"></div><p>Protector solar 50+ (el sol de Brasil es muy intenso incluso en julio)</p></div>
+    <div class="citem"><div class="cbox" onclick="this.classList.toggle('checked')"></div><p>Ropa de cambio en la mochila</p></div>
+    <div class="citem"><div class="cbox" onclick="this.classList.toggle('checked')"></div><p>Reales en efectivo para quioscos de playa (no siempre aceptan tarjeta)</p></div>
+    <div class="citem"><div class="cbox" onclick="this.classList.toggle('checked')"></div><p>Ir preferiblemente en fin de semana libre (sábado 26/07 o domingo 27/07 o 01/08)</p></div>
+  </div>
+
+  <span class="blabel" style="margin-top:1.25rem;display:block;">💬 Frases en portugués para grabar</span>
+  <div class="checklist">
+    <div class="citem"><div class="cbox" onclick="this.classList.toggle('checked')"></div><p><strong>"Tudo bem?"</strong> — ¿Todo bien? (saludo)</p></div>
+    <div class="citem"><div class="cbox" onclick="this.classList.toggle('checked')"></div><p><strong>"Obrigada"</strong> — Gracias (mujer que habla)</p></div>
+    <div class="citem"><div class="cbox" onclick="this.classList.toggle('checked')"></div><p><strong>"Que gostoso!"</strong> — ¡Qué rico! (para la comida)</p></div>
+    <div class="citem"><div class="cbox" onclick="this.classList.toggle('checked')"></div><p><strong>"Não entendo"</strong> — No entiendo</p></div>
+    <div class="citem"><div class="cbox" onclick="this.classList.toggle('checked')"></div><p><strong>"Saudade"</strong> — Úsala. Los brasileños te van a adorar.</p></div>
+  </div>
+</div>
+
+</div><!-- end main -->
+<footer>@karenartc · Guía São Paulo · Julho 2026 🇧🇷🌿 · Arte, baile, informática e tudo que vai entre meio</footer>
+
+<script>
+function showSec(id) {
+  document.querySelectorAll('.section').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.cnav').forEach(el => el.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  event.target.classList.add('active');
+  window.scrollTo({top:52, behavior:'smooth'});
+}
+
+function togglePlace(head) {
+  const body = head.nextElementSibling;
+  const arrow = head.querySelector('.pc-arrow');
+  const open = body.classList.contains('open');
+  document.querySelectorAll('.pc-body').forEach(b => b.classList.remove('open'));
+  document.querySelectorAll('.pc-arrow').forEach(a => a.classList.remove('open'));
+  if (!open) { body.classList.add('open'); arrow.classList.add('open'); }
+}
+
+function switchTab(btn, targetId) {
+  const card = btn.closest('.pc-body');
+  card.querySelectorAll('.itab').forEach(t => t.classList.remove('active'));
+  card.querySelectorAll('.itab-pane').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  card.querySelector('#' + targetId).classList.add('active');
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,1144 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Karen · Brasil Content Calendar</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap');
+
+:root {
+  --verde:#2d6a4f;--verde-l:#74c69d;--verde-xl:#d8f3dc;
+  --amarelo:#e9c46a;--laranja:#f4a261;--rosa:#e76f51;
+  --ink:#1a1612;--cream:#fdf8f2;--fog:#e8e0d5;--deep:#12100e;
+  --s1:#f0faf4;--s2:#fff8ec;--s3:#fff0eb;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);font-size:14px;line-height:1.6;}
+
+/* TOP NAV */
+.topbar{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(253,248,242,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--fog);height:52px;display:flex;align-items:center;justify-content:space-between;padding:0 1.5rem;}
+.topbar-logo{font-family:'Lora',serif;font-size:.95rem;color:var(--verde);font-style:italic;}
+.topbar-sub{font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);opacity:.45;}
+
+/* PHASE NAV */
+.phase-nav{position:fixed;top:52px;left:0;right:0;z-index:190;background:var(--deep);display:flex;overflow-x:auto;scrollbar-width:none;}
+.phase-nav::-webkit-scrollbar{display:none;}
+.pnav-btn{flex-shrink:0;padding:.6rem 1.1rem;border:none;background:transparent;color:rgba(255,255,255,.45);font-family:'DM Sans',sans-serif;font-size:.72rem;font-weight:600;cursor:pointer;letter-spacing:.05em;text-transform:uppercase;transition:all .2s;border-bottom:2px solid transparent;white-space:nowrap;}
+.pnav-btn.active{color:var(--verde-l);border-bottom-color:var(--verde-l);}
+.pnav-btn:hover:not(.active){color:rgba(255,255,255,.75);}
+
+/* LAYOUT */
+.main{padding-top:104px;}
+
+/* HERO */
+.hero{background:var(--deep);color:var(--cream);padding:4rem 2rem 3rem;text-align:center;position:relative;overflow:hidden;}
+.hero::before{content:'🇧🇷';position:absolute;font-size:12rem;opacity:.04;top:50%;left:50%;transform:translate(-50%,-50%);}
+.hero-eyebrow{font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;color:var(--verde-l);opacity:.8;margin-bottom:1rem;}
+.hero h1{font-family:'Lora',serif;font-size:clamp(2rem,5vw,3.5rem);font-weight:400;line-height:1.2;margin-bottom:1rem;}
+.hero h1 em{font-style:italic;color:var(--amarelo);}
+.hero-stats{display:flex;gap:2rem;justify-content:center;margin-top:2rem;flex-wrap:wrap;}
+.stat{text-align:center;}
+.stat .n{font-family:'Lora',serif;font-size:2.2rem;color:var(--verde-l);font-weight:600;line-height:1;}
+.stat .l{font-size:.72rem;opacity:.5;margin-top:.2rem;letter-spacing:.05em;text-transform:uppercase;}
+
+/* PHASE */
+.phase{display:none;padding:2rem 1.5rem;max-width:900px;margin:0 auto;}
+.phase.active{display:block;}
+
+.phase-header{margin-bottom:2rem;}
+.phase-label{font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;color:var(--verde);opacity:.8;margin-bottom:.4rem;}
+.phase-header h2{font-family:'Lora',serif;font-size:clamp(1.5rem,3vw,2.2rem);font-weight:400;color:var(--deep);}
+.phase-header h2 em{font-style:italic;color:var(--verde);}
+.phase-header p{font-size:.88rem;opacity:.65;margin-top:.5rem;max-width:600px;line-height:1.6;}
+
+/* CONTENT CARD */
+.ccard{border:1.5px solid var(--fog);border-radius:14px;margin-bottom:1rem;overflow:hidden;background:white;}
+.ccard-header{display:flex;align-items:center;gap:.75rem;padding:1rem 1.25rem;cursor:pointer;transition:background .15s;}
+.ccard-header:hover{background:#faf7f3;}
+.ccard-date{font-family:'DM Mono',monospace;font-size:.62rem;color:var(--verde);opacity:.7;letter-spacing:.08em;white-space:nowrap;}
+.ccard-title{font-weight:600;font-size:.9rem;color:var(--deep);flex:1;line-height:1.3;}
+.ccard-fmt{font-size:.62rem;padding:.12rem .5rem;border-radius:20px;font-weight:700;letter-spacing:.04em;white-space:nowrap;}
+.fmt-reel{background:rgba(45,106,79,.12);color:var(--verde);}
+.fmt-carousel{background:rgba(233,196,106,.2);color:#7a5c00;}
+.fmt-photo{background:rgba(244,162,97,.15);color:#8a4a00;}
+.fmt-story{background:rgba(231,111,81,.12);color:var(--rosa);}
+.fmt-collab{background:rgba(180,100,220,.12);color:#6a00a0;}
+.ccard-arrow{font-size:.8rem;opacity:.3;transition:transform .2s;}
+.ccard-arrow.open{transform:rotate(90deg);opacity:.7;}
+.ccard-body{display:none;padding:0 1.25rem 1.25rem;border-top:1px solid var(--fog);}
+.ccard-body.open{display:block;}
+
+/* INSIDE CARD */
+.section-block{margin-top:1rem;}
+.block-label{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--verde);opacity:.65;margin-bottom:.4rem;}
+.hook-box{background:var(--verde-xl);border-left:3px solid var(--verde-l);border-radius:0 8px 8px 0;padding:.75rem 1rem;font-family:'Lora',serif;font-style:italic;font-size:.9rem;color:var(--deep);line-height:1.5;}
+.script-box{background:#faf7f3;border-radius:8px;padding:.85rem 1rem;font-size:.82rem;line-height:1.65;color:var(--ink);border:1px solid var(--fog);}
+.script-box strong{color:var(--verde);font-size:.75rem;letter-spacing:.06em;text-transform:uppercase;display:block;margin-bottom:.3rem;}
+.caption-box{background:#f0faf4;border-radius:8px;padding:.85rem 1rem;font-size:.82rem;line-height:1.65;color:var(--ink);border:1px dashed var(--verde-l);}
+.tip-row{display:flex;gap:.5rem;align-items:flex-start;margin-top:.5rem;}
+.tip-dot{width:5px;height:5px;border-radius:50%;background:var(--amarelo);margin-top:.5rem;flex-shrink:0;}
+.tip-row p{font-size:.8rem;opacity:.72;line-height:1.5;}
+.tags{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.5rem;}
+.htag{font-size:.65rem;padding:.1rem .5rem;background:var(--verde-xl);border-radius:20px;color:var(--verde);font-weight:500;}
+.pill-row{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.35rem;}
+.pill{font-size:.68rem;padding:.12rem .55rem;border-radius:20px;border:1px solid var(--fog);opacity:.7;}
+.divline{height:1px;background:var(--fog);margin:1rem 0;}
+
+/* STRATEGY BLOCK */
+.strategy-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.75rem;margin:1.5rem 0;}
+.sg{background:white;border:1.5px solid var(--fog);border-radius:12px;padding:1.25rem;}
+.sg .emoji{font-size:1.4rem;display:block;margin-bottom:.5rem;}
+.sg h4{font-weight:600;font-size:.85rem;margin-bottom:.3rem;color:var(--deep);}
+.sg p{font-size:.78rem;opacity:.65;line-height:1.5;}
+
+/* POSTING CALENDAR */
+.post-calendar{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.75rem;margin:1.5rem 0;}
+.pc-item{background:white;border:1.5px solid var(--fog);border-radius:10px;padding:1rem;}
+.pc-date{font-family:'DM Mono',monospace;font-size:.6rem;color:var(--verde);letter-spacing:.08em;margin-bottom:.4rem;}
+.pc-title{font-weight:600;font-size:.82rem;color:var(--deep);margin-bottom:.3rem;line-height:1.3;}
+.pc-fmt{display:inline-block;font-size:.6rem;padding:.1rem .45rem;border-radius:20px;font-weight:700;}
+
+/* ACCORDION group */
+.accordion-group{margin-bottom:.5rem;}
+
+footer{text-align:center;padding:3rem 2rem;border-top:1px solid var(--fog);font-size:.72rem;opacity:.35;letter-spacing:.05em;}
+
+@media(max-width:580px){
+  .hero-stats{gap:1.25rem;}
+  .phase{padding:1.5rem 1rem;}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <span class="topbar-logo">@karenartc · Brasil 🇧🇷</span>
+  <span class="topbar-sub">Content Calendar · 60+ piezas</span>
+</div>
+
+<div class="phase-nav">
+  <button class="pnav-btn active" onclick="showPhase('p0')">Antes ✈️</button>
+  <button class="pnav-btn" onclick="showPhase('p1')">Semana 1 · Cultura</button>
+  <button class="pnav-btn" onclick="showPhase('p2')">Semana 2 · IA & Tech</button>
+  <button class="pnav-btn" onclick="showPhase('p3')">Extras Brasil</button>
+  <button class="pnav-btn" onclick="showPhase('p4')">Después 🏠</button>
+  <button class="pnav-btn" onclick="showPhase('p5')">Calendario Post</button>
+  <button class="pnav-btn" onclick="showPhase('p6')">Estrategia</button>
+</div>
+
+<div class="main">
+<div class="hero">
+  <p class="hero-eyebrow">Plan de contenido completo · São Paulo · Julio 2026</p>
+  <h1>Brasil no es solo un viaje.<br>Es tu <em>era de contenido.</em></h1>
+  <div class="hero-stats">
+    <div class="stat"><div class="n">60+</div><div class="l">Piezas de contenido</div></div>
+    <div class="stat"><div class="n">30</div><div class="l">Días de posting</div></div>
+    <div class="stat"><div class="n">4</div><div class="l">Fases narrativas</div></div>
+    <div class="stat"><div class="n">∞</div><div class="l">Comunidad que viene</div></div>
+  </div>
+</div>
+
+<!-- FASE 0: ANTES -->
+<div id="p0" class="phase active">
+  <div class="phase-header">
+    <p class="phase-label">Fase 0 · Antes del viaje</p>
+    <h2>El <em>antes</em> es contenido igual que el durante</h2>
+    <p>Desde que te enteraste de que quedaste hasta el momento de subir al avión. Esta fase genera expectativa y hace que tu audiencia sienta que viaja contigo desde el principio.</p>
+  </div>
+
+  <!-- CARD 0.1 -->
+  <div class="ccard">
+    <div class="ccard-header" onclick="toggle(this)">
+      <span class="ccard-date">ANTES · Semanas previas</span>
+      <span class="ccard-title">🎉 "Quedé seleccionada para ir a Brasil — reacción en tiempo real"</span>
+      <span class="ccard-fmt fmt-reel">Reel</span>
+      <span class="ccard-arrow">›</span>
+    </div>
+    <div class="ccard-body">
+      <div class="section-block">
+        <p class="block-label">Hook de apertura</p>
+        <div class="hook-box">"No voy a mentir. Cuando vi el correo pensé que era spam."</div>
+      </div>
+      <div class="section-block">
+        <p class="block-label">Guión / Qué grabar</p>
+        <div class="script-box">
+          <strong>Cómo grabarlo</strong>
+          Cámara fija apuntando a tu cara mientras lees el correo (grábalo aunque ya lo hayas leído — tu reacción al RE-leerlo va a ser igualmente auténtica). Después corta a: tú saltando, contándole a familia/novia, el momento que lo procesas.<br><br>
+          <strong>Estructura del reel (30-45 seg)</strong>
+          [0-3s] Tú frente al computador, cara de concentración<br>
+          [3-8s] La reacción — risas, sorpresa, lo que sea real<br>
+          [8-20s] Texto en pantalla: "Me seleccionaron para un programa internacional de IA y transformación digital en São Paulo, Brasil" + voz en off breve<br>
+          [20-35s] Cortes rápidos: mirando vuelos, buscando Brasil en Google, contándole a alguien<br>
+          [35s] Freeze + texto: "Este es mi diario de viaje. Empieza ahora."
+        </div>
+      </div>
+      <div class="section-block">
+        <p class="block-label">Caption completo</p>
+        <div class="caption-box">
+          No lo tenía planeado. No lo esperaba. Y tardé como 10 minutos en creerlo 😭✨<br><br>
+          Quedé seleccionada para un programa internacional en São Paulo, Brasil — dos semanas de inteligencia artificial, transformación digital y cultura brasileña. Como ingeniera informática que también pinta, baila y trata de hacer todo a la vez... esto se siente surreal.<br><br>
+          Voy a documentar todo. El miedo, la emoción, lo que aprenda, lo que me sorprenda. Si siempre quisiste hacer algo así pero no sabías que era posible — quédate, porque te voy a contar cómo funciona.<br><br>
+          🍀 Brasil, allá voy.<br><br>
+          #mujeresSTEM #ingenieríainformática #programainternacional #brasil #saoPaulo #creciendoenpúblico
+        </div>
+      </div>
+      <div class="section-block">
+        <p class="block-label">Por qué funciona</p>
+        <div class="tip-row"><div class="tip-dot"></div><p>La reacción auténtica es irresistible — la gente siente que está ahí</p></div>
+        <div class="tip-row"><div class="tip-dot"></div><p>Establece el arco narrativo completo antes de que empiece</p></div>
+        <div class="tip-row"><div class="tip-dot"></div><p>Atrae a mujeres en STEM que quieren hacer lo mismo</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CARD 0.2 -->
+  <div class="ccard">
+    <div class="ccard-header" onclick="toggle(this)">
+      <span class="ccard-date">ANTES · 1-2 semanas antes</span>
+      <span class="ccard-title">🎒 "Lo que estoy empacando para 2 semanas en Brasil (siendo artista + ingeniera)"</span>
+      <span class="ccard-fmt fmt-carousel">Carrusel</span>
+      <span class="ccard-arrow">›</span>
+    </div>
+    <div class="ccard-body">
+      <div class="section-block">
+        <p class="block-label">Hook</p>
+        <div class="hook-box">"¿Cómo empacas para dos semanas donde vas a estar en clases de IA, en museos de arte, haciendo capoeira y en una Escola de Samba? Te lo explico."</div>
+      </div>
+      <div class="section-block">
+        <p class="block-label">Guión / Estructura del carrusel</p>
+        <div class="script-box">
+          <strong>Slide 1 (portada)</strong> Foto tuya con maleta abierta, outfit encima — título: "2 semanas en Brasil siendo artista + ingeniera 🇧🇷"<br><br>
+          <strong>Slide 2</strong> "Para las clases y visitas a empresas tech" — outfits estructurados pero con tu toque. Foto flat lay.<br><br>
+          <strong>Slide 3</strong> "Para los museos y días de cultura" — prendas más expresivas, coloridas<br><br>
+          <strong>Slide 4</strong> "Para la Escola de Samba y capoeira" — ropa cómoda, de movimiento<br><br>
+          <strong>Slide 5</strong> "El kit de arte que no puede faltar" — tu cuaderno, lápices, lo mínimo para crear<br><br>
+          <strong>Slide 6</strong> "Lo que jamás hubiera empacado pero Brasil me lo pidió" — cosas inesperadas<br><br>
+          <strong>Slide 7</strong> Pregunta: "¿Qué NO puede faltar en tu maleta?"
+        </div>
+      </div>
+      <div class="section-block">
+        <p class="block-label">Caption</p>
+        <div class="caption-box">
+          Dos semanas. Una maleta. Clases de inteligencia artificial por la mañana, museos y capoeira por la tarde, Escola de Samba por la noche. El reto de empacar cuando eres varias personas a la vez 🎒🎨💃<br><br>
+          La regla que uso: cada prenda tiene que poder ser al menos dos versiones de mí.<br><br>
+          ¿Tú cómo empacas para un viaje así?<br><br>
+          #packwithme #brasil #ootd #mujeresSTEM #viajera
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CARD 0.3 -->
+  <div class="ccard">
+    <div class="ccard-header" onclick="toggle(this)">
+      <span class="ccard-date">ANTES · Días previos</span>
+      <span class="ccard-title">😰 "Las cosas que nadie te dice sobre ir sola a un programa internacional"</span>
+      <span class="ccard-fmt fmt-carousel">Carrusel</span>
+      <span class="ccard-arrow">›</span>
+    </div>
+    <div class="ccard-body">
+      <div class="section-block">
+        <p class="block-label">Hook</p>
+        <div class="hook-box">"Tengo el vuelo. Tengo el hotel. Tengo el miedo. Esto es lo que nadie te dice sobre los programas internacionales."</div>
+      </div>
+      <div class="section-block">
+        <p class="block-label">Estructura</p>
+        <div class="script-box">
+          8-10 slides de verdades honestas sobre prepararse para ir sola a un programa internacional:<br>
+          — "El idioma va a ser un problema y está bien"<br>
+          — "Vas a extrañar tu casa más de lo que crees"<br>
+          — "No vas a entender todo en las clases y eso también está bien"<br>
+          — "La gente que conoces en estos programas se queda"<br>
+          — "Tu universidad no te prepara para esto — te prepara para sobrevivir esto"<br>
+          — "El miedo y la emoción se sienten iguales"<br>
+          Último slide: "Te cuento cómo me fue cuando vuelva 🌿"
+        </div>
+      </div>
+      <div class="section-block">
+        <p class="block-label">Caption</p>
+        <div class="caption-box">
+          En unos días me voy a Brasil sola a un programa de IA y transformación digital. Y sí, tengo miedo. Esto es lo que nadie te dice antes de ir 🍀<br><br>
+          (Spoiler: lo que sientes antes de algo grande siempre se parece al miedo. Pero también a algo más.)<br><br>
+          Guarda este post si tú también estás a punto de hacer algo que te asusta un poco. Lo vamos a necesitar.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CARD 0.4 -->
+  <div class="ccard">
+    <div class="ccard-header" onclick="toggle(this)">
+      <span class="ccard-date">ANTES · Día del vuelo</span>
+      <span class="ccard-title">✈️ "GRWM: Me voy a Brasil" — Get ready con Karen</span>
+      <span class="ccard-fmt fmt-reel">Reel</span>
+      <span class="ccard-arrow">›</span>
+    </div>
+    <div class="ccard-body">
+      <div class="section-block">
+        <p class="block-label">Hook</p>
+        <div class="hook-box">"Son las [hora] de la mañana. Tengo un vuelo a Brasil. Acompáñame."</div>
+      </div>
+      <div class="section-block">
+        <p class="block-label">Guión</p>
+        <div class="script-box">
+          <strong>Formato GRWM clásico pero con tu sello</strong><br>
+          Grábate desde que te levantas: desayuno rápido, preparar la maleta final, el outfit de viaje, salir de casa. Audio: voz en off hablando sobre cómo te sientes — no el discurso motivacional, lo real. "Dormi mal. Estoy emocionada. Mi mamá me llamó tres veces." Corta con llegada al aeropuerto + avión despegando si puedes grabarlo.
+        </div>
+      </div>
+      <div class="section-block">
+        <p class="block-label">Caption</p>
+        <div class="caption-box">
+          Hoy me voy. No puedo creer que esto sea real 🇧🇷✨<br><br>
+          Arte, baile, informática y todo lo que va entre medio — voy a Brasil a aprender sobre IA, a conocer museos que nunca imaginé, a hacer capoeira (probablemente muy mal) y a documentar cada momento para ustedes.<br><br>
+          Nos vemos del otro lado 🌿
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FASE 1: SEMANA 1 -->
+<div id="p1" class="phase">
+  <div class="phase-header">
+    <p class="phase-label">Fase 1 · Semana 1 · 20-26 Julio</p>
+    <h2>Cultura, arte y <em>lengua portuguesa</em></h2>
+    <p>La semana del asombro. Todo es nuevo. Tu trabajo es documentar con honestidad — el caos de llegar, el deslumbramiento de los museos, el ridículo adorable de intentar capoeira.</p>
+  </div>
+
+  <!-- DÍA 1 -->
+  <div class="ccard">
+    <div class="ccard-header" onclick="toggle(this)">
+      <span class="ccard-date">Lunes 20/07 · Llegada + Pinacoteca</span>
+      <span class="ccard-title">🖼️ "Primera impresión de São Paulo — lo que nadie te muestra"</span>
+      <span class="ccard-fmt fmt-reel">Reel</span>
+      <span class="ccard-arrow">›</span>
+    </div>
+    <div class="ccard-body">
+      <div class="section-block">
+        <p class="block-label">Hook</p>
+        <div class="hook-box">"São Paulo tiene 12 millones de personas. Yo llegué sin saber una sola palabra en portugués. Esto fue lo primero que vi."</div>
+      </div>
+      <div class="section-block">
+        <p class="block-label">Qué grabar</p>
+        <div class="script-box">
+          <strong>En el camino/llegada</strong> Video desde la ventana del auto/metro — la ciudad enorme, el tráfico, los grafitis en los muros (SP tiene el mejor street art de Latam). Grabate tú mirando por la ventana con cara de "wow".<br><br>
+          <strong>En la Pinacoteca</strong> No hagas la foto de turista parada frente al cuadro. Busca: detalles de texturas de pintura, sombras que caen sobre obras, tú de espaldas mirando una pieza enorme. El museo en sí es una obra arquitectónica — los arcos, la luz natural que entra.<br><br>
+          <strong>Dato curioso a mencionar en el reel</strong> La Pinacoteca (1905) tiene obras que muestran la historia de Brasil que no aparece en libros — incluyendo representaciones del trabajo esclavo. Es arte que duele y es necesario verlo.
+        </div>
+      </div>
+      <div class="section-block">
+        <p class="block-label">Caption</p>
+        <div class="caption-box">
+          Día 1 en São Paulo 🇧🇷<br><br>
+          Llegué sin saber qué esperar. La ciudad es enorme, ruidosa, llena de color. Y lo primero que hice fue ir a un museo de arte del siglo XIX que guarda la historia de Brasil que no te enseñan en la escuela.<br><br>
+          La Pinacoteca existe desde 1905. Tiene obras que muestran lo que Brasil fue — y lo que tuvo que superar. Ver eso en tu primer día te cambia el contexto de todo lo que viene después.<br><br>
+          Soy ingeniera. Soy artista. Y hoy entendí por qué ambas cosas importan juntas. 🎨<br><br>
+          #pinacoteca #saoPaulo #artebrasileiro #mujeresSTEM #primeradíaenBrasil
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DÍA 2 -->
+  <div class="ccard">
+    <div class="ccard-header" onclick="toggle(this)">
+      <span class="ccard-date">Martes 21/07 · Brigadeiro Workshop</span>
+      <span class="ccard-title">🍫 "Vine a aprender IA en Brasil. Me enseñaron a hacer brigadeiros primero."</span>
+      <span class="ccard-fmt fmt-reel">Reel</span>
+      <span class="ccard-arrow">›</span>
+    </div>
+    <div class="ccard-body">
+      <div class="section-block">
+        <p class="block-label">Hook</p>
+        <div class="hook-box">"Primera clase del programa internacional de inteligencia artificial. Hicimos brigadeiros. No me arrepiento para nada."</div>
+      </div>
+      <div class="section-block">
+        <p class="block-label">Qué grabar</p>
+        <div class="script-box">
+          <strong>El proceso del brigadeiro</strong> Manos mezclando, el chocolate, el momento de enrollar. Plano detalle de tus manos — este tipo de contenido tiene altísimo watch time. Reacciones al sabor: sé honesta, sé dramática.<br><br>
+          <strong>La clase de portugués</strong> Grábate intentando pronunciar palabras en portugués — el idioma suena como español mezclado con otra cosa y es muy gracioso al principio. "Obrigada" (gracias), "brigadeiro", "gostoso" (delicioso). Las equivocaciones son el contenido.<br><br>
+          <strong>OOTD del día</strong> Outfit de clase — cómodo pero tuyo. Story separada solo con el outfit.
+        </div>
+      </div>
+      <div class="section-block">
+        <p class="block-label">Caption</p>
+        <div class="caption-box">
+          Día 2 del programa y ya aprendí lo más importante de Brasil 🍫🇧🇷<br><br>
+          El brigadeiro es un dulce de leche condensada, mantequilla y chocolate en polvo. Se hace revolviendo sin parar por 15 minutos. Es lo más sencillo y lo más adictivo del universo.<br><br>
+          Pero lo que nadie te cuenta: el brigadeiro nació en los años 40 en una campaña política. Se usó para recaudar fondos para un brigadier del ejército. Hoy es el postre más famoso del país 🤌<br><br>
+          Vine a aprender sobre inteligencia artificial. Pero Brasil me enseñó primero que la cultura se come, se toca y se habla. Y que el idioma nuevo suena a música que todavía no entiendes del todo. <br><br>
+          (Mi pronunciación del portugués: catastrófica. Mi cara cuando probé el brigadeiro: de alivio total.)
+        </div>
+      </div>
+      <div class="section-block">
+        <p class="block-label">Extra · Story Serie</p>
+        <div class="script-box">
+          <strong>"¿Qué es más difícil?" encuesta en stories</strong><br>
+          "¿Qué fue más difícil hoy?" — Opción A: Pronunciar 'brigadeiro' en portugués / Opción B: No comerme toda la bandeja sola<br><br>
+          Funciona para engagement y humaniza tu día.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DÍA 3 -->
+  <div class="ccard">
+    <div class="ccard-header" onclick="toggle(this)">
+      <span class="ccard-date">Miércoles 22/07 · Museu da Língua Portuguesa</span>
+      <span class="ccard-title">✨ "Existe un museo dedicado solo a un idioma. Lo que vi adentro me dejó sin palabras."</span>
+      <span class="ccard-fmt fmt-carousel">Carrusel</span>
+      <span class="ccard-arrow">›</span>
+    </div>
+    <div class="ccard-body">
+      <div class="section-block">
+        <p class="block-label">Hook</p>
+        <div class="hook-box">"¿Un museo dedicado completamente a un idioma? Sí. Existe. Y es en São Paulo. Esto fue lo que encontré."</div>
+      </div>
+      <div class="section-block">
+        <p class="block-label">Qué fotografiar</p>
+        <div class="script-box">
+          El Museu da Língua Portuguesa es visualmente INCREÍBLE — tiene instalaciones de luz con palabras proyectadas en las paredes, líneas de tiempo inmensas del idioma, juegos interactivos. Busca:<br><br>
+          — Las palabras proyectadas en suelo/paredes: ponte en medio y deja que caigan sobre ti → FOTO ICÓNICA<br>
+          — La fachada exterior del edificio (Estação da Luz) — es neogótica y preciosa<br>
+          — Cualquier panel que muestre palabras que el portugués comparte con el español pero tienen significados distintos (los "falsos amigos") — esto es educativo y muy compartible<br><br>
+          <strong>Dato curioso para el carrusel</strong> El museo estuvo cerrado 7 años tras un incendio devastador en 2015. Reabrió completamente renovado en 2021. Es el único museo del mundo dedicado 100% a un idioma.
+        </div>
+      </div>
+      <div class="section-block">
+        <p class="block-label">Estructura del carrusel (8 slides)</p>
+        <div class="script-box">
+          Slide 1: Foto tuya en la entrada / fachada — "El museo que casi no existe (y por qué deberías conocerlo)"<br>
+          Slide 2: La historia del incendio 2015 → reapertura 2021 — texto minimalista<br>
+          Slide 3: Foto de las instalaciones de luz/palabras proyectadas<br>
+          Slide 4: "Palabras en portugués que suenan como español pero NO lo son" — los falsos amigos más graciosos<br>
+          Slide 5: "Borracha" = goma de borrar (no lo que crees 😂)<br>
+          Slide 6: "Polvo" = techo/nube de polvo (no el condimento)<br>
+          Slide 7: Más falsos amigos divertidos<br>
+          Slide 8: Reflexión — "¿Cuántas palabras conoces que no significan lo que crees?"
+        </div>
+      </div>
+      <div class="section-block">
+        <p class="block-label">Caption</p>
+        <div class="caption-box">
+          Día 3 y Brasil me acaba de enseñar que las palabras tienen historia, traumas y resurrecciones 🇧🇷✨<br><br>
+          El Museu da Língua Portuguesa en São Paulo estuvo cerrado 7 años después de un incendio en 2015. Perdieron archivos irremplazables. Y lo reconstruyeron igual — más luminoso que antes.<br><br>
+          Dato que me explotó la cabeza: "borracha" en portugués significa goma de borrar. "Polvo" significa techo. Y "embarazada" en portugués... tampoco significa lo que tú crees 😂<br><br>
+          Los idiomas son una forma de ver el mundo. Y hoy vi el mundo de otra manera.<br><br>
+          #museudolinguaportuguesa #saoPaulo #portugues #brasileirices #aprendiendo
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DÍA 4 -->
+  <div class="ccard">
+    <div class="ccard-header" onclick="toggle(this)">
+      <span class="ccard-date">Jueves 23/07 · Capoeira</span>
+      <span class="ccard-title">🥋 "Soy bailarina. Pensé que la capoeira sería fácil. Estaba muy equivocada."</span>
+      <span class="ccard-fmt fmt-reel">Reel</span>
+      <span class="ccard-arrow">›</span>
+    </div>
+    <div class="ccard-body">
+      <div class="section-block">
+        <p class="block-label">Hook</p>
+        <div class="hook-box">"Llevo años bailando. Me inscribí en capoeira con confianza. Esto fue lo que pasó."</div>
+      </div>
+      <div class="section-block">
+        <p class="block-label">Guión del reel (formato monólogo + acción)</p>
+        <div class="script-box">
+          <strong>Estructura tipo "expectativa vs. realidad"</strong><br><br>
+          [Inicio — 0-5s] Tú caminando hacia la clase con actitud: "Llevo bailando desde los [edad]. La capoeira es solo baile disfrazado de arte marcial. ¿Qué tan difícil puede ser?"<br><br>
+          [5-25s] Cortes rápidos del intento: los movimientos, tus caras de esfuerzo, algún tropiezo/error, risas genuinas<br><br>
+          [25-35s] Voz en off: "La capoeira no es baile. Es resistencia. Es historia. Y me ganó."<br><br>
+          [35-45s] Texto + voz: el dato sobre la prohibición de la capoeira — "Fue prohibida en Brasil durante décadas porque era el lenguaje secreto de resistencia de los esclavos. La disfrazaron de danza para que los opresores no la reconocieran como lo que era: libertad."<br><br>
+          [Final] "Ahora la entiendo diferente. Y les debo una disculpa a mis piernas."
+        </div>
+      </div>
+      <div class="section-block">
+        <p class="block-label">Caption</p>
+        <div class="caption-box">
+          Pensé que porque bailo, la capoeira iba a ser fácil 😭🥋<br><br>
+          Spoiler: no.<br><br>
+          Pero lo que nadie te cuenta antes de entrar a una clase de capoeira es esto: no es solo deporte. No es solo danza. La capoeira fue prohibida en Brasil durante décadas porque los esclavos la usaban como lenguaje de resistencia — la disfrazaron de baile para practicar defensa sin que nadie se diera cuenta.<br><br>
+          Es arte marcial, es música (el berimbau marca el ritmo y define el juego), es historia, es política.<br><br>
+          Hoy me ganó completamente. Y la amo por eso. 🇧🇷<br><br>
+          #capoeira #brasil #danza #resistencia #mujeresSTEM #aprendiendomientrasaprendo
+        </div>
+      </div>
+      <div class="section-block">
+        <p class="block-label">Extra · Reel educativo adicional</p>
+        <div class="hook-box">"3 cosas que no sabías sobre la capoeira" — carrusel educativo para guardar</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DÍA 5 -->
+  <div class="ccard">
+    <div class="ccard-header" onclick="toggle(this)">
+      <span class="ccard-date">Viernes 24/07 · Museu do Ipiranga</span>
+      <span class="ccard-title">🏛️ "Este museo estuvo cerrado casi 20 años. Lo que guarda adentro vale la espera."</span>
+      <span class="ccard-fmt fmt-carousel">Carrusel</span>
+      <span class="ccard-arrow">›</span>
+    </div>
+    <div class="ccard-body">
+      <div class="section-block">
+        <p class="block-label">Hook</p>
+        <div class="hook-box">"El Museu do Ipiranga estuvo cerrado por restauración casi 20 años. Reabrió en 2022. Hoy lo visité. Guarda el vestido de la emperatriz y la escena de la independencia de Brasil."</div>
+      </div>
+      <div class="section-block">
+        <p class="block-label">Qué fotografiar</p>
+        <div class="script-box">
+          — La fachada del museo: imponente, estilo palacio europeo en medio de São Paulo → foto arquitectónica tuya de espaldas mirando el edificio<br>
+          — El Parque da Independência: el lugar exacto donde se proclamó la independencia de Brasil<br>
+          — Cualquier pintura histórica importante de la colección<br>
+          — El contraste visual: edificio del siglo XIX + tú vestida con tu estilo contemporáneo → contenido visual fuerte
+        </div>
+      </div>
+      <div class="section-block">
+        <p class="block-label">OOTW · Semana 1</p>
+        <div class="script-box">
+          <strong>Post separado para publicar este día o el sábado</strong><br>
+          Carrusel con los outfits de los 5 días. Foto de cada outfit + una frase del día que lo acompañó. Título: "5 días en São Paulo · 5 outfits · 5 cosas que aprendí" — une el estilo con el aprendizaje. Altísimo potencial de guardado.
+        </div>
+      </div>
+      <div class="section-block">
+        <p class="block-label">Caption</p>
+        <div class="caption-box">
+          Hay lugares que cierran para volver mejores. El Museu do Ipiranga estuvo en restauración casi 20 años y reabrió en 2022 más luminoso que nunca 🏛️🇧🇷<br><br>
+          Adentro: el vestido de la emperatriz. El cuadro de la Independência. Siglos de historia que todavía puedes tocar con los ojos.<br><br>
+          Y afuera, el Parque da Independência: el lugar exacto donde Brasil dijo "ya no más" en 1822.<br><br>
+          Vine a aprender sobre inteligencia artificial. Brasil me está enseñando que la historia también es una tecnología — una forma de procesar el pasado para construir el futuro.<br><br>
+          Semana 1 terminada. 🌿
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SÁBADO LIBRE -->
+  <div class="ccard">
+    <div class="ccard-header" onclick="toggle(this)">
+      <span class="ccard-date">Sábado 25/07 · Libre · São Paulo</span>
+      <span class="ccard-title">🎨 "Beco do Batman: el callejón de graffiti que São Paulo esconde en Vila Madalena"</span>
+      <span class="ccard-fmt fmt-reel">Reel</span>
+      <span class="ccard-arrow">›</span>
+    </div>
+    <div class="ccard-body">
+      <div class="section-block">
+        <p class="block-label">Hook</p>
+        <div class="hook-box">"São Paulo tiene el mejor street art de América Latina. Y lo esconde en un callejón que no está en el mapa oficial."</div>
+      </div>
+      <div class="section-block">
+        <p class="block-label">Qué hacer / grabar</p>
+        <div class="script-box">
+          <strong>Beco do Batman (Vila Madalena)</strong> — un callejón completamente cubierto de murales de artistas locales e internacionales. Es cambiante: los murales se pintan encima de otros constantemente. Que tú seas artista + fotógrafa + estés ahí es contenido perfecto.<br><br>
+          — Reel caminando por el callejón con música brasileña — transiciones entre los murales<br>
+          — Foto tuya de espaldas frente a un mural enorme (el contraste humano/mural es visualmente poderoso)<br>
+          — Grábate reaccionando a las obras como artista: ¿qué técnica ves? ¿qué te llama la atención?<br><br>
+          <strong>Mercado Municipal (si vas)</strong> Los vitrales de la cúpula son increíbles para fotos. El mortadela sandwich gigante es un rito de paso en SP.
+        </div>
+      </div>
+      <div class="section-block">
+        <p class="block-label">Caption</p>
+        <div class="caption-box">
+          São Paulo pinta sus callejones. Literalmente 🎨🇧🇷<br><br>
+          El Beco do Batman en Vila Madalena es un callejón que artistas locales e internacionales han convertido en galería infinita. No hay una pieza permanente — todo puede ser pintado encima mañana. El arte aquí es efímero y colectivo.<br><br>
+          Yo que pinto, que hago fotos, que creo cosas — este lugar me rompió un poco el cerebro (en el mejor sentido).<br><br>
+          ¿Qué pasaría si tu arte pudiera desaparecer mañana y eso estuviera bien?<br><br>
+          #becodobatman #streetartsp #saoPaulo #arte #artista #vilamadalena
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FASE 2: SEMANA 2 -->
+<div id="p2" class="phase">
+  <div class="phase-header">
+    <p class="phase-label">Fase 2 · Semana 2 · 27 Julio - 1 Agosto</p>
+    <h2>IA, tech y <em>el futuro que ya llegó</em></h2>
+    <p>Aquí eres ingeniera en acción. Esta semana construye tu autoridad para mujeres en STEM. No tienes que saber todo — tienes que compartir lo que ves y lo que te hace preguntas.</p>
+  </div>
+
+  <div class="ccard">
+    <div class="ccard-header" onclick="toggle(this)">
+      <span class="ccard-date">Lunes 27/07 · Clase de IA</span>
+      <span class="ccard-title">🤖 "Primera clase de IA en Brasil: lo que aprendí el primer día que nadie te cuenta en la uni"</span>
+      <span class="ccard-fmt fmt-carousel">Carrusel</span>
+      <span class="ccard-arrow">›</span>
+    </div>
+    <div class="ccard-body">
+      <div class="section-block">
+        <p class="block-label">Hook</p>
+        <div class="hook-box">"Estudié ingeniería informática 5 años. Hoy en la primera clase del programa en Brasil aprendí algo que ningún syllabus me había dicho."</div>
+      </div>
+      <div class="section-block">
+        <p class="block-label">Guión monólogo (alternativa reel)</p>
+        <div class="script-box">
+          <strong>Formato: monólogo a cámara — lo más honesto posible</strong><br><br>
+          "Llevo 5 años estudiando computación. Hoy en la primera clase de este programa internacional en São Paulo, Brasil, me preguntaron algo que nadie me había preguntado en la universidad:<br><br>
+          '¿Para qué quieres que la IA sea inteligente? ¿Inteligente como qué? ¿Inteligente para quién?'<br><br>
+          Y no supe responder de inmediato. Y eso me pareció lo más interesante que me había pasado en una clase en años."<br><br>
+          Cierra con: "Si estudias o trabajas en tech — ¿para qué quieres que la IA sea inteligente? Cuéntame en los comentarios."
+        </div>
+      </div>
+      <div class="section-block">
+        <p class="block-label">Caption</p>
+        <div class="caption-box">
+          Semana 2 en São Paulo: ahora es inteligencia artificial y transformación digital 🤖🇧🇷<br><br>
+          Primera clase. Primer insight que me sacudió: la IA no es neutral. Nunca lo fue. Está diseñada por personas con perspectivas, sesgos, objetivos. La pregunta no es "¿puede la IA hacer esto?" sino "¿a quién beneficia que lo haga?"<br><br>
+          5 años de ingeniería y esta pregunta llegó en el primer día de este programa.<br><br>
+          Voy a compartir todo lo que aprenda esta semana. Porque si estás en tech (o queriendo estarlo), esto te importa. 💻<br><br>
+          #IA #inteligenciaartificial #mujeresSTEM #ingenieríainformática #saoPaulo #tech
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ccard">
+    <div class="ccard-header" onclick="toggle(this)">
+      <span class="ccard-date">Martes 28/07 · Visita Nubank</span>
+      <span class="ccard-title">💜 "Visité Nubank — la fintech más grande de Latam. Lo que vi adentro siendo ingeniera recién graduada."</span>
+      <span class="ccard-fmt fmt-reel">Reel</span>
+      <span class="ccard-arrow">›</span>
+    </div>
+    <div class="ccard-body">
+      <div class="section-block">
+        <p class="block-label">Hook</p>
+        <div class="hook-box">"Nubank empezó en un departamento en 2013 con 6 personas. Hoy vale 50 mil millones de dólares y yo estoy adentro. Este es mi reporte."</div>
+      </div>
+      <div class="section-block">
+        <p class="block-label">Qué grabar (respetando lo que permitan)</p>
+        <div class="script-box">
+          — Tú llegando al edificio: outffit de "ingeniera visitando tech company" + reacción<br>
+          — Si permiten grabar el espacio: arquitectura, áreas de trabajo, la paleta morada de Nubank en todo<br>
+          — Selfie o foto en la entrada/lobby con el logo<br>
+          — Story en tiempo real: "Estoy a punto de entrar a Nubank ¿qué les pregunto?"<br><br>
+          <strong>Datos curiosos para mencionar:</strong><br>
+          Nubank fue fundada en 2013 por David Vélez (colombiano). En 2021 fue el banco con más clientes en Brasil superando a bancos con 100 años de historia. Hoy opera en Brasil, México y Colombia. Su modelo: sin sucursales físicas, sin papel, sin filas.
+        </div>
+      </div>
+      <div class="section-block">
+        <p class="block-label">OOTD especial · "Ingeniera visitando Nubank"</p>
+        <div class="script-box">
+          Este outfit merece su post o reel propio. Hook: "¿Cómo te vistes para entrar a una de las empresas tech más importantes de Latam cuando también eres artista?" — El ángulo de identidad + moda + STEM en un solo post.
+        </div>
+      </div>
+      <div class="section-block">
+        <p class="block-label">Caption</p>
+        <div class="caption-box">
+          Hoy visité Nubank 💜🇧🇷<br><br>
+          Empezó en 2013 con 6 personas en un departamento. Hoy tiene más clientes en Brasil que cualquier banco tradicional con 100 años de historia. Sin sucursales. Sin papel. Sin filas.<br><br>
+          Entrar ahí siendo ingeniera informática recién graduada fue una de esas cosas que no sé bien cómo procesar todavía. La tecnología que estudié durante 5 años, funcionando a escala que no cabe en la cabeza.<br><br>
+          Y la pregunta que me traje de ahí: "¿Por qué los sistemas que más usan las personas son los que menos entendemos?"<br><br>
+          Más sobre lo que aprendí esta semana 👇<br><br>
+          #nubank #fintech #saoPaulo #mujeresSTEM #ingeniera #tecnología
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ccard">
+    <div class="ccard-header" onclick="toggle(this)">
+      <span class="ccard-date">Miércoles 29/07 · Tarde libre</span>
+      <span class="ccard-title">📚 "5 cosas que la IA hace hoy que te van a sorprender (y 2 que deberían preocuparte)"</span>
+      <span class="ccard-fmt fmt-carousel">Carrusel</span>
+      <span class="ccard-arrow">›</span>
+    </div>
+    <div class="ccard-body">
+      <div class="section-block">
+        <p class="block-label">Hook</p>
+        <div class="hook-box">"Llevo dos días de clases de IA en Brasil. Esto es lo que nadie te está contando sobre lo que ya está pasando — y yo lo aprendí aquí."</div>
+      </div>
+      <div class="section-block">
+        <p class="block-label">Estructura carrusel educativo</p>
+        <div class="script-box">
+          Diseño minimalista, texto grande, una idea por slide. Fondo verde oscuro (tu paleta) o neutro crema. Este es contenido que se guarda masivamente.<br><br>
+          Slide 1: "Lo que aprendí sobre IA en Brasil que no está en ningún curso online"<br>
+          Slides 2-6: Insights reales de las clases (toma nota en clase específicamente para este post)<br>
+          Slide 7: "Lo que debería preocuparnos" — sesgos, privacidad, quién controla los datos<br>
+          Slide 8: "Lo que me da esperanza" — aplicaciones en salud, educación, acceso<br>
+          Slide 9: "¿Tienes preguntas sobre IA? Las respondo en los comentarios"
+        </div>
+      </div>
+      <div class="section-block">
+        <p class="block-label">Caption</p>
+        <div class="caption-box">
+          Dos días de clases de IA en São Paulo y ya tengo más preguntas que respuestas. Pero eso es exactamente lo que quería 🤖✨<br><br>
+          Guardé este carrusel con lo que más me impactó — no la teoría que ya conocía, sino las preguntas que nadie me había hecho antes.<br><br>
+          Si estudias tech, trabajas en tech, o simplemente usas tecnología (spoiler: todos la usamos), esto te importa. Guárdalo para después.<br><br>
+          #IA #inteligenciaartificial #mujeresSTEM #tecnología #aprendiendo #saoPaulo
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ccard">
+    <div class="ccard-header" onclick="toggle(this)">
+      <span class="ccard-date">Jueves 30/07 · Visita TOTVS</span>
+      <span class="ccard-title">💻 "Visité TOTVS — el mayor proveedor de software de Latam que nadie conoce fuera de Brasil"</span>
+      <span class="ccard-fmt fmt-reel">Reel</span>
+      <span class="ccard-arrow">›</span>
+    </div>
+    <div class="ccard-body">
+      <div class="section-block">
+        <p class="block-label">Hook</p>
+        <div class="hook-box">"¿Conoces TOTVS? Probablemente no. Pero sus sistemas corren en millones de empresas en Latinoamérica. Hoy entré ahí."</div>
+      </div>
+      <div class="section-block">
+        <p class="block-label">Ángulo único: comparación Nubank vs. TOTVS</p>
+        <div class="script-box">
+          Hiciste dos visitas tech esta semana — eso es un carrusel o reel comparativo perfecto:<br><br>
+          "Visité dos empresas tech en São Paulo en una semana. Una es la más glamorosa de Latam. La otra mueve más dinero y nadie la conoce. Esto fue lo diferente."<br><br>
+          Nubank: B2C, visible, viral, morada y millennial<br>
+          TOTVS: B2B, invisible al público, pero infraestructura de miles de empresas<br><br>
+          La reflexión: "La tecnología más importante es la que no ves."
+        </div>
+      </div>
+      <div class="section-block">
+        <p class="block-label">Caption</p>
+        <div class="caption-box">
+          Esta semana visité Nubank y TOTVS. Dos empresas tech en São Paulo completamente distintas 💻🇧🇷<br><br>
+          Una la conoces. La otra probablemente no. Pero TOTVS lleva más de 35 años haciendo el software que hace funcionar empresas, hospitales, comercios en toda Latinoamérica — sin que nadie note que está ahí.<br><br>
+          Aprendí algo: la tecnología que más importa suele ser invisible. La infraestructura no sale en redes. Pero sin ella, nada funciona.<br><br>
+          Y eso como ingeniera me hizo repensar qué significa "hacer algo importante" en tech. 🤔<br><br>
+          #TOTVS #tech #saoPaulo #mujeresSTEM #ingeniera #transformacióndigital
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ccard">
+    <div class="ccard-header" onclick="toggle(this)">
+      <span class="ccard-date">Viernes 31/07 · Clausura + Escola de Samba</span>
+      <span class="ccard-title">🎓💃 "Certificado de IA a las 3pm. Escola de Samba a las 7pm. Brasil en un día."</span>
+      <span class="ccard-fmt fmt-reel">Reel</span>
+      <span class="ccard-arrow">›</span>
+    </div>
+    <div class="ccard-body">
+      <div class="section-block">
+        <p class="block-label">Hook</p>
+        <div class="hook-box">"Recibí mi certificado internacional de IA y transformación digital a las 3 de la tarde. A las 7 estaba en una Escola de Samba. Brasil no te da tiempo de procesar nada."</div>
+      </div>
+      <div class="section-block">
+        <p class="block-label">Guión</p>
+        <div class="script-box">
+          <strong>El reel más poderoso del viaje</strong><br><br>
+          Primera parte: la ceremonia de clausura — el certificado en mano, el momento de recibirlo, la cara. Texto: "2 semanas. 10 clases. 2 empresas tech. Capoeira. Brigadeiros. Museos. Y este papel."<br><br>
+          Segunda parte: corte directo a la Escola de Samba. El contraste visual es brutal y perfecto. Tú bailando, los trajes, el ritmo.<br><br>
+          Cierre con voz en off: "Dos semanas en Brasil me enseñaron sobre inteligencia artificial, sobre arte, sobre resistencia, sobre idioma. Pero lo más importante que aprendí es que todo esto — la tecnología, la cultura, el movimiento — viene de la misma necesidad humana: querer comunicar algo."
+        </div>
+      </div>
+      <div class="section-block">
+        <p class="block-label">Caption</p>
+        <div class="caption-box">
+          Fin del programa 🎓🇧🇷<br><br>
+          14 días. Clases de inteligencia artificial, visita a Nubank, visita a TOTVS, capoeira, Museu da Língua Portuguesa, brigadeiros, street art, samba.<br><br>
+          Y hoy: certificado en la mañana, Escola de Samba en la noche. Porque Brasil no entiende de categorías. Y yo tampoco.<br><br>
+          Arte, baile, informática y todo lo que va entre medio 🍀<br>
+          Eso soy. Eso fui aquí. Eso vuelvo a casa.<br><br>
+          Gracias por viajar conmigo. 🌿✨
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FASE 3: EXTRAS -->
+<div id="p3" class="phase">
+  <div class="phase-header">
+    <p class="phase-label">Fase 3 · Contenido extra · Cualquier momento</p>
+    <h2>Ideas que no dependen <em>del itinerario</em></h2>
+    <p>Estos puedes grabarlos en cualquier momento del viaje. Son el contenido de relleno que en realidad no es relleno — son los que más conectan.</p>
+  </div>
+
+  <div class="ccard">
+    <div class="ccard-header" onclick="toggle(this)">
+      <span class="ccard-date">Cualquier día · São Paulo</span>
+      <span class="ccard-title">🗣️ Monólogo: "Lo que significa ser mujer en STEM en un programa internacional"</span>
+      <span class="ccard-fmt fmt-reel">Reel</span>
+      <span class="ccard-arrow">›</span>
+    </div>
+    <div class="ccard-body">
+      <div class="section-block">
+        <p class="block-label">Hook</p>
+        <div class="hook-box">"Estoy en un programa internacional de IA en São Paulo. Y hay algo que todavía me incomoda hablar — pero lo voy a decir igual."</div>
+      </div>
+      <div class="section-block">
+        <p class="block-label">Guión monólogo</p>
+        <div class="script-box">
+          Cámara fija. Tú hablando directo. Sin guión perfecto — notas mentales pero con tu voz natural.<br><br>
+          "Cuando entré al programa y miré alrededor, conté cuántas éramos. Las mujeres. No porque sea lo primero que debería notar, sino porque después de cinco años en ingeniería informática, se vuelve automático.<br><br>
+          Nadie te dice que vas a hacer eso. Que vas a entrar a un salón y contar.<br><br>
+          Pero también nadie te dice la otra parte: que cuando te ven hablar con seguridad sobre algoritmos y después ven tu cuenta de Instagram con pinturas y baile — la gente no sabe cómo clasificarte. Y que eso es exactamente donde quieres estar.<br><br>
+          Ser mujer en STEM no significa renunciar al resto de lo que eres. Significa traerlo todo y no pedir perdón por ninguna parte."<br><br>
+          Cierre: "Si estás estudiando ingeniería, computación, ciencias — y te sientes dividida entre eso y tus otras partes: no tienes que elegir."
+        </div>
+      </div>
+      <div class="section-block">
+        <p class="block-label">Caption</p>
+        <div class="caption-box">
+          Algo que aprendí en Brasil que no estaba en el programa 🌿<br><br>
+          Ser mujer en STEM en un espacio internacional te hace notar cosas. Y también te hace darte cuenta de lo que ya no quieres notar — porque ya debería ser diferente.<br><br>
+          Pero también: te confirma que tu lugar ahí existe. Que lo que sabes tiene valor. Que no tienes que ser solo ingeniera para ser una buena ingeniera.<br><br>
+          Grabé este video pensando en la Karen de hace 5 años que entró a ingeniería informática sin saber si "encajaba". Para decirle: sí encajas. Y el espacio es más grande de lo que parece. 💙<br><br>
+          #mujeresSTEM #ingeniería #saoPaulo #representación #tecnología
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ccard">
+    <div class="ccard-header" onclick="toggle(this)">
+      <span class="ccard-date">Cualquier día · Comida brasileña</span>
+      <span class="ccard-title">🍽️ "Probé la comida brasileña por primera vez. Mi reacción honesta."</span>
+      <span class="ccard-fmt fmt-reel">Reel</span>
+      <span class="ccard-arrow">›</span>
+    </div>
+    <div class="ccard-body">
+      <div class="section-block">
+        <p class="block-label">Lista de platos que DEBES probar y grabar</p>
+        <div class="script-box">
+          — <strong>Açaí</strong>: el açaí chileno no existe. El brasileño es oscuro, espeso, casi amargo. Con granola y fruta. Reacción garantizada.<br>
+          — <strong>Pão de queijo</strong>: bolita de pan de queso que te va a cambiar la vida. Perfecto para reel de primera reacción.<br>
+          — <strong>Feijoada</strong>: el plato nacional. Frijoles negros con carne. Contundente y cultural.<br>
+          — <strong>Coxinha</strong>: croqueta de pollo. La vas a ver en todos lados.<br>
+          — <strong>Mortadela sandwich del Mercado Municipal</strong>: enorme, icónico, rito de paso en SP.<br>
+          — <strong>Caipirinha</strong>: si eres mayor de edad y quieres mostrarlo.<br><br>
+          Formato: reacción honesta en tiempo real. Sin editar la cara. El pão de queijo especialmente — casi todas las personas hacen la misma cara de satisfacción involuntaria.
+        </div>
+      </div>
+      <div class="section-block">
+        <p class="block-label">Caption</p>
+        <div class="caption-box">
+          Brasil me está cambiando la vida. Y empezó con el pão de queijo 🧀🇧🇷<br><br>
+          [Lista de lo que probé + reacción de cada uno]<br><br>
+          La comida de un país es su idioma más honesto. Brasil lo sabe — aquí todo se come junto, compartido, sin apuro.<br><br>
+          ¿Qué es lo que más quieren que pruebe antes de irme?
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ccard">
+    <div class="ccard-header" onclick="toggle(this)">
+      <span class="ccard-date">Fin de semana libre</span>
+      <span class="ccard-title">🌆 "São Paulo vs. lo que imaginaba: expectativa vs. realidad"</span>
+      <span class="ccard-fmt fmt-carousel">Carrusel</span>
+      <span class="ccard-arrow">›</span>
+    </div>
+    <div class="ccard-body">
+      <div class="section-block">
+        <p class="block-label">Hook</p>
+        <div class="hook-box">"Todo el mundo me decía cosas sobre São Paulo antes de venir. Esto fue lo que encontré en realidad."</div>
+      </div>
+      <div class="section-block">
+        <p class="block-label">Estructura</p>
+        <div class="script-box">
+          Slides alternando: "Lo que me dijeron" vs. "Lo que encontré"<br><br>
+          — "Que es peligrosa" → "Que tiene comunidades artísticas increíbles y life en la calle a toda hora"<br>
+          — "Que el portugués iba a ser difícil" → "Que entiendes más de lo que crees con el español"<br>
+          — "Que es solo una ciudad de negocios" → "Que tiene el mejor street art de Latam y 100 museos"<br>
+          — "Que iba a extrañar Chile" → "Que extrañé Chile Y no quería irme"
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ccard">
+    <div class="ccard-header" onclick="toggle(this)">
+      <span class="ccard-date">Trend · Cualquier momento</span>
+      <span class="ccard-title">🎵 Trend: "Tell me you're an engineer without telling me you're an engineer" — versión Brasil</span>
+      <span class="ccard-fmt fmt-reel">Reel</span>
+      <span class="ccard-arrow">›</span>
+    </div>
+    <div class="ccard-body">
+      <div class="section-block">
+        <p class="block-label">Concepto</p>
+        <div class="script-box">
+          Usar cualquier audio de trend vigente en el momento del viaje (revisa los trending de la semana antes de viajar y guarda 3-5 audios).<br><br>
+          Adaptarlo a: "Soy ingeniera, estoy en Brasil estudiando IA, y también pinto y bailo. Esto es mi día."<br><br>
+          Transiciones rápidas entre: clase de código/IA → museo → capoeira → brigadeiro → Escola de Samba<br><br>
+          El contraste es todo. Tu vida no cabe en una caja y ese es el punto.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ccard">
+    <div class="ccard-header" onclick="toggle(this)">
+      <span class="ccard-date">Lugar adicional · MASP</span>
+      <span class="ccard-title">🏛️ "El museo más importante de Latinoamérica está suspendido en el aire sobre Avenida Paulista"</span>
+      <span class="ccard-fmt fmt-carousel">Carrusel</span>
+      <span class="ccard-arrow">›</span>
+    </div>
+    <div class="ccard-body">
+      <div class="section-block">
+        <p class="block-label">Qué es y por qué ir</p>
+        <div class="script-box">
+          El MASP (Museu de Arte de São Paulo) es icónico arquitectónicamente: un edificio de vidrio y concreto rojo SUSPENDIDO sobre Avenida Paulista — sus vigas rojas crean un espacio vacío debajo donde se hacen mercados y eventos.<br><br>
+          Tiene obras de Picasso, Monet, Renoir, Tarsila do Amaral. Para ti como artista: es una visita obligatoria.<br><br>
+          <strong>Foto icónica</strong>: de abajo hacia arriba, con las vigas rojas como marco → muy compartible<br>
+          <strong>Dato curioso</strong>: fue diseñado por Lina Bo Bardi, una arquitecta italiana que emigró a Brasil. Es mujer, es inmigrante, y creó el edificio más icónico de São Paulo. Eso es una historia.
+        </div>
+      </div>
+      <div class="section-block">
+        <p class="block-label">Caption</p>
+        <div class="caption-box">
+          El MASP está literalmente suspendido en el aire sobre Avenida Paulista 🏛️🇧🇷<br><br>
+          Lo diseñó Lina Bo Bardi — arquitecta italiana que emigró a Brasil y creó el edificio más icónico de São Paulo. Mujer. Inmigrante. Revolucionaria.<br><br>
+          Adentro: Picasso. Monet. Tarsila do Amaral. Miró. Todo junto.<br><br>
+          Como artista que también estudia sistemas y estructuras, este lugar me recordó algo: la forma más audaz de construir algo es dejar espacio vacío en el centro.<br><br>
+          #MASP #saoPaulo #arte #linabobardi #arquitetura #mujeresSTEM
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ccard">
+    <div class="ccard-header" onclick="toggle(this)">
+      <span class="ccard-date">Lugar adicional · Liberdade</span>
+      <span class="ccard-title">🏮 "El barrio japonés de São Paulo — cómo una comunidad transplantó su cultura completa a Brasil"</span>
+      <span class="ccard-fmt fmt-reel">Reel</span>
+      <span class="ccard-arrow">›</span>
+    </div>
+    <div class="ccard-body">
+      <div class="section-block">
+        <p class="block-label">Qué grabar</p>
+        <div class="script-box">
+          Liberdade es el barrio japonés más grande fuera de Japón. Faroles rojos, restaurantes de ramen auténtico, mercados con ingredientes que no encontrarías en Chile.<br><br>
+          — Reel caminando por las calles con los faroles rojos (muy fotogénico)<br>
+          — Reacción a la comida japonesa-brasileña (la fusión existe y es increíble)<br>
+          — Dato: los primeros inmigrantes japoneses llegaron a Brasil en 1908 en el vapor Kasato Maru para trabajar en las plantaciones de café. Hoy Brasil tiene la mayor colonia japonesa fuera de Japón (1.5 millones de personas).<br><br>
+          Ángulo para tu marca: "Cultura es lo que llevas contigo cuando tienes que empezar de cero."
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FASE 4: DESPUÉS -->
+<div id="p4" class="phase">
+  <div class="phase-header">
+    <p class="phase-label">Fase 4 · De vuelta en Chile</p>
+    <h2>El después es donde <em>nace la comunidad</em></h2>
+    <p>No termines el contenido cuando aterrizas. El post-viaje bien ejecutado convierte seguidores en comunidad real. Y te da semanas de material adicional.</p>
+  </div>
+
+  <div class="ccard">
+    <div class="ccard-header" onclick="toggle(this)">
+      <span class="ccard-date">Llegada a Chile</span>
+      <span class="ccard-title">🏠 "Volví de Brasil. Lo primero que hice. Lo que extraño. Lo que cambió."</span>
+      <span class="ccard-fmt fmt-reel">Reel</span>
+      <span class="ccard-arrow">›</span>
+    </div>
+    <div class="ccard-body">
+      <div class="section-block">
+        <p class="block-label">Hook</p>
+        <div class="hook-box">"Aterricé en Chile hace [X horas]. Esto es lo que me pasó cuando llegué a casa."</div>
+      </div>
+      <div class="section-block">
+        <p class="block-label">Guión</p>
+        <div class="script-box">
+          Formato honesto, no el típico "qué viaje tan transformador". Lo real:<br><br>
+          — Lo primero que hiciste al llegar (¿comer algo chileno? ¿abrazar a tu novia/familia?)<br>
+          — Qué extrañas ya de Brasil (el pão de queijo, el ritmo, la gente)<br>
+          — Qué ves diferente ahora que volviste (algo concreto, no abstracto)<br>
+          — Una cosa que vas a hacer diferente después del viaje<br><br>
+          No tiene que ser profundo. Puede ser simple: "Extraño el açaí. El de acá no es lo mismo. Estoy procesando."
+        </div>
+      </div>
+      <div class="section-block">
+        <p class="block-label">Caption</p>
+        <div class="caption-box">
+          Volví 🏠🇨🇱<br><br>
+          14 días en São Paulo. Clases de IA, dos empresas tech, museos, capoeira, brigadeiros, samba, street art y miles de fotos que todavía estoy procesando.<br><br>
+          Lo primero que hice al llegar: [lo que hiciste de verdad].<br>
+          Lo que más extraño: el pão de queijo a las 8am antes de clase.<br>
+          Lo que cambió: todavía lo estoy descubriendo.<br><br>
+          Gracias por viajar conmigo. El contenido de Brasil recién empieza 🌿✨<br><br>
+          (Los mejores reels, carruseles y aprendizajes vienen esta semana 👇)
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ccard">
+    <div class="ccard-header" onclick="toggle(this)">
+      <span class="ccard-date">Semana post-viaje</span>
+      <span class="ccard-title">🎨 "Pinté algo inspirado en Brasil. Esto es lo que salió."</span>
+      <span class="ccard-fmt fmt-reel">Reel</span>
+      <span class="ccard-arrow">›</span>
+    </div>
+    <div class="ccard-body">
+      <div class="section-block">
+        <p class="block-label">Concepto</p>
+        <div class="script-box">
+          Graba el proceso de pintar algo inspirado en el viaje — puede ser el Beco do Batman, los colores del MASP, las formas de la capoeira, la textura de São Paulo. Time-lapse del proceso + resultado final + reflexión breve sobre qué parte del viaje te inspiró.<br><br>
+          Este es el cierre perfecto del arco narrativo: fuiste como ingeniera + artista, y volviste con una pintura nueva. Es el círculo completo.
+        </div>
+      </div>
+      <div class="section-block">
+        <p class="block-label">Caption</p>
+        <div class="caption-box">
+          Brasil entró por los ojos y salió por el pincel 🎨🇧🇷<br><br>
+          Dos semanas de colores, texturas, murales, museos y momentos que no caben en una foto. Así que los pinté.<br><br>
+          [Descripción de qué representa la pintura]<br><br>
+          Arte, baile, informática y todo lo que va entre medio. Este viaje me los confirmó todos. 🌿
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ccard">
+    <div class="ccard-header" onclick="toggle(this)">
+      <span class="ccard-date">Post-viaje</span>
+      <span class="ccard-title">📋 "Cómo aplicar a un programa internacional universitario — guía real"</span>
+      <span class="ccard-fmt fmt-carousel">Carrusel</span>
+      <span class="ccard-arrow">›</span>
+    </div>
+    <div class="ccard-body">
+      <div class="section-block">
+        <p class="block-label">Hook</p>
+        <div class="hook-box">"Fui a Brasil con un programa internacional de mi universidad. Esto es todo lo que necesitas saber para ir tú también."</div>
+      </div>
+      <div class="section-block">
+        <p class="block-label">Por qué este carrusel es estratégico</p>
+        <div class="script-box">
+          Este es tu post de mayor guardado potencial del viaje completo. Responde una pregunta que miles de estudiantes tienen pero nadie contesta claramente.<br><br>
+          Estructura:<br>
+          — Cómo encontré el programa<br>
+          — El proceso de postulación (documentos, motivación, etc.)<br>
+          — Qué cuesta realmente (becas, costos, lo que nadie dice)<br>
+          — Qué llevar / qué no llevar<br>
+          — Qué pasa si no hablas el idioma<br>
+          — Vale la pena: sí/no y por qué<br>
+          — "Si tienes preguntas, pregúntame en los comentarios"<br><br>
+          Este post te posiciona como referente para mujeres en STEM que quieren hacer lo mismo.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FASE 5: CALENDARIO DE PUBLICACIÓN -->
+<div id="p5" class="phase">
+  <div class="phase-header">
+    <p class="phase-label">Fase 5 · Calendario de publicación</p>
+    <h2>30 días de posting <em>con el contenido de 14 días</em></h2>
+    <p>No tienes que publicar en tiempo real. De hecho, no deberías — disfruta el viaje. Graba todo, edita algunas cosas ahí, y publica estratégicamente al volver. Este es el orden.</p>
+  </div>
+
+  <div class="post-calendar">
+    <div class="pc-item"><div class="pc-date">Semanas previas</div><div class="pc-title">🎉 "Quedé seleccionada para ir a Brasil"</div><span class="pc-fmt fmt-reel">Reel</span></div>
+    <div class="pc-item"><div class="pc-date">1-2 sem. antes</div><div class="pc-title">🎒 Pack with me: Brasil siendo artista + ingeniera</div><span class="pc-fmt fmt-carousel">Carrusel</span></div>
+    <div class="pc-item"><div class="pc-date">Días previos</div><div class="pc-title">😰 Lo que nadie te dice sobre ir sola a un programa internacional</div><span class="pc-fmt fmt-carousel">Carrusel</span></div>
+    <div class="pc-item"><div class="pc-date">Día del vuelo</div><div class="pc-title">✈️ GRWM: Me voy a Brasil</div><span class="pc-fmt fmt-reel">Reel</span></div>
+    <div class="pc-item"><div class="pc-date">Día 1 en SP</div><div class="pc-title">🖼️ Primera impresión de São Paulo</div><span class="pc-fmt fmt-reel">Reel</span></div>
+    <div class="pc-item"><div class="pc-date">Día 2</div><div class="pc-title">🍫 Brigadeiros + primera clase portugués</div><span class="pc-fmt fmt-reel">Reel</span></div>
+    <div class="pc-item"><div class="pc-date">Día 3</div><div class="pc-title">✨ Museu da Língua Portuguesa + falsos amigos</div><span class="pc-fmt fmt-carousel">Carrusel</span></div>
+    <div class="pc-item"><div class="pc-date">Día 4</div><div class="pc-title">🥋 Capoeira: pensé que sería fácil</div><span class="pc-fmt fmt-reel">Reel</span></div>
+    <div class="pc-item"><div class="pc-date">Día 5</div><div class="pc-title">👗 OOTW Semana 1 · 5 días, 5 outfits, 5 aprendizajes</div><span class="pc-fmt fmt-carousel">Carrusel</span></div>
+    <div class="pc-item"><div class="pc-date">Fin de semana 1</div><div class="pc-title">🎨 Beco do Batman · street art SP</div><span class="pc-fmt fmt-reel">Reel</span></div>
+    <div class="pc-item"><div class="pc-date">Fin de semana 1</div><div class="pc-title">🏛️ MASP · Lina Bo Bardi · arquitectura suspendida</div><span class="pc-fmt fmt-carousel">Carrusel</span></div>
+    <div class="pc-item"><div class="pc-date">Día 8</div><div class="pc-title">🤖 Primera clase de IA en Brasil: lo que nadie cuenta</div><span class="pc-fmt fmt-reel">Reel</span></div>
+    <div class="pc-item"><div class="pc-date">Día 9</div><div class="pc-title">💜 Visité Nubank — reporte de ingeniera recién graduada</div><span class="pc-fmt fmt-reel">Reel</span></div>
+    <div class="pc-item"><div class="pc-date">Día 9</div><div class="pc-title">👗 OOTD: cómo te vistes para entrar a Nubank siendo artista</div><span class="pc-fmt fmt-photo">Foto</span></div>
+    <div class="pc-item"><div class="pc-date">Día 10</div><div class="pc-title">🗣️ Monólogo: ser mujer en STEM en programa internacional</div><span class="pc-fmt fmt-reel">Reel</span></div>
+    <div class="pc-item"><div class="pc-date">Día 10</div><div class="pc-title">🍽️ Comida brasileña: reacción honesta</div><span class="pc-fmt fmt-reel">Reel</span></div>
+    <div class="pc-item"><div class="pc-date">Día 11</div><div class="pc-title">🤖 5 cosas que la IA hace hoy que te sorprenderán</div><span class="pc-fmt fmt-carousel">Carrusel</span></div>
+    <div class="pc-item"><div class="pc-date">Día 12</div><div class="pc-title">💻 Nubank vs. TOTVS: dos caras del tech en SP</div><span class="pc-fmt fmt-carousel">Carrusel</span></div>
+    <div class="pc-item"><div class="pc-date">Día 12</div><div class="pc-title">🏮 Barrio japonés de SP · Liberdade</div><span class="pc-fmt fmt-reel">Reel</span></div>
+    <div class="pc-item"><div class="pc-date">Día 14 · Clausura</div><div class="pc-title">🎓💃 Certificado de IA + Escola de Samba en un día</div><span class="pc-fmt fmt-reel">Reel</span></div>
+    <div class="pc-item"><div class="pc-date">Llegada Chile</div><div class="pc-title">🏠 Volví. Lo que cambió. Lo que extraño.</div><span class="pc-fmt fmt-reel">Reel</span></div>
+    <div class="pc-item"><div class="pc-date">Post-viaje sem 1</div><div class="pc-title">📊 São Paulo vs. lo que imaginaba: expectativa vs. realidad</div><span class="pc-fmt fmt-carousel">Carrusel</span></div>
+    <div class="pc-item"><div class="pc-date">Post-viaje sem 1</div><div class="pc-title">🏛️ Museu do Ipiranga · 20 años cerrado</div><span class="pc-fmt fmt-carousel">Carrusel</span></div>
+    <div class="pc-item"><div class="pc-date">Post-viaje sem 1</div><div class="pc-title">🎵 Trend del momento · versión Brasil</div><span class="pc-fmt fmt-reel">Reel</span></div>
+    <div class="pc-item"><div class="pc-date">Post-viaje sem 2</div><div class="pc-title">🎨 Pinté algo inspirado en Brasil</div><span class="pc-fmt fmt-reel">Reel</span></div>
+    <div class="pc-item"><div class="pc-date">Post-viaje sem 2</div><div class="pc-title">🥋 3 cosas que no sabías sobre la capoeira</div><span class="pc-fmt fmt-carousel">Carrusel</span></div>
+    <div class="pc-item"><div class="pc-date">Post-viaje sem 2</div><div class="pc-title">👗 OOTW Semana 2 · 5 días tech, 5 outfits</div><span class="pc-fmt fmt-carousel">Carrusel</span></div>
+    <div class="pc-item"><div class="pc-date">Post-viaje sem 3</div><div class="pc-title">📋 Cómo aplicar a un programa internacional — guía real</div><span class="pc-fmt fmt-carousel">Carrusel</span></div>
+    <div class="pc-item"><div class="pc-date">Post-viaje sem 3</div><div class="pc-title">🌿 Reflexión final: lo que Brasil me enseñó que no estaba en el programa</div><span class="pc-fmt fmt-photo">Foto</span></div>
+    <div class="pc-item"><div class="pc-date">Post-viaje sem 4</div><div class="pc-title">💙 Q&A: Preguntas sobre el programa / Brasil</div><span class="pc-fmt fmt-story">Story</span></div>
+  </div>
+</div>
+
+<!-- FASE 6: ESTRATEGIA -->
+<div id="p6" class="phase">
+  <div class="phase-header">
+    <p class="phase-label">Fase 6 · Estrategia</p>
+    <h2>Cómo <em>grabar, editar y publicar</em> sin perder el viaje</h2>
+  </div>
+
+  <div class="strategy-grid">
+    <div class="sg">
+      <span class="emoji">📱</span>
+      <h4>Qué grabar en destino</h4>
+      <p>Prioriza video sobre foto. Los clips de 3-10 segundos se editan fácil. Graba siempre en vertical 9:16. Graba más de lo que crees que necesitas — sobra es mejor que falta.</p>
+    </div>
+    <div class="sg">
+      <span class="emoji">🎙️</span>
+      <h4>La voz en off</h4>
+      <p>La mayoría de los reels más fuertes los puedes grabar voz en off después, sobre imágenes del lugar. No tienes que hablar mientras grabas. Relájate y disfruta.</p>
+    </div>
+    <div class="sg">
+      <span class="emoji">✏️</span>
+      <h4>Tomar notas</h4>
+      <p>Lleva un cuaderno pequeño o usa notas del teléfono. Cada dato curioso que escuches en clase o en los museos = un slide de carrusel futuro. Anota en el momento.</p>
+    </div>
+    <div class="sg">
+      <span class="emoji">⏰</span>
+      <h4>No publiques todo en tiempo real</h4>
+      <p>Publica 1 cosa al día máximo mientras estás ahí. Guarda el 80% para cuando vuelvas. Así tienes un mes de contenido sin el estrés de editar en el viaje.</p>
+    </div>
+    <div class="sg">
+      <span class="emoji">🎨</span>
+      <h4>Consistencia visual</h4>
+      <p>Elige 2-3 filtros/presets para todo el contenido de Brasil. Que se note que es una serie. Una paleta de colores cálidos y saturados funciona perfectamente con Brasil.</p>
+    </div>
+    <div class="sg">
+      <span class="emoji">💬</span>
+      <h4>El engagement del viaje</h4>
+      <p>Cada story con pregunta o encuesta. Cada reel con una pregunta en el caption. No posteas y desapareces — el viaje es una conversación con tu audiencia.</p>
+    </div>
+    <div class="sg">
+      <span class="emoji">🌿</span>
+      <h4>Tu ángulo único</h4>
+      <p>Siempre vuelve a tu perspectiva: "como artista que también estudió código". Ese cruce hace que tu contenido de Brasil sea diferente al de cualquier travel creator normal.</p>
+    </div>
+    <div class="sg">
+      <span class="emoji">📊</span>
+      <h4>Para mujeres en STEM</h4>
+      <p>Cada vez que menciones Nubank, TOTVS, IA o ingeniería — agrega que eres mujer y recién graduada. No porque sea tu única identidad, sino porque esa perspectiva es escasa y valiosa.</p>
+    </div>
+  </div>
+
+  <div style="background:var(--deep);color:var(--cream);border-radius:16px;padding:2rem 2.5rem;margin:2rem 0;">
+    <p style="font-family:'Lora',serif;font-size:clamp(.95rem,2vw,1.25rem);font-style:italic;line-height:1.65;">Brasil no es solo un viaje en tu feed. Es el momento donde tu audiencia entiende que eres artista, ingeniera, bailarina Y viajera — todo a la vez. No es contenido de nicho. Es tú, en el mundo, siendo todas tus partes simultáneamente. Ese es el contenido que construye comunidad real.</p>
+    <p style="margin-top:1rem;font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;color:var(--verde-l);opacity:.7;">La estrategia completa · @karenartc · Brasil 2026</p>
+  </div>
+</div>
+
+</div><!-- end main -->
+
+<footer>@karenartc · Brasil Content Calendar · São Paulo · Julio 2026 🇧🇷🌿</footer>
+
+<script>
+function showPhase(id) {
+  document.querySelectorAll('.phase').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.pnav-btn').forEach(el => el.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  event.target.classList.add('active');
+  window.scrollTo({top:104, behavior:'smooth'});
+}
+
+function toggle(header) {
+  const body = header.nextElementSibling;
+  const arrow = header.querySelector('.ccard-arrow');
+  const isOpen = body.classList.contains('open');
+  body.classList.toggle('open', !isOpen);
+  arrow.classList.toggle('open', !isOpen);
+}
+</script>
+</body>
+</html>
