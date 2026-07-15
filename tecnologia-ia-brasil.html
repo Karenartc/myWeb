@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Guía de contenido sobre tecnología, inteligencia artificial, innovación y mujeres líderes durante el programa Short Term 2026 en São Paulo.">
+<title>Karen · Tecnología, IA e Innovación en Brasil</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400;1,600&family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap');
+:root{
+  --ink:#171511;--cream:#fdf8f2;--paper:#fff;--fog:#e8e0d5;--deep:#101410;
+  --verde:#2d6a4f;--verde-m:#40916c;--verde-l:#74c69d;--verde-xl:#d8f3dc;
+  --amarelo:#e9c46a;--laranja:#f4a261;--rosa:#e76f51;--azul:#457b9d;--roxo:#6b4fa0;
+  --code:#0c1d17;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);font-size:14px;line-height:1.65}
+a{color:inherit}.topbar{position:fixed;z-index:500;top:0;left:0;right:0;height:54px;background:rgba(253,248,242,.96);backdrop-filter:blur(14px);border-bottom:1px solid var(--fog);display:flex;align-items:center;gap:1rem;padding:0 1.2rem}
+.brand{font-family:'Lora',serif;font-style:italic;color:var(--verde);font-weight:600;white-space:nowrap;text-decoration:none}
+.nav{display:flex;gap:.3rem;overflow-x:auto;scrollbar-width:none;flex:1}.nav::-webkit-scrollbar{display:none}
+.nav a{flex-shrink:0;text-decoration:none;font-size:.66rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:.35rem .7rem;border-radius:999px;opacity:.55}
+.nav a:hover{background:var(--verde-xl);color:var(--verde);opacity:1}.home{font-size:.72rem;text-decoration:none;border:1px solid var(--fog);border-radius:999px;padding:.3rem .7rem;white-space:nowrap}
+.hero{min-height:92vh;background:var(--deep);color:var(--cream);display:flex;align-items:center;justify-content:center;text-align:center;padding:8rem 1.3rem 5rem;position:relative;overflow:hidden}
+.hero:before{content:'';position:absolute;inset:-25%;background:radial-gradient(circle at 22% 25%,rgba(64,145,108,.42),transparent 32%),radial-gradient(circle at 78% 70%,rgba(233,196,106,.20),transparent 30%),linear-gradient(135deg,transparent 38%,rgba(116,198,157,.06) 39%,transparent 40%)}
+.hero:after{content:'01 10 01';font-family:'DM Mono',monospace;position:absolute;font-size:clamp(5rem,16vw,14rem);letter-spacing:.08em;color:white;opacity:.022;transform:rotate(-8deg)}
+.hero-inner{max-width:920px;position:relative;z-index:1}.ey{font-family:'DM Mono',monospace;font-size:.67rem;letter-spacing:.16em;text-transform:uppercase;color:var(--verde-l);margin-bottom:1rem}
+.hero h1{font-family:'Lora',serif;font-weight:400;font-size:clamp(2.35rem,7vw,5.1rem);line-height:1.07;letter-spacing:-.025em}.hero h1 em{color:var(--amarelo)}
+.hero .lead{max-width:760px;margin:1.25rem auto 0;font-size:clamp(.92rem,2vw,1.08rem);opacity:.72}
+.hero-pills{display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center;margin-top:2rem}.hero-pill{border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.06);border-radius:999px;padding:.35rem .8rem;font-size:.72rem;color:rgba(255,255,255,.78)}
+.hero-cta{display:flex;flex-wrap:wrap;gap:.65rem;justify-content:center;margin-top:2rem}.btn{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;border-radius:999px;padding:.65rem 1.05rem;font-size:.78rem;font-weight:700}.btn-primary{background:var(--verde-l);color:var(--deep)}.btn-ghost{border:1px solid rgba(255,255,255,.24);color:var(--cream)}
+main{max-width:1080px;margin:0 auto;padding:0 1.25rem 5rem}.section{padding:4.5rem 0 1rem;scroll-margin-top:54px}.slabel{font-family:'DM Mono',monospace;font-size:.63rem;letter-spacing:.14em;text-transform:uppercase;color:var(--verde);opacity:.75;margin-bottom:.35rem}
+h2{font-family:'Lora',serif;font-weight:400;font-size:clamp(1.75rem,4vw,2.8rem);line-height:1.2;color:var(--deep)}h2 em{color:var(--verde)}.sec-lead{max-width:790px;margin-top:.7rem;opacity:.67}
+.quote{margin:1.7rem 0;background:var(--code);color:var(--cream);border-radius:18px;padding:2rem clamp(1.3rem,5vw,3rem);position:relative;overflow:hidden}.quote:before{content:'{ }';position:absolute;font-family:'DM Mono',monospace;font-size:8rem;line-height:1;color:var(--verde-l);opacity:.09;top:.5rem;right:1rem}.quote p{font-family:'Lora',serif;font-size:clamp(1rem,2.2vw,1.3rem);font-style:italic;line-height:1.65;position:relative}.quote small{display:block;margin-top:1rem;font-family:'DM Mono',monospace;font-size:.62rem;text-transform:uppercase;letter-spacing:.1em;color:var(--verde-l)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(235px,1fr));gap:.8rem;margin-top:1.35rem}.card{background:var(--paper);border:1.5px solid var(--fog);border-radius:14px;padding:1.2rem}.card .icon{font-size:1.45rem;display:block;margin-bottom:.55rem}.card h3{font-size:.9rem;margin-bottom:.3rem;color:var(--deep)}.card p{font-size:.78rem;opacity:.67;line-height:1.55}.card strong{color:var(--verde)}
+.schedule{display:flex;flex-direction:column;gap:.8rem;margin-top:1.4rem}.day{background:var(--paper);border:1.5px solid var(--fog);border-radius:16px;overflow:hidden}.day-head{display:grid;grid-template-columns:115px 1fr auto;gap:1rem;align-items:center;padding:1rem 1.15rem;cursor:pointer}.day-head:hover{background:#faf7f3}.day-date{font-family:'DM Mono',monospace;font-size:.64rem;color:var(--verde);letter-spacing:.06em;text-transform:uppercase}.day-title{font-weight:700;font-size:.9rem}.day-tag{font-size:.61rem;font-weight:700;border-radius:999px;padding:.15rem .5rem;background:var(--verde-xl);color:var(--verde);white-space:nowrap}.day-body{display:none;border-top:1px solid var(--fog);padding:1.15rem}.day.open .day-body{display:block}.day-grid{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}.block{background:var(--cream);border:1px solid var(--fog);border-radius:10px;padding:.9rem}.block h4{font-family:'DM Mono',monospace;font-size:.59rem;letter-spacing:.1em;text-transform:uppercase;color:var(--verde);margin-bottom:.42rem}.block p,.block li{font-size:.78rem;line-height:1.55}.block ul{list-style:none;display:flex;flex-direction:column;gap:.33rem}.block li{padding-left:.85rem;position:relative}.block li:before{content:'→';position:absolute;left:0;color:var(--verde-l)}
+.hook{font-family:'Lora',serif;font-style:italic;background:#fff8ec;border-left:3px solid var(--amarelo);border-radius:0 8px 8px 0;padding:.75rem .85rem;font-size:.84rem;margin-bottom:.55rem}.script{background:#f5f0ff;border:1px dashed #b8a0d8;border-radius:8px;padding:.8rem;font-size:.78rem;line-height:1.6}.shot{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.55rem}.pill{font-size:.63rem;border:1px solid var(--fog);background:white;border-radius:999px;padding:.12rem .5rem}
+.fact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:.8rem;margin-top:1.35rem}.fact{background:var(--paper);border:1.5px solid var(--fog);border-radius:14px;padding:1.15rem;position:relative;overflow:hidden}.fact:after{content:'';position:absolute;width:55px;height:55px;border-radius:50%;background:var(--verde-xl);right:-22px;top:-22px}.fact .kicker{font-family:'DM Mono',monospace;font-size:.58rem;text-transform:uppercase;letter-spacing:.09em;color:var(--verde);margin-bottom:.35rem}.fact h3{font-family:'Lora',serif;font-size:1.02rem;margin-bottom:.35rem}.fact p{font-size:.77rem;opacity:.68}.fact .source{display:inline-block;margin-top:.65rem;color:var(--verde);font-size:.68rem;font-weight:700;text-decoration:none}
+.company{background:var(--paper);border:1.5px solid var(--fog);border-radius:18px;margin-top:1.2rem;overflow:hidden}.company-head{background:var(--code);color:white;padding:1.45rem;display:flex;gap:1rem;align-items:flex-start}.company-logo{font-size:2rem}.company-head h3{font-family:'Lora',serif;font-size:1.35rem;font-weight:600}.company-head p{font-size:.8rem;opacity:.65;margin-top:.25rem}.company-body{padding:1.2rem}.company-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem}.mini{background:var(--cream);border:1px solid var(--fog);border-radius:10px;padding:.8rem}.mini h4{font-size:.78rem;margin-bottom:.25rem}.mini p,.mini li{font-size:.73rem;opacity:.68;line-height:1.5}.mini ul{list-style:none;display:flex;flex-direction:column;gap:.25rem}.mini li{padding-left:.75rem;position:relative}.mini li:before{content:'•';position:absolute;left:0;color:var(--verde)}
+.leaders{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:.8rem;margin-top:1.35rem}.leader{background:white;border:1.5px solid var(--fog);border-radius:14px;padding:1.1rem}.leader .role{font-family:'DM Mono',monospace;font-size:.57rem;text-transform:uppercase;letter-spacing:.08em;color:var(--rosa);margin-bottom:.3rem}.leader h3{font-family:'Lora',serif;font-size:1.05rem;margin-bottom:.35rem}.leader p{font-size:.76rem;opacity:.68}.leader .angle{margin-top:.65rem;background:var(--verde-xl);border-radius:8px;padding:.65rem;font-size:.72rem;color:#204d3b}.leader a{display:inline-block;margin-top:.55rem;font-size:.67rem;color:var(--verde);font-weight:700;text-decoration:none}
+.museums{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:.8rem;margin-top:1.35rem}.museum{background:white;border:1.5px solid var(--fog);border-radius:14px;padding:1.1rem}.museum h3{font-size:.9rem;margin-bottom:.25rem}.museum p{font-size:.76rem;opacity:.67}.museum .question{font-family:'Lora',serif;font-style:italic;margin-top:.7rem;padding:.65rem .75rem;border-left:3px solid var(--amarelo);background:#fff8ec;font-size:.77rem}.museum a{display:inline-block;margin-top:.55rem;color:var(--verde);font-size:.67rem;font-weight:700;text-decoration:none}
+.series{display:grid;grid-template-columns:repeat(auto-fit,minmax(245px,1fr));gap:.8rem;margin-top:1.35rem}.serie{background:var(--code);color:white;border-radius:14px;padding:1.15rem}.serie .num{font-family:'DM Mono',monospace;color:var(--verde-l);font-size:.6rem;letter-spacing:.08em}.serie h3{font-family:'Lora',serif;font-size:1rem;color:var(--amarelo);margin:.25rem 0}.serie p{font-size:.75rem;opacity:.65}.serie .examples{margin-top:.65rem;font-size:.71rem;color:rgba(255,255,255,.76)}
+.idea-list{display:flex;flex-direction:column;gap:.65rem;margin-top:1.25rem}.idea{display:grid;grid-template-columns:78px 1fr;gap:.8rem;background:white;border:1.5px solid var(--fog);border-radius:11px;padding:.9rem}.idea-type{font-family:'DM Mono',monospace;font-size:.58rem;text-transform:uppercase;letter-spacing:.08em;color:var(--verde);padding-top:.1rem}.idea h3{font-size:.82rem;margin-bottom:.2rem}.idea p{font-size:.73rem;opacity:.65}.idea strong{color:var(--deep)}
+.matrix{overflow-x:auto;margin-top:1.35rem;border:1.5px solid var(--fog);border-radius:12px;background:white}table{border-collapse:collapse;width:100%;min-width:780px}th,td{text-align:left;padding:.75rem;border-bottom:1px solid var(--fog);font-size:.74rem;vertical-align:top}th{background:var(--verde-xl);color:var(--verde);font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.07em;text-transform:uppercase}tr:last-child td{border-bottom:0}
+.checks{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:.7rem;margin-top:1.3rem}.check{display:flex;gap:.65rem;background:white;border:1.5px solid var(--fog);border-radius:11px;padding:.9rem;cursor:pointer}.box{width:18px;height:18px;border:2px solid var(--verde-l);border-radius:5px;flex-shrink:0;margin-top:.1rem}.check.done .box{background:var(--verde);border-color:var(--verde);position:relative}.check.done .box:after{content:'✓';position:absolute;color:white;font-size:.7rem;left:3px;top:-1px}.check h3{font-size:.78rem;margin-bottom:.15rem}.check p{font-size:.72rem;opacity:.64}
+.sources{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:.55rem;margin-top:1.2rem}.sources a{background:white;border:1px solid var(--fog);border-radius:9px;padding:.72rem .8rem;text-decoration:none;font-size:.72rem;font-weight:600;color:var(--verde)}.sources a:hover{border-color:var(--verde-l)}
+.note{background:var(--verde-xl);border-left:4px solid var(--verde-l);border-radius:0 12px 12px 0;padding:1rem 1.15rem;font-size:.8rem;margin-top:1rem}.warning{background:#fff0eb;border-left-color:var(--rosa)}footer{text-align:center;border-top:1px solid var(--fog);padding:2.5rem 1.2rem;font-size:.7rem;opacity:.42}
+@media(max-width:820px){.company-grid{grid-template-columns:1fr 1fr}.day-grid{grid-template-columns:1fr}}
+@media(max-width:600px){.topbar{padding:0 .75rem}.home{display:none}.hero{min-height:auto;padding-top:7rem}.day-head{grid-template-columns:82px 1fr}.day-tag{display:none}.company-grid{grid-template-columns:1fr}.idea{grid-template-columns:65px 1fr}main{padding-left:.9rem;padding-right:.9rem}}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="index.html">@karenartc · Tech Brasil</a>
+  <nav class="nav" aria-label="Navegación de la guía">
+    <a href="#semana">Semana 2</a><a href="#brasil">Brasil tech</a><a href="#empresas">Empresas</a><a href="#mujeres">Mujeres</a><a href="#museos">Museos</a><a href="#contenido">Contenido</a><a href="#etica">Ética</a>
+  </nav>
+  <a class="home" href="index.html">Centro de guías</a>
+</header>
+
+<section class="hero">
+  <div class="hero-inner">
+    <p class="ey">Short Term 2026 · São Paulo · 27–31 julio</p>
+    <h1>Tecnología, IA e innovación<br>con mirada de <em>mujer.</em></h1>
+    <p class="lead">Una guía para convertir clases, visitas empresariales y museos en contenido comprensible: qué aprender, qué preguntar, qué grabar y cómo explicar la transformación digital brasileña sin repetir frases vacías.</p>
+    <div class="hero-pills">
+      <span class="hero-pill">Inteligencia artificial</span><span class="hero-pill">Transformación digital</span><span class="hero-pill">Nubank</span><span class="hero-pill">TOTVS</span><span class="hero-pill">Mujeres líderes</span><span class="hero-pill">Museos interactivos</span>
+    </div>
+    <div class="hero-cta"><a class="btn btn-primary" href="#semana">Abrir plan diario</a><a class="btn btn-ghost" href="plan-medios-brasil.html">Volver al plan general</a></div>
+  </div>
+</section>
+
+<main>
+<section class="section" id="norte">
+  <p class="slabel">01 · Posicionamiento</p>
+  <h2>No necesitas parecer experta.<br>Necesitas <em>hacer buenas preguntas.</em></h2>
+  <p class="sec-lead">El diferencial no será repetir que “la IA está cambiando el mundo”. Será mostrar dónde ya cambió procesos reales, quién decide cómo se usa, qué riesgos aparecen y cómo una estudiante latinoamericana puede entrar a esa conversación.</p>
+  <div class="quote"><p>“Estoy aprendiendo cómo Brasil usa tecnología para transformar bancos, empresas, investigación y cultura. Mi trabajo no es vender la IA como magia: es traducir lo que vea para que otras estudiantes puedan entenderlo, cuestionarlo e imaginarse trabajando aquí.”</p><small>Idea editorial de la serie · Karen en Brasil 2026</small></div>
+  <div class="grid">
+    <article class="card"><span class="icon">🔎</span><h3>Investigar</h3><p>Identifica el problema original, la tecnología utilizada, los datos requeridos y el resultado que se busca.</p></article>
+    <article class="card"><span class="icon">🎙️</span><h3>Traducir</h3><p>Explica conceptos como ERP, modelos fundacionales, automatización y gobernanza con ejemplos cotidianos.</p></article>
+    <article class="card"><span class="icon">⚖️</span><h3>Cuestionar</h3><p>Incluye sesgos, privacidad, seguridad, accesibilidad, impacto laboral y supervisión humana.</p></article>
+    <article class="card"><span class="icon">👩‍💻</span><h3>Representar</h3><p>Visibiliza a mujeres por sus decisiones, formación y responsabilidades técnicas, no solo como inspiración.</p></article>
+  </div>
+</section>
+
+<section class="section" id="semana">
+  <p class="slabel">02 · Cronograma convertido en plan de grabación</p>
+  <h2>Segunda semana: una misión de contenido <em>por día</em></h2>
+  <p class="sec-lead">Abre cada jornada. El objetivo es salir con material suficiente para un reel principal, un carrusel educativo y stories, sin pasar toda la clase mirando el celular.</p>
+  <div class="schedule">
+    <article class="day open">
+      <div class="day-head" onclick="this.parentElement.classList.toggle('open')"><span class="day-date">Lun 27/07</span><span class="day-title">Innovaciones impulsadas por IA y transformación digital</span><span class="day-tag">Marco general</span></div>
+      <div class="day-body"><div class="day-grid">
+        <div class="block"><h4>Programa</h4><p><strong>09:00–13:00:</strong> Innovations driven by artificial intelligence and digital transformation.<br><strong>13:00–14:00:</strong> Almuerzo.<br><strong>14:00–17:00:</strong> Libre.</p></div>
+        <div class="block"><h4>Qué anotar en clase</h4><ul><li>Un caso donde la IA cambió un proceso completo, no solo una tarea.</li><li>Una diferencia clara entre digitalizar, automatizar y transformar.</li><li>Qué parte del caso sigue dependiendo de una persona.</li><li>Una afirmación con la que no estés totalmente de acuerdo.</li></ul></div>
+        <div class="block"><h4>Reel principal</h4><div class="hook">“Digitalizar no es transformar. Hoy entendí la diferencia en una clase de IA en Brasil.”</div><div class="script"><strong>Voz en off:</strong> “Pasar un formulario de papel a una pantalla es digitalizar. Hacer que el sistema complete pasos repetitivos es automatizar. Transformar ocurre cuando cambia la forma completa de entregar el servicio. La IA puede participar en los tres niveles, pero no significa que todos tengan el mismo impacto.”</div></div>
+        <div class="block"><h4>Tomas mínimas</h4><ul><li>Llegada a FATEC y sala antes de comenzar.</li><li>Cuaderno con tres conceptos escritos a mano.</li><li>Plano corto del material autorizado.</li><li>Tu reacción al salir: una idea y una duda.</li></ul><div class="shot"><span class="pill">Reel 45 s</span><span class="pill">Carrusel 5 slides</span><span class="pill">3 stories</span></div></div>
+      </div></div>
+    </article>
+
+    <article class="day">
+      <div class="day-head" onclick="this.parentElement.classList.toggle('open')"><span class="day-date">Mar 28/07</span><span class="day-title">IA aplicada a investigación + visita a Nubank</span><span class="day-tag">Fintech</span></div>
+      <div class="day-body"><div class="day-grid">
+        <div class="block"><h4>Programa</h4><p><strong>09:00–13:00:</strong> Applications of artificial intelligence in research processes.<br><strong>13:00–14:00:</strong> Almuerzo.<br><strong>14:00–17:00:</strong> Visita a Nubank.</p></div>
+        <div class="block"><h4>Preguntas para la clase</h4><ul><li>¿En qué etapas la IA ayuda a investigar y en cuáles puede contaminar el resultado?</li><li>¿Cómo se valida una respuesta generada cuando no existe una única verdad?</li><li>¿Qué información nunca debería subirse a una herramienta pública?</li><li>¿Cómo se declara el uso de IA en un trabajo académico?</li></ul></div>
+        <div class="block"><h4>Preguntas para Nubank</h4><ul><li>¿Qué problema de cliente justifica usar IA y cuál no?</li><li>¿Cómo evalúan modelos antes de afectar decisiones financieras?</li><li>¿Qué significa supervisión humana en un producto a gran escala?</li><li>¿Cómo se coordinan producto, datos, ingeniería, diseño, riesgo y cumplimiento?</li><li>¿Qué habilidades buscan en una ingeniera junior?</li><li>¿Qué iniciativas han ayudado a incorporar mujeres en seguridad e ingeniería?</li></ul></div>
+        <div class="block"><h4>Reel principal</h4><div class="hook">“Entré a Nubank pensando que iba a ver una app. Salí pensando en datos, riesgo y decisiones.”</div><div class="script"><strong>Voz en off:</strong> “Una fintech no es solo una interfaz bonita. Detrás hay infraestructura, modelos, seguridad, regulación y equipos que deciden qué puede automatizarse. Lo interesante de Nubank no es que no tenga sucursales: es cómo convirtió tecnología propia y datos en una experiencia que millones de personas usan todos los días.”</div><div class="shot"><span class="pill">Exterior autorizado</span><span class="pill">Credencial</span><span class="pill">Espacios comunes</span><span class="pill">Notas post-visita</span></div></div>
+      </div><div class="note warning"><strong>Importante:</strong> pregunta antes de grabar. No filmes pantallas, pizarras, credenciales ajenas, datos, sistemas internos ni conversaciones privadas. Una visita empresarial no te autoriza automáticamente a publicar todo.</div></div>
+    </article>
+
+    <article class="day">
+      <div class="day-head" onclick="this.parentElement.classList.toggle('open')"><span class="day-date">Mié 29/07</span><span class="day-title">IA, competitividad y mercados internacionales</span><span class="day-tag">Economía</span></div>
+      <div class="day-body"><div class="day-grid">
+        <div class="block"><h4>Programa</h4><p><strong>09:00–13:00:</strong> Artificial intelligence, competitiveness and transformations in international markets.<br><strong>13:00–14:00:</strong> Almuerzo.<br><strong>14:00–17:00:</strong> Libre.</p></div>
+        <div class="block"><h4>Preguntas clave</h4><ul><li>¿Competir en IA significa tener modelos propios o saber implementarlos bien?</li><li>¿Qué riesgos corre Latinoamérica si depende de infraestructura extranjera?</li><li>¿Qué ventajas tiene crear modelos y datasets en portugués?</li><li>¿Cómo cambia el comercio cuando una empresa personaliza productos con IA?</li></ul></div>
+        <div class="block"><h4>Contenido comparativo</h4><div class="hook">“Brasil no está hablando solo de usar IA. Está hablando de soberanía tecnológica.”</div><div class="script"><strong>Voz en off:</strong> “La competitividad no depende únicamente de comprar una herramienta. También depende de infraestructura, datos locales, talento, regulación y capacidad de decidir qué tecnología necesita un país. Por eso Brasil presentó un plan nacional de IA con ejes de infraestructura, formación, servicios públicos, innovación empresarial y gobernanza.”</div></div>
+        <div class="block"><h4>Misión libre opcional</h4><ul><li>Graba una tecnología cotidiana brasileña: Pix, transporte, autoservicio o acceso digital.</li><li>Pregunta a una persona brasileña qué herramienta digital usa a diario y por qué.</li><li>En Liberdade, busca cómo cultura y comercio se adaptan mediante pagos, delivery y plataformas.</li></ul><div class="shot"><span class="pill">Reel “tech cotidiana”</span><span class="pill">Encuesta story</span><span class="pill">Carrusel Brasil vs. Chile</span></div></div>
+      </div></div>
+    </article>
+
+    <article class="day">
+      <div class="day-head" onclick="this.parentElement.classList.toggle('open')"><span class="day-date">Jue 30/07</span><span class="day-title">Transformación de procesos + visita a TOTVS</span><span class="day-tag">Software B2B</span></div>
+      <div class="day-body"><div class="day-grid">
+        <div class="block"><h4>Programa</h4><p><strong>09:00–13:00:</strong> Transformation of production processes and business services in the era of artificial intelligence.<br><strong>13:00–14:00:</strong> Almuerzo.<br><strong>14:00–17:00:</strong> Visita a TOTVS.</p></div>
+        <div class="block"><h4>Conceptos que debes poder explicar</h4><ul><li><strong>ERP:</strong> sistema que conecta áreas y datos de una empresa.</li><li><strong>IA embebida:</strong> inteligencia integrada dentro del flujo de trabajo.</li><li><strong>Predicción:</strong> estimar demanda, fallas, riesgo o comportamiento.</li><li><strong>Agente:</strong> sistema que puede ejecutar una secuencia de acciones con límites.</li><li><strong>Gobernanza de datos:</strong> reglas sobre calidad, acceso, uso y responsabilidad.</li></ul></div>
+        <div class="block"><h4>Preguntas para TOTVS</h4><ul><li>¿Cómo incorporan IA sin romper procesos críticos de clientes?</li><li>¿Qué datos necesita un ERP para producir recomendaciones confiables?</li><li>¿Cómo se mide el retorno de una transformación digital?</li><li>¿Qué tareas deben seguir requiriendo aprobación humana?</li><li>¿Cómo funciona LYNN y qué significa que sea un modelo fundacional B2B brasileño?</li><li>¿Qué perfiles técnicos participan desde la idea hasta producción?</li></ul></div>
+        <div class="block"><h4>Reel principal</h4><div class="hook">“La tecnología que sostiene una empresa casi nunca aparece en Instagram.”</div><div class="script"><strong>Voz en off:</strong> “Cuando compras, reservas, recibes una factura o consultas inventario, detrás puede existir un ERP conectando áreas que nunca ves. TOTVS desarrolla esa infraestructura para empresas. La innovación no siempre es una app nueva: a veces es evitar que producción, ventas y finanzas trabajen con versiones distintas de la realidad.”</div><div class="shot"><span class="pill">Arquitectura</span><span class="pill">Señalética</span><span class="pill">Charla autorizada</span><span class="pill">Reflexión al salir</span></div></div>
+      </div></div>
+    </article>
+
+    <article class="day">
+      <div class="day-head" onclick="this.parentElement.classList.toggle('open')"><span class="day-date">Vie 31/07</span><span class="day-title">Ética, gobernanza y desafíos sociales de la IA</span><span class="day-tag">Cierre</span></div>
+      <div class="day-body"><div class="day-grid">
+        <div class="block"><h4>Programa</h4><p><strong>09:00–13:00:</strong> Ethics, governance and social challenges of artificial intelligence.<br><strong>13:00–14:00:</strong> Almuerzo.<br><strong>14:00–15:00:</strong> Ceremonia y certificados.<br><strong>19:00–22:00:</strong> Escola de Samba.</p></div>
+        <div class="block"><h4>Checklist ético</h4><ul><li>¿Quién puede resultar perjudicado si el sistema se equivoca?</li><li>¿Quién puede apelar una decisión automatizada?</li><li>¿Los datos representan a la población afectada?</li><li>¿La explicación es comprensible para una persona no técnica?</li><li>¿Existe una persona responsable o solo “el algoritmo”?</li><li>¿El beneficio justifica recolectar esos datos?</li></ul></div>
+        <div class="block"><h4>Reel de cierre</h4><div class="hook">“Terminé una semana de IA con menos certezas y mejores preguntas.”</div><div class="script"><strong>Voz en off:</strong> “Aprendí sobre innovación, investigación, mercados, procesos y ética. Pero el aprendizaje más importante fue este: una tecnología no es responsable por existir. Se vuelve responsable cuando sabemos quién la diseña, con qué datos, para qué objetivo, bajo qué límites y con qué forma de corregirla.”</div></div>
+        <div class="block"><h4>Arco visual del día</h4><ul><li>Última llegada a clases.</li><li>Una página de notas con cinco preguntas.</li><li>Certificado y compañeras.</li><li>Cambio de energía: clase → ceremonia → samba.</li><li>Cierre mirando a cámara: “Ahora toca compartirlo”.</li></ul><div class="shot"><span class="pill">Reel final</span><span class="pill">Foto certificado</span><span class="pill">Story Q&amp;A</span></div></div>
+      </div></div>
+    </article>
+  </div>
+</section>
+
+<section class="section" id="brasil">
+  <p class="slabel">03 · Contexto verificable</p>
+  <h2>Cuatro historias para explicar <em>la innovación brasileña</em></h2>
+  <p class="sec-lead">Úsalas como punto de partida, no como guion cerrado. Las mejores piezas comparan el dato oficial con lo que observes y preguntes durante el programa.</p>
+  <div class="fact-grid">
+    <article class="fact"><p class="kicker">Política pública</p><h3>PBIA: “IA para o Bem de Todos”</h3><p>El plan brasileño presentado para 2024–2028 contempla inversión pública y privada y organiza la estrategia en infraestructura, formación, servicios públicos, innovación empresarial y gobernanza. El ángulo interesante es la relación entre IA, desarrollo nacional y soberanía tecnológica.</p><a class="source" href="https://www.gov.br/mcti/pt-br/acompanhe-o-mcti/noticias/2024/07/plano-brasileiro-de-ia-tera-supercomputador-e-investimento-de-r-23-bilhoes-em-quatro-anos" target="_blank" rel="noopener">Fuente: MCTI →</a></article>
+    <article class="fact"><p class="kicker">Infraestructura pública</p><h3>Pix: innovación que la gente usa</h3><p>Pix fue creado por el Banco Central de Brasil como sistema de pagos instantáneos. Sirve para explicar que la transformación digital también puede venir de infraestructura pública y no solamente de startups privadas.</p><a class="source" href="https://www.bcb.gov.br/estabilidadefinanceira/pix" target="_blank" rel="noopener">Fuente: Banco Central do Brasil →</a></article>
+    <article class="fact"><p class="kicker">Escala digital</p><h3>Nu: plataforma, datos y personalización</h3><p>La página institucional de Nu reporta 135 millones de clientes en Brasil, México y Colombia y presenta tecnología propia y datos como base del modelo. En 2026 la empresa describió la IA como fundamento para personalización y transformación de sus flujos internos.</p><a class="source" href="https://international.nubank.com.br/about/" target="_blank" rel="noopener">Fuente: Nu →</a></article>
+    <article class="fact"><p class="kicker">Tecnología empresarial</p><h3>TOTVS y la infraestructura invisible</h3><p>TOTVS informa que sus soluciones atienden a más de 70 mil empresas, que opera diez centros de desarrollo y que ha invertido más de R$3 mil millones en investigación y desarrollo en cinco años. También presenta LYNN como un modelo fundacional de IA B2B brasileño.</p><a class="source" href="https://www.totvs.com/" target="_blank" rel="noopener">Fuente: TOTVS →</a></article>
+  </div>
+</section>
+
+<section class="section" id="empresas">
+  <p class="slabel">04 · Visitas empresariales</p>
+  <h2>Dos empresas, dos formas de <em>construir innovación</em></h2>
+  <p class="sec-lead">No las presentes como “empresa moderna versus empresa tradicional”. Nubank y TOTVS resuelven problemas diferentes, trabajan con riesgos distintos y permiten mostrar que el ecosistema tecnológico necesita tanto productos visibles como infraestructura empresarial.</p>
+  <article class="company">
+    <div class="company-head"><span class="company-logo">💜</span><div><h3>Nubank · producto financiero digital</h3><p>Experiencia de cliente, plataformas globales, datos, riesgo, seguridad, diseño e inteligencia artificial.</p></div></div>
+    <div class="company-body"><div class="company-grid">
+      <div class="mini"><h4>Lo que debes observar</h4><ul><li>Cómo hablan de problemas del cliente.</li><li>Cómo separan experimentación de producción.</li><li>Cómo conviven personalización y regulación.</li><li>Qué equipos participan en una decisión.</li></ul></div>
+      <div class="mini"><h4>Dato actual útil</h4><p>Nu informó en julio de 2026 que está usando IA para reinventar flujos internos y construir experiencias personalizadas sobre plataformas compartidas que se adaptan a cada mercado.</p></div>
+      <div class="mini"><h4>Ángulo crítico</h4><p>Personalización no significa neutralidad. Pregunta qué señales se usan, cómo se prueban resultados y qué puede hacer una persona cuando no está de acuerdo con una decisión.</p></div>
+    </div></div>
+  </article>
+  <article class="company">
+    <div class="company-head"><span class="company-logo">🧩</span><div><h3>TOTVS · software que organiza empresas</h3><p>ERP, cloud, analytics, servicios financieros B2B, procesos productivos y herramientas de IA integradas.</p></div></div>
+    <div class="company-body"><div class="company-grid">
+      <div class="mini"><h4>Lo que debes observar</h4><ul><li>Cómo adaptan software a sectores distintos.</li><li>Cómo migran sistemas críticos sin detener operaciones.</li><li>Cómo integran datos de áreas separadas.</li><li>Cómo calculan eficiencia y retorno.</li></ul></div>
+      <div class="mini"><h4>Dato actual útil</h4><p>La empresa presenta IA embebida en diferentes soluciones y destaca a LYNN como su modelo fundacional orientado al contexto B2B brasileño.</p></div>
+      <div class="mini"><h4>Ángulo crítico</h4><p>Un modelo puede ser potente y aun así fallar si los datos de origen están incompletos, duplicados o desactualizados. La transformación empieza antes del algoritmo.</p></div>
+    </div></div>
+  </article>
+</section>
+
+<section class="section" id="mujeres">
+  <p class="slabel">05 · Mujeres que toman decisiones</p>
+  <h2>No solo “mujeres inspiradoras”: <em>roles, formación y poder</em></h2>
+  <p class="sec-lead">Estos perfiles te permiten hablar de liderazgo femenino con información concreta. En contenido, evita reducirlas a “rompió barreras”: explica qué producto, mercado, equipo o riesgo está bajo su responsabilidad.</p>
+  <div class="leaders">
+    <article class="leader"><p class="role">CEO de Brasil · Nubank</p><h3>Livia Chanes</h3><p>Ingeniera formada en la USP, lidera las operaciones de Nubank en Brasil. Antes pasó por negocios tecnológicos en Itaú y consultoría estratégica.</p><div class="angle"><strong>Pregunta de contenido:</strong> ¿qué cambia cuando una ingeniera dirige el principal mercado de una plataforma financiera digital?</div><a href="https://www.investidores.nu/governance/management-team/" target="_blank" rel="noopener">Fuente oficial →</a></article>
+    <article class="leader"><p class="role">Cofundadora · Chief Growth Officer y US CEO · Nu</p><h3>Cristina Junqueira</h3><p>Ingeniera de la USP y cofundadora de Nubank. Su función actual combina crecimiento del grupo con el desarrollo de las futuras operaciones bancarias de Nu en Estados Unidos.</p><div class="angle"><strong>Pregunta de contenido:</strong> ¿cómo se pasa de cuestionar un producto bancario a construir una compañía que cambia una industria?</div><a href="https://www.investidores.nu/governance/management-team/" target="_blank" rel="noopener">Fuente oficial →</a></article>
+    <article class="leader"><p class="role">Consejera independiente · Ciencia y tecnología</p><h3>Anita Sands</h3><p>Integra el directorio de Nu y es su directora independiente principal. Su formación incluye Física, Matemática Aplicada y un doctorado en Física Atómica y Molecular, además de experiencia en transformación tecnológica.</p><div class="angle"><strong>Pregunta de contenido:</strong> ¿qué aporta una científica a un directorio que supervisa riesgo, estrategia y crecimiento tecnológico?</div><a href="https://www.investidores.nu/governance/board-of-directors/" target="_blank" rel="noopener">Fuente oficial →</a></article>
+    <article class="leader"><p class="role">CEO y consejera · Finanzas tecnológicas</p><h3>Jacqueline Reses</h3><p>Miembro del directorio de Nu y CEO de Lead Bank. Su trayectoria conecta fintech, banca, capital, personas y gobierno corporativo.</p><div class="angle"><strong>Pregunta de contenido:</strong> ¿por qué la innovación financiera necesita tanto gobernanza como software?</div><a href="https://www.investidores.nu/governance/board-of-directors/" target="_blank" rel="noopener">Fuente oficial →</a></article>
+  </div>
+  <div class="note"><strong>Serie recomendada:</strong> “Mujeres que construyen la tecnología que usamos”. Cada video debe responder cuatro cosas: qué estudió, qué problema dirige, qué decisión toma y qué puedes aprender de su trayectoria. No presentes una biografía como si fuera un cuento de éxito sin obstáculos ni contexto.</div>
+</section>
+
+<section class="section" id="museos">
+  <p class="slabel">06 · Museos como laboratorios de innovación</p>
+  <h2>La tecnología también <em>preserva, interpreta y enseña</em></h2>
+  <p class="sec-lead">En vez de grabar solamente instalaciones bonitas, observa la interfaz: cómo el museo organiza información, guía al público, vuelve accesible un contenido y transforma un archivo en experiencia.</p>
+  <div class="museums">
+    <article class="museum"><h3>✨ Museu da Língua Portuguesa</h3><p>Úsalo para hablar de pantallas, sonido, proyección, interacción y representación de un idioma vivo. Conecta el museo con procesamiento del lenguaje natural: una máquina no “entiende” un idioma igual que una comunidad.</p><div class="question">Hook: “Visité un museo que usa tecnología para mostrar algo que no se puede guardar en una vitrina: una lengua.”</div><a href="https://www.museudalinguaportuguesa.org.br/" target="_blank" rel="noopener">Sitio oficial →</a></article>
+    <article class="museum"><h3>🏛️ Museu do Ipiranga Digital</h3><p>El museo documenta digitalización de acervos, repositorios abiertos, aplicaciones interactivas, colaboración Wikimedia, entornos virtuales 3D y videojuegos. Es el mejor caso para explicar que innovar también es ampliar el acceso al patrimonio.</p><div class="question">Hook: “Un museo histórico puede convertirse en una plataforma digital sin dejar de ser museo.”</div><a href="https://museudoipiranga.org.br/museu-digital/" target="_blank" rel="noopener">Museu digital →</a></article>
+    <article class="museum"><h3>🔬 Museu Catavento</h3><p>Busca experiencias donde el visitante aprende haciendo: mecanismos, electricidad, universo, cuerpo, percepción y experimentos. Graba la interacción antes que el panel explicativo.</p><div class="question">Hook: “La ciencia cambia cuando dejas de leerla y puedes tocar una consecuencia.”</div><a href="https://museucatavento.org.br/" target="_blank" rel="noopener">Sitio oficial →</a></article>
+    <article class="museum"><h3>⚽ Museu do Futebol</h3><p>Analiza cómo archivos, audiovisuales, sonido, accesibilidad y diseño interactivo convierten datos deportivos en memoria colectiva. También permite preguntar qué historias quedan fuera cuando se construye una base de datos.</p><div class="question">Hook: “Un museo de fútbol también es un sistema de información sobre identidad, género y memoria.”</div><a href="https://museudofutebol.org.br/" target="_blank" rel="noopener">Sitio oficial →</a></article>
+    <article class="museum"><h3>🧠 Itaú Cultural</h3><p>Sus exposiciones virtuales, Enciclopédia, IC Play y plataformas como Ancestralidades muestran cómo una institución cultural puede funcionar también como archivo, medio y plataforma educativa digital.</p><div class="question">Hook: “Una institución cultural ya no termina en la puerta del edificio: también vive como plataforma.”</div><a href="https://www.itaucultural.org.br/" target="_blank" rel="noopener">Sitio oficial →</a></article>
+    <article class="museum"><h3>🪵 Japan House</h3><p>Úsala para ampliar la definición de tecnología: no solo software, también materiales, fabricación, diseño, técnicas de ensamblaje y conocimiento acumulado. La innovación puede combinar tradición y precisión.</p><div class="question">Hook: “No toda tecnología necesita una pantalla. A veces es una técnica que sobrevivió generaciones.”</div><a href="https://japanhousesp.com.br/" target="_blank" rel="noopener">Sitio oficial →</a></article>
+  </div>
+</section>
+
+<section class="section" id="contenido">
+  <p class="slabel">07 · Plan de medios especializado</p>
+  <h2>Series que pueden hacer crecer tu marca <em>después del viaje</em></h2>
+  <div class="series">
+    <article class="serie"><span class="num">SERIE 01</span><h3>IA sin humo</h3><p>Conceptos técnicos explicados con una situación real que viste en Brasil.</p><div class="examples">Digitalización vs. transformación · IA embebida · modelo fundacional · agente · supervisión humana.</div></article>
+    <article class="serie"><span class="num">SERIE 02</span><h3>Tecnología que no se ve</h3><p>Infraestructura silenciosa detrás de pagos, empresas, museos y servicios.</p><div class="examples">Pix · ERP · nube · seguridad · repositorios digitales · datos maestros.</div></article>
+    <article class="serie"><span class="num">SERIE 03</span><h3>Mujeres que deciden</h3><p>Perfiles de líderes con énfasis en responsabilidad, formación y decisiones.</p><div class="examples">CEO · cofundadora · CTO · científica · directora independiente · líder de producto.</div></article>
+    <article class="serie"><span class="num">SERIE 04</span><h3>Un museo es una interfaz</h3><p>Analiza diseño de experiencia, accesibilidad, interacción y cultura digital.</p><div class="examples">Pantallas · audio · recorridos · datos abiertos · 3D · juegos · archivos.</div></article>
+    <article class="serie"><span class="num">SERIE 05</span><h3>Diario de una ingeniera</h3><p>GRWM, outfits y vida real conectados con el aprendizaje del día.</p><div class="examples">“Me visto para visitar una fintech” · “Qué llevo a una clase de IA” · “De certificado a samba”.</div></article>
+    <article class="serie"><span class="num">SERIE 06</span><h3>Brasil vs. Chile digital</h3><p>Comparaciones honestas sin declarar ganador antes de investigar.</p><div class="examples">Pagos · banca · servicios públicos · ecosistemas startup · formación · lenguaje.</div></article>
+  </div>
+
+  <div class="idea-list">
+    <article class="idea"><span class="idea-type">Reel</span><div><h3>“Cinco palabras que escuché toda la semana y ahora sí puedo explicar”</h3><p>ERP, gobernanza, modelo fundacional, personalización y soberanía tecnológica. Una frase y un ejemplo por concepto.</p></div></article>
+    <article class="idea"><span class="idea-type">Reel</span><div><h3>“Una app bonita no es una fintech”</h3><p>Muestra las capas invisibles: producto, datos, seguridad, riesgo, cumplimiento, infraestructura y atención.</p></div></article>
+    <article class="idea"><span class="idea-type">Carrusel</span><div><h3>“Nubank y TOTVS: dos formas opuestas de ver la innovación”</h3><p>No las enfrentes por tamaño. Compara usuario principal, problema, datos, riesgo, escala y forma de generar valor.</p></div></article>
+    <article class="idea"><span class="idea-type">Reel</span><div><h3>“La tecnología más importante del viaje no fue una IA: fue Pix”</h3><p>Explica infraestructura pública digital con una compra real, sin mostrar datos personales ni códigos.</p></div></article>
+    <article class="idea"><span class="idea-type">GRWM</span><div><h3>“Me arreglo para conocer la empresa que convirtió un banco en una experiencia digital”</h3><p>Outfit + expectativa técnica + tres preguntas que llevarás a Nubank.</p></div></article>
+    <article class="idea"><span class="idea-type">GRWM</span><div><h3>“Me arreglo para visitar el software que probablemente usan empresas sin que tú lo sepas”</h3><p>Outfit + explicación breve de ERP + preguntas para TOTVS.</p></div></article>
+    <article class="idea"><span class="idea-type">Reel</span><div><h3>“La IA no entra a una empresa por la puerta principal”</h3><p>Habla de pequeños pilotos, datos, integración, seguridad y adopción antes de llegar a producción.</p></div></article>
+    <article class="idea"><span class="idea-type">Carrusel</span><div><h3>“Seis preguntas que deberías hacer antes de confiar en una IA”</h3><p>Datos, objetivo, error, afectados, apelación y responsable. Diseño pensado para guardados.</p></div></article>
+    <article class="idea"><span class="idea-type">Reel</span><div><h3>“La CEO de Nubank Brasil es ingeniera”</h3><p>Perfil de Livia Chanes con énfasis en la conexión entre ingeniería, estrategia y operación.</p></div></article>
+    <article class="idea"><span class="idea-type">Reel</span><div><h3>“Un museo histórico tiene videojuegos, 3D y repositorios abiertos”</h3><p>Usa el Museu do Ipiranga para explicar preservación digital y acceso.</p></div></article>
+    <article class="idea"><span class="idea-type">Reel</span><div><h3>“¿Puede una IA entender la saudade?”</h3><p>Desde el Museu da Língua, conecta idioma, contexto, traducción, datasets y modelos de lenguaje.</p></div></article>
+    <article class="idea"><span class="idea-type">Stories</span><div><h3>Encuesta diaria: “¿Automatizarías esta decisión?”</h3><p>Presenta un caso sencillo y ofrece opciones: sí, no, solo con revisión humana, necesito más información.</p></div></article>
+    <article class="idea"><span class="idea-type">Live</span><div><h3>Conversatorio de regreso: “Lo que vi dentro del ecosistema tech de São Paulo”</h3><p>30 minutos: clases, Nubank, TOTVS, mujeres líderes, museos y recomendaciones para postular.</p></div></article>
+  </div>
+
+  <div class="matrix">
+    <table>
+      <thead><tr><th>Pieza</th><th>Objetivo</th><th>Material que debes grabar</th><th>CTA</th></tr></thead>
+      <tbody>
+        <tr><td>Reel de descubrimiento</td><td>Alcance</td><td>Hook visual, recorrido, una idea sorprendente y reacción.</td><td>“¿Sabías que esto funcionaba así?”</td></tr>
+        <tr><td>Reel educativo</td><td>Autoridad</td><td>Definición, ejemplo real, límite y conclusión.</td><td>“Guárdalo para cuando escuches este término.”</td></tr>
+        <tr><td>Perfil de mujer líder</td><td>Representación</td><td>Rol, formación, decisión, contexto y aprendizaje.</td><td>“Envíalo a una mujer que debería conocer esta historia.”</td></tr>
+        <tr><td>Carrusel comparativo</td><td>Guardados</td><td>Dos casos, mismas variables y fuentes.</td><td>“¿Qué diferencia te parece más importante?”</td></tr>
+        <tr><td>GRWM contextual</td><td>Conexión</td><td>Outfit, preparación, pregunta del día y resultado.</td><td>“Acompáñame a descubrirlo.”</td></tr>
+        <tr><td>Story de campo</td><td>Conversación</td><td>Momento real, encuesta, duda y respuesta posterior.</td><td>Sticker de pregunta o encuesta.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="section" id="etica">
+  <p class="slabel">08 · Rigor y seguridad</p>
+  <h2>Reglas para hablar de IA <em>sin inventar autoridad</em></h2>
+  <p class="sec-lead">Tu credibilidad crecerá más diciendo “esto fue lo que entendí y esta es la fuente” que presentando una observación de una visita como verdad universal.</p>
+  <div class="checks">
+    <article class="check" onclick="this.classList.toggle('done')"><span class="box"></span><div><h3>Separar dato de opinión</h3><p>En pantalla: “dato oficial”, “lo que explicó el profesor” o “mi interpretación”.</p></div></article>
+    <article class="check" onclick="this.classList.toggle('done')"><span class="box"></span><div><h3>Confirmar cifras</h3><p>Revisa la fuente y la fecha antes de publicar usuarios, inversión, cargos o participación de mercado.</p></div></article>
+    <article class="check" onclick="this.classList.toggle('done')"><span class="box"></span><div><h3>No filmar información interna</h3><p>Pantallas, dashboards, pizarras, conversaciones y documentos pueden ser confidenciales.</p></div></article>
+    <article class="check" onclick="this.classList.toggle('done')"><span class="box"></span><div><h3>Pedir consentimiento</h3><p>No conviertas a una trabajadora, profesora o compañera en contenido sin preguntarle.</p></div></article>
+    <article class="check" onclick="this.classList.toggle('done')"><span class="box"></span><div><h3>Evitar la propaganda</h3><p>Una visita guiada muestra la versión de la empresa. Contrasta y formula preguntas críticas.</p></div></article>
+    <article class="check" onclick="this.classList.toggle('done')"><span class="box"></span><div><h3>Proteger datos personales</h3><p>No muestres QR, tarjetas, correos, nombres completos, tickets, rutas privadas ni información financiera.</p></div></article>
+    <article class="check" onclick="this.classList.toggle('done')"><span class="box"></span><div><h3>Subtitular y explicar siglas</h3><p>Escribe el término completo la primera vez y usa ejemplos accesibles.</p></div></article>
+    <article class="check" onclick="this.classList.toggle('done')"><span class="box"></span><div><h3>Mostrar límites</h3><p>Incluye qué no sabes, qué no viste y qué pregunta quedó abierta.</p></div></article>
+  </div>
+</section>
+
+<section class="section" id="fuentes">
+  <p class="slabel">09 · Fuentes para preparar guiones</p>
+  <h2>Lecturas oficiales y páginas <em>para verificar antes de publicar</em></h2>
+  <p class="sec-lead">Los cargos y cifras pueden cambiar. Revisa nuevamente estas páginas durante la semana del viaje y antes de editar contenido posterior.</p>
+  <div class="sources">
+    <a href="https://international.nubank.com.br/about/" target="_blank" rel="noopener">Nu · datos institucionales y escala</a>
+    <a href="https://www.investidores.nu/governance/management-team/" target="_blank" rel="noopener">Nu · equipo directivo actual</a>
+    <a href="https://www.investidores.nu/governance/board-of-directors/" target="_blank" rel="noopener">Nu · directorio actual</a>
+    <a href="https://international.nubank.com.br/company/new-cpo-carl-rivera-outlines-how-ai-personalized-experiences-will-enable-nubanks-new-phases-of-expansion/" target="_blank" rel="noopener">Nu · estrategia de IA, julio 2026</a>
+    <a href="https://international.nubank.com.br/company/nubank-acquires-hyperplane-to-accelerate-ai-first-strategy/" target="_blank" rel="noopener">Nu · adquisición de Hyperplane</a>
+    <a href="https://international.nubank.com.br/company/nubank-recruits-women-for-its-information-security-area/" target="_blank" rel="noopener">Nu · mujeres en seguridad informática</a>
+    <a href="https://www.totvs.com/" target="_blank" rel="noopener">TOTVS · IA, P&amp;D, centros y soluciones</a>
+    <a href="https://www.gov.br/mcti/pt-br/acompanhe-o-mcti/noticias/2024/07/plano-brasileiro-de-ia-tera-supercomputador-e-investimento-de-r-23-bilhoes-em-quatro-anos" target="_blank" rel="noopener">MCTI · Plano Brasileiro de IA</a>
+    <a href="https://www.bcb.gov.br/estabilidadefinanceira/pix" target="_blank" rel="noopener">Banco Central · Pix</a>
+    <a href="https://museudoipiranga.org.br/museu-digital/" target="_blank" rel="noopener">Museu do Ipiranga · cultura digital</a>
+    <a href="https://www.museudalinguaportuguesa.org.br/" target="_blank" rel="noopener">Museu da Língua Portuguesa</a>
+    <a href="https://www.itaucultural.org.br/" target="_blank" rel="noopener">Itaú Cultural · plataformas digitales</a>
+  </div>
+  <div class="note"><strong>Datos revisados:</strong> 15 de julio de 2026. El cronograma académico fue proporcionado por Karen. Las actividades, permisos de grabación, cargos corporativos y programación cultural deben reconfirmarse antes de cada visita.</div>
+</section>
+</main>
+<footer>@karenartc · Tecnología, IA e Innovación en Brasil · Short Term 2026</footer>
+</body>
+</html>

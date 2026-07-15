@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Karen · Plan de Medios Brasil 2026</title>
+<meta name="description" content="Plan de medios, ruta de grabación y estrategia de retorno para convertir el viaje académico a São Paulo en contenido accesible sobre tecnología, mujeres en STEM y arte.">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400;1,600&family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap');
+:root{
+  --ink:#1a1612;--cream:#fdf8f2;--paper:#fff;--fog:#e8e0d5;--deep:#12100e;
+  --verde:#2d6a4f;--verde-m:#40916c;--verde-l:#74c69d;--verde-xl:#d8f3dc;
+  --amarelo:#e9c46a;--laranja:#f4a261;--rosa:#e76f51;--azul:#457b9d;--roxo:#6b4fa0;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);line-height:1.65;font-size:14px}
+a{color:inherit}
+.topbar{position:fixed;z-index:500;top:0;left:0;right:0;height:54px;background:rgba(253,248,242,.96);backdrop-filter:blur(14px);border-bottom:1px solid var(--fog);display:flex;align-items:center;gap:1rem;padding:0 1.2rem}
+.brand{font-family:'Lora',serif;font-style:italic;color:var(--verde);font-weight:600;white-space:nowrap;text-decoration:none}
+.nav{display:flex;gap:.3rem;overflow-x:auto;scrollbar-width:none;flex:1}
+.nav::-webkit-scrollbar{display:none}
+.nav a{flex-shrink:0;text-decoration:none;font-size:.68rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:.35rem .7rem;border-radius:999px;opacity:.55}
+.nav a:hover{background:var(--verde-xl);color:var(--verde);opacity:1}
+.home{font-size:.72rem;text-decoration:none;border:1px solid var(--fog);border-radius:999px;padding:.3rem .7rem;white-space:nowrap}
+
+.hero{min-height:88vh;background:var(--deep);color:var(--cream);display:flex;align-items:center;justify-content:center;text-align:center;padding:8rem 1.3rem 5rem;position:relative;overflow:hidden}
+.hero:before{content:'';position:absolute;inset:-20%;background:radial-gradient(circle at 25% 25%,rgba(45,106,79,.45),transparent 32%),radial-gradient(circle at 80% 70%,rgba(233,196,106,.18),transparent 30%)}
+.hero-inner{max-width:900px;position:relative;z-index:1}
+.ey{font-family:'DM Mono',monospace;font-size:.67rem;letter-spacing:.16em;text-transform:uppercase;color:var(--verde-l);margin-bottom:1rem}
+.hero h1{font-family:'Lora',serif;font-weight:400;font-size:clamp(2.35rem,7vw,5.2rem);line-height:1.08;letter-spacing:-.025em}
+.hero h1 em{color:var(--amarelo)}
+.hero .lead{max-width:720px;margin:1.25rem auto 0;font-size:clamp(.9rem,2vw,1.05rem);opacity:.72}
+.hero-pills{display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center;margin-top:2rem}
+.hero-pill{border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.06);border-radius:999px;padding:.35rem .8rem;font-size:.72rem;color:rgba(255,255,255,.76)}
+.hero-cta{display:flex;flex-wrap:wrap;gap:.65rem;justify-content:center;margin-top:2rem}
+.btn{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;border-radius:999px;padding:.65rem 1.05rem;font-size:.78rem;font-weight:700}
+.btn-primary{background:var(--verde-l);color:var(--deep)}
+.btn-ghost{border:1px solid rgba(255,255,255,.24);color:var(--cream)}
+
+main{max-width:1080px;margin:0 auto;padding:0 1.25rem 5rem}
+.section{padding:4.5rem 0 1rem;scroll-margin-top:54px}
+.slabel{font-family:'DM Mono',monospace;font-size:.63rem;letter-spacing:.14em;text-transform:uppercase;color:var(--verde);opacity:.75;margin-bottom:.35rem}
+h2{font-family:'Lora',serif;font-weight:400;font-size:clamp(1.7rem,4vw,2.75rem);line-height:1.2;color:var(--deep)}
+h2 em{color:var(--verde)}
+.sec-lead{max-width:760px;margin-top:.7rem;opacity:.67}
+.quote{margin:1.7rem 0;background:var(--deep);color:var(--cream);border-radius:18px;padding:2rem clamp(1.3rem,5vw,3rem);position:relative;overflow:hidden}
+.quote:before{content:'“';position:absolute;font-family:'Lora',serif;font-size:8rem;line-height:1;color:var(--verde-l);opacity:.12;top:.1rem;left:1rem}
+.quote p{font-family:'Lora',serif;font-size:clamp(1rem,2.2vw,1.3rem);font-style:italic;line-height:1.65;position:relative}
+.quote small{display:block;margin-top:1rem;font-family:'DM Mono',monospace;font-size:.62rem;text-transform:uppercase;letter-spacing:.1em;color:var(--verde-l)}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:.85rem;margin-top:1.5rem}
+.card{background:var(--paper);border:1.5px solid var(--fog);border-radius:14px;padding:1.25rem}
+.card .icon{font-size:1.5rem;display:block;margin-bottom:.5rem}
+.card h3{font-family:'Lora',serif;font-size:1rem;color:var(--deep);margin-bottom:.3rem}
+.card p{font-size:.8rem;opacity:.68;line-height:1.55}
+.card strong{color:var(--verde);opacity:1}
+
+.callout{margin:1.4rem 0;background:var(--verde-xl);border-left:4px solid var(--verde-l);border-radius:0 12px 12px 0;padding:1rem 1.2rem;font-size:.84rem}
+.warn{background:#fff4e6;border-left-color:var(--laranja)}
+.now{background:#f5f0ff;border-left-color:#b8a0d8}
+
+.mix{display:flex;flex-direction:column;gap:.65rem;margin-top:1.5rem}
+.mix-row{display:grid;grid-template-columns:minmax(150px,230px) 1fr 42px;gap:.7rem;align-items:center}
+.mix-label{font-size:.79rem;font-weight:600}
+.track{height:8px;background:var(--fog);border-radius:99px;overflow:hidden}
+.fill{height:100%;background:var(--verde);border-radius:99px}
+.pct{font-family:'DM Mono',monospace;font-size:.68rem;color:var(--verde)}
+
+.funnel{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--fog);border:1px solid var(--fog);border-radius:14px;overflow:hidden;margin-top:1.5rem}
+.funnel>div{background:var(--paper);padding:1.2rem}
+.funnel .n{font-family:'DM Mono',monospace;font-size:.62rem;color:var(--verde);margin-bottom:.3rem}
+.funnel h3{font-size:.84rem;margin-bottom:.25rem}
+.funnel p{font-size:.75rem;opacity:.65}
+
+.route{display:flex;flex-direction:column;gap:.7rem;margin-top:1.5rem}
+.day{display:grid;grid-template-columns:115px 1fr auto;gap:1rem;align-items:center;background:var(--paper);border:1.5px solid var(--fog);border-radius:12px;padding:1rem}
+.day-date{font-family:'DM Mono',monospace;font-size:.66rem;color:var(--verde);text-transform:uppercase;letter-spacing:.05em}
+.day h3{font-size:.86rem;margin-bottom:.12rem}
+.day p{font-size:.76rem;opacity:.64}
+.day .badge{font-size:.62rem;font-weight:700;border-radius:999px;padding:.15rem .5rem;background:var(--verde-xl);color:var(--verde);white-space:nowrap}
+
+.filters{display:flex;gap:.4rem;flex-wrap:wrap;margin:1.35rem 0}
+.filter{border:1.5px solid var(--fog);background:var(--paper);border-radius:999px;padding:.35rem .8rem;font:600 .72rem 'DM Sans',sans-serif;cursor:pointer;color:var(--ink);opacity:.65}
+.filter.active,.filter:hover{background:var(--verde);border-color:var(--verde);color:white;opacity:1}
+
+.place{background:var(--paper);border:1.5px solid var(--fog);border-radius:16px;margin-bottom:.85rem;overflow:hidden}
+.place-head{display:flex;gap:.8rem;align-items:flex-start;padding:1.1rem 1.2rem;cursor:pointer}
+.place-head:hover{background:#faf7f3}
+.place-emoji{font-size:1.55rem;line-height:1}
+.place-main{flex:1}
+.place-name{font-family:'Lora',serif;font-weight:600;font-size:1.05rem;line-height:1.2;color:var(--deep)}
+.place-sub{font-size:.76rem;opacity:.6;margin-top:.2rem}
+.tags{display:flex;flex-wrap:wrap;gap:.3rem;margin-top:.45rem}
+.tag{font-size:.6rem;font-weight:700;padding:.1rem .45rem;border-radius:999px}
+.tech{background:rgba(69,123,157,.15);color:var(--azul)}
+.women{background:rgba(231,111,81,.14);color:var(--rosa)}
+.art{background:rgba(233,196,106,.22);color:#775800}
+.access{background:rgba(45,106,79,.14);color:var(--verde)}
+.life{background:rgba(107,79,160,.12);color:var(--roxo)}
+.arrow{font-size:.9rem;opacity:.35;transition:.2s}
+.place.open .arrow{transform:rotate(90deg)}
+.place-body{display:none;border-top:1px solid var(--fog);padding:1.2rem}
+.place.open .place-body{display:block}
+.place-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:1rem}
+.block{background:var(--cream);border:1px solid var(--fog);border-radius:10px;padding:.9rem}
+.block h4{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--verde);margin-bottom:.45rem}
+.block p,.block li{font-size:.78rem;line-height:1.55}
+.block ul{list-style:none;display:flex;flex-direction:column;gap:.35rem}
+.block li{padding-left:.85rem;position:relative}
+.block li:before{content:'→';position:absolute;left:0;color:var(--verde-l)}
+.hook{font-family:'Lora',serif;font-style:italic;background:#fff8ec;border-left:3px solid var(--amarelo);border-radius:0 8px 8px 0;padding:.75rem .85rem;font-size:.84rem;margin-bottom:.5rem}
+.script{background:#f5f0ff;border:1px dashed #b8a0d8;border-radius:8px;padding:.8rem;font-size:.78rem;line-height:1.6}
+.outputs{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.55rem}
+.output{font-size:.63rem;border:1px solid var(--fog);background:white;border-radius:999px;padding:.12rem .5rem}
+.source-link{display:inline-block;margin-top:.6rem;color:var(--verde);font-size:.7rem;font-weight:700}
+.priority{display:inline-block;margin-bottom:.5rem;font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.08em;text-transform:uppercase;color:var(--rosa)}
+
+.idea-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:.7rem;margin-top:1.3rem}
+.idea{background:var(--paper);border:1.5px solid var(--fog);border-radius:12px;padding:1rem}
+.idea-top{display:flex;align-items:center;justify-content:space-between;gap:.5rem;margin-bottom:.4rem}
+.idea-type{font-family:'DM Mono',monospace;font-size:.58rem;text-transform:uppercase;letter-spacing:.08em;color:var(--verde)}
+.idea h3{font-size:.84rem;line-height:1.35}
+.idea p{font-size:.75rem;opacity:.64;line-height:1.5}
+.idea .mini{margin-top:.5rem;font-size:.68rem;color:var(--verde);font-weight:700}
+
+.system-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:.8rem;margin-top:1.4rem}
+.check{background:var(--paper);border:1.5px solid var(--fog);border-radius:12px;padding:1rem;display:flex;gap:.65rem;cursor:pointer}
+.box{width:18px;height:18px;border:2px solid var(--verde-l);border-radius:5px;flex-shrink:0;margin-top:.1rem}
+.check.done .box{background:var(--verde);border-color:var(--verde);position:relative}
+.check.done .box:after{content:'✓';position:absolute;color:white;font-size:.7rem;left:3px;top:-1px}
+.check h3{font-size:.82rem;margin-bottom:.2rem}
+.check p{font-size:.73rem;opacity:.63}
+
+.matrix{overflow-x:auto;margin-top:1.4rem;border:1.5px solid var(--fog);border-radius:12px;background:white}
+table{border-collapse:collapse;width:100%;min-width:720px}
+th,td{text-align:left;padding:.75rem;border-bottom:1px solid var(--fog);font-size:.75rem;vertical-align:top}
+th{background:var(--verde-xl);color:var(--verde);font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.07em;text-transform:uppercase}
+tr:last-child td{border-bottom:0}
+
+.timeline{border-left:2px solid var(--verde-l);margin:1.5rem 0 0 1rem;padding-left:1.6rem;display:flex;flex-direction:column;gap:1.15rem}
+.tl{position:relative}
+.tl:before{content:'';position:absolute;left:-2.08rem;top:.4rem;width:9px;height:9px;border-radius:50%;background:var(--verde);border:2px solid var(--cream)}
+.tl-date{font-family:'DM Mono',monospace;font-size:.59rem;text-transform:uppercase;letter-spacing:.09em;color:var(--verde)}
+.tl h3{font-size:.88rem;margin:.15rem 0}
+.tl p{font-size:.77rem;opacity:.66;max-width:760px}
+
+.kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.75rem;margin-top:1.3rem}
+.kpi{background:var(--deep);color:var(--cream);border-radius:12px;padding:1.2rem}
+.kpi .big{font-family:'Lora',serif;font-size:1.8rem;color:var(--verde-l);line-height:1}
+.kpi h3{font-size:.78rem;margin:.45rem 0 .2rem}
+.kpi p{font-size:.72rem;opacity:.58}
+
+.sources{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:.55rem;margin-top:1.2rem}
+.sources a{background:white;border:1px solid var(--fog);border-radius:9px;padding:.7rem .8rem;text-decoration:none;font-size:.74rem;font-weight:600;color:var(--verde)}
+.sources a:hover{border-color:var(--verde-l)}
+
+footer{text-align:center;border-top:1px solid var(--fog);padding:2.5rem 1.2rem;font-size:.7rem;opacity:.42}
+@media(max-width:760px){
+  .funnel{grid-template-columns:1fr 1fr}
+  .place-grid{grid-template-columns:1fr}
+  .day{grid-template-columns:85px 1fr}.day .badge{display:none}
+}
+@media(max-width:520px){
+  .topbar{padding:0 .75rem}.home{display:none}
+  .hero{min-height:auto;padding-top:7rem}
+  main{padding-left:.9rem;padding-right:.9rem}
+  .funnel{grid-template-columns:1fr}
+  .mix-row{grid-template-columns:125px 1fr 35px}
+}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="index.html">@karenartc · Brasil</a>
+  <nav class="nav" aria-label="Navegación del plan">
+    <a href="#proposito">Propósito</a>
+    <a href="#estrategia">Estrategia</a>
+    <a href="#ruta">Ruta</a>
+    <a href="#lugares">Qué grabar</a>
+    <a href="#banco">Banco de videos</a>
+    <a href="#produccion">Producción</a>
+    <a href="#retorno">Retorno 2027</a>
+  </nav>
+  <a class="home" href="index.html">Centro de guías</a>
+</header>
+
+<section class="hero">
+  <div class="hero-inner">
+    <p class="ey">Plan de medios · São Paulo · 20–31 julio 2026</p>
+    <h1>Brasil no es solo un viaje.<br>Es una <em>biblioteca de historias.</em></h1>
+    <p class="lead">Una ruta para grabar arte, tecnología, informática, internacionalización y experiencias de mujeres; convertir 14 días en contenido útil, accesible y coherente con tu compromiso de abrir oportunidades a otras estudiantes.</p>
+    <div class="hero-pills">
+      <span class="hero-pill">Mujeres en STEM</span>
+      <span class="hero-pill">Arte y cultura visual</span>
+      <span class="hero-pill">Tecnología explicada simple</span>
+      <span class="hero-pill">GRWM y vida real</span>
+      <span class="hero-pill">Retorno académico 2027</span>
+    </div>
+    <div class="hero-cta">
+      <a class="btn btn-primary" href="#ruta">Ver ruta de grabación</a>
+      <a class="btn btn-ghost" href="calendario-brasil.html">Abrir calendario existente</a>
+    </div>
+  </div>
+</section>
+
+<main>
+<section id="proposito" class="section">
+  <p class="slabel">01 · Norte de campaña</p>
+  <h2>La promesa que guía <em>todo el contenido</em></h2>
+  <p class="sec-lead">El criterio no es “¿esto se ve bonito?”, sino “¿esto ayuda a alguien a imaginarse dentro de una oportunidad que antes sentía lejana?”. Lo bonito atrae; la explicación, la honestidad y los recursos concretos generan impacto.</p>
+  <div class="quote">
+    <p>Transformar la experiencia en acciones concretas dentro de la comunidad académica; compartir lo aprendido en charlas, conversatorios y contenido digital accesible para futuros postulantes, con especial atención a niñas y mujeres en STEM.</p>
+    <small>Compromiso de la carta de motivación · ejecución máxima: semestre de otoño 2027</small>
+  </div>
+  <div class="grid">
+    <article class="card"><span class="icon">🧭</span><h3>Objetivo de acceso</h3><p>Explicar cómo se encuentra, postula, financia y vive una experiencia internacional, incluyendo dudas, costos, errores y miedos reales.</p></article>
+    <article class="card"><span class="icon">💻</span><h3>Objetivo de autoridad</h3><p>Construir una voz reconocible como <strong>mujer informática</strong> capaz de explicar tecnología sin excluir a quienes no dominan el tema.</p></article>
+    <article class="card"><span class="icon">🎨</span><h3>Objetivo de diferenciación</h3><p>Unir código, arte, arquitectura, fotografía y vida cotidiana. No competir como una travel creator genérica.</p></article>
+    <article class="card"><span class="icon">🌱</span><h3>Objetivo de retorno</h3><p>Convertir el material en una charla, una guía abierta, un repositorio de preguntas y una serie que siga siendo útil en 2027.</p></article>
+  </div>
+  <div class="callout"><strong>Frase de posicionamiento:</strong> “Documento oportunidades internacionales desde la mirada de una mujer informática y artista, para que otras estudiantes entiendan que también pueden llegar.”</div>
+</section>
+
+<section id="estrategia" class="section">
+  <p class="slabel">02 · Plan de medios</p>
+  <h2>Una campaña completa, no una colección <em>de recuerdos</em></h2>
+  <p class="sec-lead">Cada pieza debe cumplir una función. Los videos visuales traen gente nueva; los educativos construyen confianza; los personales crean vínculo; las guías y conversatorios convierten esa atención en acceso real.</p>
+
+  <div class="mix">
+    <div class="mix-row"><div class="mix-label">Acceso e internacionalización</div><div class="track"><div class="fill" style="width:25%"></div></div><div class="pct">25%</div></div>
+    <div class="mix-row"><div class="mix-label">Mujeres en STEM</div><div class="track"><div class="fill" style="width:25%"></div></div><div class="pct">25%</div></div>
+    <div class="mix-row"><div class="mix-label">Tech explicado simple</div><div class="track"><div class="fill" style="width:20%"></div></div><div class="pct">20%</div></div>
+    <div class="mix-row"><div class="mix-label">Arte, cultura y ciudad</div><div class="track"><div class="fill" style="width:20%"></div></div><div class="pct">20%</div></div>
+    <div class="mix-row"><div class="mix-label">GRWM, comida y vida real</div><div class="track"><div class="fill" style="width:10%"></div></div><div class="pct">10%</div></div>
+  </div>
+
+  <div class="funnel">
+    <div><div class="n">01 · DESCUBRIR</div><h3>Hooks visuales</h3><p>Curiosidades, arquitectura, comida, outfit y “no sabía que esto existía”.</p></div>
+    <div><div class="n">02 · CONFIAR</div><h3>Explicación útil</h3><p>Voz en off, datos verificados, comparaciones y aprendizajes de clases.</p></div>
+    <div><div class="n">03 · CONVERSAR</div><h3>Comunidad</h3><p>Encuestas, preguntas, Q&A, dudas de postulantes y voces de otras mujeres.</p></div>
+    <div><div class="n">04 · ACTUAR</div><h3>Recurso concreto</h3><p>Guía, checklist, charla, formulario, destacado y repositorio de respuestas.</p></div>
+  </div>
+
+  <div class="grid">
+    <article class="card"><span class="icon">🎬</span><h3>Meta de campaña</h3><p><strong>20 reels</strong>, 10 carruseles, 6 posts de foto, 30–45 secuencias de stories y una guía web reutilizable.</p></article>
+    <article class="card"><span class="icon">🗣️</span><h3>Dos formas de aparecer</h3><p>50% cámara directa para confianza; 50% voz en off para explicar sin perder tiempo del viaje.</p></article>
+    <article class="card"><span class="icon">♻️</span><h3>Regla de reutilización</h3><p>Un lugar debe producir al menos: reel principal, microreel, carrusel, cinco stories, foto y nota de voz.</p></article>
+    <article class="card"><span class="icon">📌</span><h3>CTA principal</h3><p>“Guárdalo para tu postulación” o “escribe BRASIL y te envío la guía cuando esté publicada”.</p></article>
+  </div>
+</section>
+
+<section id="ruta" class="section">
+  <p class="slabel">03 · Ruta conectada al travel book</p>
+  <h2>Qué historia buscar <em>cada día</em></h2>
+  <p class="sec-lead">La ruta conserva los lugares ya elegidos y les agrega una misión editorial. Los horarios, entradas y actividades temporales deben reconfirmarse 24 horas antes.</p>
+  <div class="route">
+    <div class="day"><div class="day-date">Lun 20 · Luz</div><div><h3>Pinacoteca: mujeres, arte y memoria</h3><p>Presentar una artista contemporánea y registrar cómo una institución cuenta historias que no caben en una sola versión de Brasil.</p></div><span class="badge">Arte + mujeres</span></div>
+    <div class="day"><div class="day-date">Mar 21 · Pacaembu</div><div><h3>Museu do Futebol: datos, interacción y resistencia</h3><p>Un reel sobre mujeres que jugaron incluso cuando el fútbol femenino fue prohibido y otro sobre diseño interactivo.</p></div><span class="badge">STEM + deporte</span></div>
+    <div class="day"><div class="day-date">Mié 22 · Luz</div><div><h3>Museu da Língua: el lenguaje como interfaz</h3><p>Comparar idioma, sintaxis y comunicación con sistemas; grabar instalaciones, sonido y reacción personal.</p></div><span class="badge">Tech + cultura</span></div>
+    <div class="day"><div class="day-date">Jue 23 · Vila Madalena</div><div><h3>Beco do Batman: arte que cambia</h3><p>Registrar murales, firmas y capas; hablar de autoría, ciudad y creación efímera sin presentar datos no verificados sobre cada obra.</p></div><span class="badge">Arte urbano</span></div>
+    <div class="day"><div class="day-date">Vie 24 · Ipiranga</div><div><h3>Museu do Ipiranga: patrimonio físico y digital</h3><p>Exposición “Liberdade: bairro plural”, procesos de digitalización, museo 3D y roles de género en los objetos cotidianos.</p></div><span class="badge">Museo + datos</span></div>
+    <div class="day"><div class="day-date">Fin de semana</div><div><h3>Guarujá + Centro Histórico</h3><p>Combinar GRWM y descanso con una mirada responsable al territorio; en el centro, priorizar Catavento si buscas contenido STEM.</p></div><span class="badge">Lifestyle + ciencia</span></div>
+    <div class="day"><div class="day-date">Mié 29 · Liberdade</div><div><h3>Memoria migrante y archivos</h3><p>Conectar barrio, museo, documentos digitalizados, identidad y la valentía de comenzar de nuevo.</p></div><span class="badge">Acceso + memoria</span></div>
+    <div class="day"><div class="day-date">Bloque flexible</div><div><h3>Avenida Paulista: circuito de mujeres, arte y tecnología</h3><p>MASP, Japan House, IMS, Itaú Cultural y Casa das Rosas pueden producir varias piezas sin cruzar la ciudad.</p></div><span class="badge">Día de campaña</span></div>
+  </div>
+  <div class="callout now"><strong>Oportunidades vigentes durante tu viaje, verificadas el 14/07/2026:</strong> MASP tiene varias exposiciones de artistas latinoamericanas y mujeres; Pinacoteca presenta obras de Beatriz Milhazes, Alice Yura, Olinda Tupinambá y Cristina Salgado; Museu do Ipiranga ofrece “Liberdade: bairro plural”; Japan House mantiene “KIGUMI” y “Shiro”; Itaú Cultural tiene agenda especial de julio. Reconfirma antes de salir porque la programación puede cambiar.</div>
+</section>
+
+<section id="lugares" class="section">
+  <p class="slabel">04 · Guía de grabación por lugar</p>
+  <h2>Abre cada parada y sal con un <em>plan concreto</em></h2>
+  <p class="sec-lead">Las tarjetas priorizan historias relacionadas con mujeres, informática, tecnología y arte. Los restaurantes y puntos ligeros siguen sirviendo, pero como apoyo visual o lifestyle, no como centro de la campaña.</p>
+  <div class="filters">
+    <button class="filter active" data-filter="all">Todos</button>
+    <button class="filter" data-filter="women">Mujeres</button>
+    <button class="filter" data-filter="tech">Tecnología</button>
+    <button class="filter" data-filter="art">Arte</button>
+    <button class="filter" data-filter="access">Acceso</button>
+    <button class="filter" data-filter="life">Lifestyle</button>
+  </div>
+
+  <article class="place" data-cat="women art access">
+    <div class="place-head"><span class="place-emoji">🖼️</span><div class="place-main"><div class="place-name">Pinacoteca do Estado</div><div class="place-sub">Tu mejor parada para abrir la serie “mujeres que crean, preservan y reinterpretan Brasil”.</div><div class="tags"><span class="tag women">Mujeres</span><span class="tag art">Arte</span><span class="tag access">Memoria</span></div></div><span class="arrow">›</span></div>
+    <div class="place-body"><div class="place-grid">
+      <div class="block"><span class="priority">Prioridad alta · 3 piezas</span><h4>Ángulo verificado</h4><p>Durante tus fechas hay obras y muestras asociadas a Beatriz Milhazes, Alice Yura, Olinda Tupinambá y Cristina Salgado, además de actividades educativas. No necesitas fingir ser experta: el formato puede ser “una obra, una pregunta y lo que investigué después”.</p><a class="source-link" href="https://pinacoteca.org.br/programacao/" target="_blank" rel="noopener">Fuente oficial y programación</a></div>
+      <div class="block"><h4>Grabación obligatoria</h4><ul><li>Fachada y llegada desde la estación.</li><li>Plano general del edificio, luz y circulación.</li><li>Una obra de una mujer, solo si está permitido grabarla.</li><li>Detalle de tu libreta haciendo un boceto.</li><li>Reacción de 10 segundos al salir.</li><li>Audio ambiente limpio.</li></ul></div>
+      <div class="block"><h4>Hooks</h4><div class="hook">“Vine a Brasil a estudiar tecnología y terminé entendiendo algo sobre datos dentro de un museo de arte.”</div><div class="hook">“Cuatro mujeres que puedes descubrir en São Paulo este julio, empezando por esta sala.”</div></div>
+      <div class="block"><h4>Voz en off base</h4><div class="script">“Un museo no solo guarda objetos: decide qué historias conserva, cómo las organiza y a quién pone en el centro. Hoy busqué obras de mujeres brasileñas y latinoamericanas. No para hacer una lista, sino para preguntarme cuántas veces recorrí un museo sin mirar quién tuvo permiso de entrar en la historia.”</div><div class="outputs"><span class="output">Reel 45 s</span><span class="output">Carrusel 6 slides</span><span class="output">Sketchbook</span><span class="output">Stories encuesta</span></div></div>
+    </div></div>
+  </article>
+
+  <article class="place" data-cat="tech access art">
+    <div class="place-head"><span class="place-emoji">✨</span><div class="place-main"><div class="place-name">Museu da Língua Portuguesa</div><div class="place-sub">Idioma como sistema vivo: interfaz, reglas, memoria, accesibilidad y tecnología expositiva.</div><div class="tags"><span class="tag tech">Tecnología</span><span class="tag access">Comunicación</span><span class="tag art">Instalación</span></div></div><span class="arrow">›</span></div>
+    <div class="place-body"><div class="place-grid">
+      <div class="block"><span class="priority">Prioridad alta · 2 piezas</span><h4>Ángulo verificado</h4><p>El museo cumple 20 años en 2026 y funciona con instalaciones audiovisuales e interactivas. El 30 de julio tiene una exhibición gratuita de “A Melhor Mãe do Mundo”, dirigida por Anna Muylaert, si el horario calza con tu itinerario.</p><a class="source-link" href="https://www.museudalinguaportuguesa.org.br/" target="_blank" rel="noopener">Fuente oficial</a></div>
+      <div class="block"><h4>Grabación obligatoria</h4><ul><li>Estação da Luz desde un punto seguro.</li><li>Palabras, sonido o proyecciones autorizadas.</li><li>Tú intentando una frase en portugués.</li><li>Plano de señalética y recursos de accesibilidad.</li><li>Nota de voz: tres diferencias que realmente observaste.</li></ul></div>
+      <div class="block"><h4>Hooks</h4><div class="hook">“Un idioma también tiene sintaxis, versiones y errores de compatibilidad.”</div><div class="hook">“Soy informática y este museo me hizo mirar el portugués como una interfaz.”</div></div>
+      <div class="block"><h4>Voz en off base</h4><div class="script">“Cuando programamos, una instrucción mal interpretada cambia el resultado. Con los idiomas pasa algo parecido, pero con contexto, historia y emoción. Este museo no trata al portugués como una pieza inmóvil: lo muestra como un sistema que cambia con las personas que lo usan.”</div><div class="outputs"><span class="output">Reel educativo</span><span class="output">Microreel humor</span><span class="output">Carrusel idioma/tech</span></div></div>
+    </div></div>
+  </article>
+
+  <article class="place" data-cat="women tech access">
+    <div class="place-head"><span class="place-emoji">⚽</span><div class="place-main"><div class="place-name">Museu do Futebol</div><div class="place-sub">La historia del deporte contada con archivos, audiovisual, interacción y resistencia femenina.</div><div class="tags"><span class="tag women">Mujeres</span><span class="tag tech">Interactividad</span><span class="tag access">Historia</span></div></div><span class="arrow">›</span></div>
+    <div class="place-body"><div class="place-grid">
+      <div class="block"><span class="priority">Prioridad máxima · 3 piezas</span><h4>Ángulo verificado</h4><p>La exposición renovada dedica espacio explícito al fútbol femenino: presenta el decreto de 1941 que prohibió la práctica para mujeres, su resistencia hasta 1988 y las Copas Mundiales femeninas desde 1991. Incluye material de Marta en varios idiomas y Libras.</p><a class="source-link" href="https://museudofutebol.org.br/" target="_blank" rel="noopener">Fuente oficial</a></div>
+      <div class="block"><h4>Grabación obligatoria</h4><ul><li>Estadio y plaza exterior.</li><li>Línea de tiempo del fútbol femenino.</li><li>Una estación interactiva y tu uso real.</li><li>Elementos de accesibilidad.</li><li>Pregunta a cámara al final: “¿qué historia aprendiste tarde?”.</li></ul></div>
+      <div class="block"><h4>Hooks</h4><div class="hook">“En Brasil, las mujeres jugaron fútbol incluso cuando la ley decía que no debían hacerlo.”</div><div class="hook">“Este museo demuestra que una experiencia interactiva también puede corregir una historia incompleta.”</div></div>
+      <div class="block"><h4>Voz en off base</h4><div class="script">“Durante décadas, el problema no fue que las mujeres no quisieran jugar: fue que las instituciones intentaron impedirlo. Este museo pone archivos, imágenes y voces donde antes había silencio. La tecnología de una exposición importa cuando no solo entretiene, sino que permite ver una historia que fue borrada.”</div><div class="outputs"><span class="output">Reel mujeres/deporte</span><span class="output">Reel UX museo</span><span class="output">Carrusel cronología</span></div></div>
+    </div></div>
+  </article>
+
+  <article class="place" data-cat="women art tech">
+    <div class="place-head"><span class="place-emoji">🏛️</span><div class="place-main"><div class="place-name">MASP</div><div class="place-sub">Lina Bo Bardi + una programación de julio especialmente fértil para artistas latinoamericanas.</div><div class="tags"><span class="tag women">Mujeres</span><span class="tag art">Arte</span><span class="tag tech">Diseño</span></div></div><span class="arrow">›</span></div>
+    <div class="place-body"><div class="place-grid">
+      <div class="block"><span class="priority">Prioridad máxima · 4 piezas</span><h4>Ángulo verificado</h4><p>Durante el viaje coinciden exposiciones de Carolina Caycedo, Sol Calero, Regina José Galindo, La Chola Poblete y Claudia Alarcón junto al colectivo Silät, entre otras. El edificio de Lina Bo Bardi permite unir arquitectura, diseño de experiencia y representación.</p><a class="source-link" href="https://masp.org.br/exposicoes" target="_blank" rel="noopener">Fuente oficial y exposiciones</a></div>
+      <div class="block"><h4>Grabación obligatoria</h4><ul><li>Edificio completo desde la vereda opuesta.</li><li>Espacio libre bajo el museo y uso ciudadano.</li><li>Vigas, estructura y caballetes de vidrio.</li><li>Tres nombres de artistas en señalética.</li><li>Tu selección: una obra que conecte con tecnología, territorio o cuerpo.</li></ul></div>
+      <div class="block"><h4>Hooks</h4><div class="hook">“Puedes salir del MASP con cuatro reels distintos y ninguno necesita hablar de Picasso.”</div><div class="hook">“El edificio más reconocible de São Paulo fue diseñado por una mujer inmigrante.”</div></div>
+      <div class="block"><h4>Voz en off base</h4><div class="script">“Yo pensaba venir a grabar el edificio. Pero la programación de este julio me obligó a mirar más allá: territorio, migración, violencia, identidad y saberes indígenas contados por artistas latinoamericanas. Este es el tipo de visita donde una creadora no sale con respuestas; sale con mejores preguntas.”</div><div class="outputs"><span class="output">Reel Lina Bo Bardi</span><span class="output">Reel 4 artistas</span><span class="output">Carrusel obras</span><span class="output">GRWM museo</span></div></div>
+    </div></div>
+  </article>
+
+  <article class="place" data-cat="tech art women">
+    <div class="place-head"><span class="place-emoji">🌆</span><div class="place-main"><div class="place-name">Avenida Paulista: Japan House + IMS + Itaú Cultural + Casa das Rosas</div><div class="place-sub">Un solo corredor para crear una miniserie sobre diseño, archivo, cultura digital y ciudad.</div><div class="tags"><span class="tag tech">Tecnología</span><span class="tag art">Diseño</span><span class="tag women">Autoras</span></div></div><span class="arrow">›</span></div>
+    <div class="place-body"><div class="place-grid">
+      <div class="block"><span class="priority">Prioridad alta · 4–6 piezas</span><h4>Ángulos verificados</h4><p><strong>Japan House:</strong> “KIGUMI” y “Shiro” siguen abiertas; el 30/07 hay club de lectura sobre Hiromi Kawakami. <strong>IMS:</strong> fotografía, cine y archivos; revisa restricciones antes de grabar. <strong>Itaú Cultural:</strong> Enciclopédia, IC Play, Ancestralidades y agenda de julio permiten hablar de acceso digital a la cultura.</p></div>
+      <div class="block"><h4>Grabación obligatoria</h4><ul><li>Transición caminando entre cuatro instituciones.</li><li>Un detalle constructivo de KIGUMI.</li><li>Libro o archivo fotográfico en IMS.</li><li>Pantalla/plataforma cultural en Itaú.</li><li>Casa das Rosas como contraste histórico.</li><li>Méqui 1000 solo como pieza ligera o transición.</li></ul></div>
+      <div class="block"><h4>Hooks</h4><div class="hook">“Esta avenida parece financiera, pero en menos de dos kilómetros encontré una clase completa de diseño y cultura digital.”</div><div class="hook">“¿Qué tienen en común una unión de madera, un archivo fotográfico y una plataforma cultural?”</div></div>
+      <div class="block"><h4>Voz en off base</h4><div class="script">“Tecnología no siempre significa pantallas. A veces es una técnica de carpintería transmitida por generaciones; otras, un archivo que se digitaliza para que no desaparezca. Hoy recorrí Paulista buscando distintas formas de almacenar y compartir conocimiento.”</div><div class="outputs"><span class="output">Reel circuito</span><span class="output">Reel KIGUMI</span><span class="output">Carrusel archivo digital</span><span class="output">GRWM Paulista</span></div><a class="source-link" href="https://japanhousesp.com.br/programacao/" target="_blank" rel="noopener">Japan House</a> · <a class="source-link" href="https://ims.com.br/unidade/sao-paulo/" target="_blank" rel="noopener">IMS</a> · <a class="source-link" href="https://www.itaucultural.org.br/" target="_blank" rel="noopener">Itaú Cultural</a></div>
+    </div></div>
+  </article>
+
+  <article class="place" data-cat="tech women access art">
+    <div class="place-head"><span class="place-emoji">🏺</span><div class="place-main"><div class="place-name">Museu do Ipiranga + Parque da Independência</div><div class="place-sub">Patrimonio, roles de género, barrio plural y el museo como infraestructura digital.</div><div class="tags"><span class="tag tech">Digitalización</span><span class="tag women">Género</span><span class="tag access">Historia</span><span class="tag art">Arquitectura</span></div></div><span class="arrow">›</span></div>
+    <div class="place-body"><div class="place-grid">
+      <div class="block"><span class="priority">Prioridad máxima · 3 piezas</span><h4>Ángulo verificado</h4><p>“Liberdade: bairro plural” está abierta desde el 7 de julio de 2026 y amplía la historia del barrio más allá de una identidad única. El museo también mantiene repositorios abiertos, colaboración con Wikimedia, aplicaciones de curaduría y recorrido 3D. La muestra de larga duración “Casas e coisas” permite observar roles de género en la vida doméstica.</p><a class="source-link" href="https://museudoipiranga.org.br/" target="_blank" rel="noopener">Fuente oficial</a></div>
+      <div class="block"><h4>Grabación obligatoria</h4><ul><li>Eje del jardín y fachada simétrica.</li><li>“Liberdade: bairro plural” y sus créditos curatoriales.</li><li>Una interfaz, QR o recurso digital del museo.</li><li>Objeto doméstico que abra una pregunta sobre género.</li><li>Comparación del lugar físico con el recorrido web 3D.</li></ul></div>
+      <div class="block"><h4>Hooks</h4><div class="hook">“Este museo no termina en sus paredes: también existe como base de datos, wiki y recorrido 3D.”</div><div class="hook">“Liberdade no es solo el barrio japonés de São Paulo, y esta exposición explica por qué.”</div></div>
+      <div class="block"><h4>Voz en off base</h4><div class="script">“Preservar patrimonio ya no consiste solo en cuidar un objeto detrás de un vidrio. También significa describirlo, digitalizarlo, relacionarlo y permitir que otras personas lo encuentren. Como informática, me interesa mirar un museo como una arquitectura de información.”</div><div class="outputs"><span class="output">Reel museo digital</span><span class="output">Reel bairro plural</span><span class="output">Carrusel género/objetos</span></div></div>
+    </div></div>
+  </article>
+
+  <article class="place" data-cat="access women tech art">
+    <div class="place-head"><span class="place-emoji">🏮</span><div class="place-main"><div class="place-name">Liberdade + Museu da Imigração Japonesa</div><div class="place-sub">Migración, memoria familiar, digitalización colaborativa, gastronomía y el acto de empezar de cero.</div><div class="tags"><span class="tag access">Internacionalización</span><span class="tag women">Memoria</span><span class="tag tech">Archivo digital</span><span class="tag art">Cultura</span></div></div><span class="arrow">›</span></div>
+    <div class="place-body"><div class="place-grid">
+      <div class="block"><span class="priority">Prioridad máxima · 4 piezas</span><h4>Ángulo verificado</h4><p>El museo conserva más de 97.000 ítems. El proyecto ASHIATO digitalizó listas de pasajeros mediante el trabajo de más de 100 voluntarios, con lectura, transliteración y carga en una base de datos. Es una historia perfecta sobre comunidad, tecnología y memoria.</p><a class="source-link" href="https://bunkyo.org.br/br/museu-historico/" target="_blank" rel="noopener">Fuente oficial</a></div>
+      <div class="block"><h4>Grabación obligatoria</h4><ul><li>Faroles, flujo de calle y comercios.</li><li>Documentos, fotos o kimonos permitidos.</li><li>Interfaz/lista de pasajeros digitalizada.</li><li>Una comida con reacción real, sin exotizar.</li><li>Templo solo con respeto y permiso.</li><li>Reflexión al final del día en cámara.</li></ul></div>
+      <div class="block"><h4>Hooks</h4><div class="hook">“Más de cien voluntarios transformaron listas antiguas de pasajeros en una base de datos para que familias pudieran encontrar su historia.”</div><div class="hook">“Internacionalizarse no siempre empezó con una beca: para muchas familias empezó con un barco y ninguna garantía de volver.”</div></div>
+      <div class="block"><h4>Voz en off base</h4><div class="script">“Estoy aquí por una experiencia internacional elegida y temporal. Este archivo me recordó que migrar también ha significado dejarlo todo sin saber si habría regreso. Por eso quiero hablar de oportunidades con gratitud, pero sin romantizar todas las formas de movilidad.”</div><div class="outputs"><span class="output">Reel archivo</span><span class="output">Reel barrio</span><span class="output">Carrusel migración</span><span class="output">Food diary</span></div></div>
+    </div></div>
+  </article>
+
+  <article class="place" data-cat="art women life">
+    <div class="place-head"><span class="place-emoji">🎨</span><div class="place-main"><div class="place-name">Beco do Batman + Vila Madalena</div><div class="place-sub">Arte efímero, capas, firma, autoría y la ciudad como soporte.</div><div class="tags"><span class="tag art">Arte urbano</span><span class="tag women">Autoría</span><span class="tag life">Lifestyle</span></div></div><span class="arrow">›</span></div>
+    <div class="place-body"><div class="place-grid">
+      <div class="block"><span class="priority">Prioridad alta · 3 piezas</span><h4>Cómo abordarlo con rigor</h4><p>Los murales cambian. No atribuyas una obra a una persona sin leer la firma o verificarla. Busca artistas mujeres presentes ese día, fotografía sus créditos y luego investiga. La pregunta editorial es qué ocurre cuando una obra pública puede ser reemplazada.</p></div>
+      <div class="block"><h4>Grabación obligatoria</h4><ul><li>Entrada y recorrido completo en movimiento.</li><li>Capas, grietas, textura y pintura superpuesta.</li><li>Firmas y @ de artistas.</li><li>Tú eligiendo una paleta de cinco colores.</li><li>Boceto rápido inspirado en un detalle.</li><li>Ambiente de Rua Aspicuelta/Harmonia sin exponer a terceros.</li></ul></div>
+      <div class="block"><h4>Hooks</h4><div class="hook">“Este es el problema de grabar arte urbano: lo que ves hoy puede no existir cuando publique el video.”</div><div class="hook">“No vine a posar frente a todos los murales. Vine a aprender cómo mirar uno.”</div></div>
+      <div class="block"><h4>Voz en off base</h4><div class="script">“En internet intentamos guardar todo. En este callejón, una obra puede desaparecer debajo de la siguiente. Eso no la vuelve menos valiosa; la convierte en parte de una conversación. Hoy registré firmas y detalles para no separar la imagen de quien la creó.”</div><div class="outputs"><span class="output">Reel walking</span><span class="output">Reel proceso artístico</span><span class="output">Carrusel paleta</span></div></div>
+    </div></div>
+  </article>
+
+  <article class="place" data-cat="tech access life">
+    <div class="place-head"><span class="place-emoji">🔬</span><div class="place-main"><div class="place-name">Centro Histórico: Catavento + Mercado + Farol + CCBB</div><div class="place-sub">Usa el centro como contraste entre ciencia accesible, comercio, arquitectura e historia urbana.</div><div class="tags"><span class="tag tech">Ciencia</span><span class="tag access">Divulgación</span><span class="tag life">Ciudad</span></div></div><span class="arrow">›</span></div>
+    <div class="place-body"><div class="place-grid">
+      <div class="block"><span class="priority">Catavento: alta · resto: apoyo</span><h4>Ángulo verificado</h4><p>Catavento organiza su experiencia en cuatro áreas: Universo, Vida, Engenho y Sociedade. Es una oportunidad para analizar cómo se explica ciencia a públicos amplios. Mercado, Farol, CCBB, Mosteiro y Theatro sirven como B-roll histórico y piezas complementarias.</p><a class="source-link" href="https://museucatavento.org.br/" target="_blank" rel="noopener">Fuente oficial Catavento</a></div>
+      <div class="block"><h4>Grabación obligatoria</h4><ul><li>Una experiencia interactiva en cada sección visitada.</li><li>Señalética: ¿qué entiendes sin guía?</li><li>Pregunta a una mediadora sobre mujeres científicas, solo con permiso.</li><li>Mercado: textura, frutas y movimiento; evita grabar rostros de cerca.</li><li>Vista urbana desde mirador autorizado.</li></ul></div>
+      <div class="block"><h4>Hooks</h4><div class="hook">“Explicar ciencia para niñas no significa hacerla menos rigurosa; significa diseñar mejor la explicación.”</div><div class="hook">“Evalué un museo de ciencias como si fuera una interfaz: esto entendí sin que nadie me lo explicara.”</div></div>
+      <div class="block"><h4>Voz en off base</h4><div class="script">“Una buena experiencia educativa no presume que el visitante ya sabe. Le da pistas, permite tocar, equivocarse y volver a intentar. Esa lógica se parece mucho al diseño de software accesible: el conocimiento no debería depender de adivinar cómo usar la interfaz.”</div><div class="outputs"><span class="output">Reel UX ciencia</span><span class="output">Carrusel 4 áreas</span><span class="output">Vlog centro</span></div></div>
+    </div></div>
+  </article>
+
+  <article class="place" data-cat="tech women access life">
+    <div class="place-head"><span class="place-emoji">🦴</span><div class="place-main"><div class="place-name">Museu de Zoologia + Aquário</div><div class="place-sub">Biodiversidad como datos, colecciones científicas y comunicación responsable con animales.</div><div class="tags"><span class="tag tech">Datos</span><span class="tag women">Ciencia</span><span class="tag access">Educación</span><span class="tag life">Naturaleza</span></div></div><span class="arrow">›</span></div>
+    <div class="place-body"><div class="place-grid">
+      <div class="block"><span class="priority">Museo: media/alta · Aquário: opcional</span><h4>Ángulo editorial</h4><p>No centres el video en “animales bonitos”. Pregunta cómo se catalogan especímenes, cómo se decide qué información acompaña una pieza y qué trabajos científicos hacen posible la exhibición. Busca nombres de investigadoras en créditos y publicaciones.</p><a class="source-link" href="https://mz.usp.br/" target="_blank" rel="noopener">Museu de Zoologia USP</a></div>
+      <div class="block"><h4>Grabación obligatoria</h4><ul><li>Etiquetas, códigos y sistemas de clasificación.</li><li>Una vitrina: objeto + metadatos.</li><li>Pregunta autorizada: “¿qué carrera permite trabajar aquí?”.</li><li>En Aquário: sin flash, sin golpear vidrios, sin forzar reacción animal.</li><li>Reflexión sobre ética de exhibición.</li></ul></div>
+      <div class="block"><h4>Hooks</h4><div class="hook">“Una colección científica se parece a una base de datos, excepto que cada registro alguna vez estuvo vivo.”</div><div class="hook">“¿Qué estudias para trabajar detrás de un museo de zoología?”</div></div>
+      <div class="block"><h4>Voz en off base</h4><div class="script">“Una etiqueta pequeña puede contener lugar, fecha, especie, recolector y contexto. Sin esos datos, el objeto pierde gran parte de su valor científico. Hoy vine a mirar la biodiversidad desde la informática: clasificación, trazabilidad y preservación.”</div><div class="outputs"><span class="output">Reel datos/biodiversidad</span><span class="output">Carrusel carreras</span><span class="output">Stories ética</span></div></div>
+    </div></div>
+  </article>
+
+  <article class="place" data-cat="life access art">
+    <div class="place-head"><span class="place-emoji">🌊</span><div class="place-main"><div class="place-name">Guarujá: Mar Casado, Guaiúba y mirador</div><div class="place-sub">GRWM, contraste con la semana académica y una historia sobre descanso, territorio y cuidado.</div><div class="tags"><span class="tag life">Lifestyle</span><span class="tag access">Viaje real</span><span class="tag art">Fotografía</span></div></div><span class="arrow">›</span></div>
+    <div class="place-body"><div class="place-grid">
+      <div class="block"><span class="priority">Prioridad media · 3 piezas</span><h4>Enfoque</h4><p>No necesitas convertir la playa en una clase de tecnología. Su función narrativa es mostrar una experiencia completa y humana. Informa costos y ruta solo después de verificarlos ese día; clima, mareas y transporte cambian.</p></div>
+      <div class="block"><h4>Grabación obligatoria</h4><ul><li>GRWM y mochila real.</li><li>Ruta: metro, terminal, bus, llegada.</li><li>Primer plano del agua y arena, sin arriesgar equipo.</li><li>Plano fijo de 10 segundos para voz en off.</li><li>Comida con precio registrado en la boleta/carta.</li><li>Atardecer y reflexión sin publicar ubicación en vivo.</li></ul></div>
+      <div class="block"><h4>Hooks</h4><div class="hook">“De una clase de inteligencia artificial al Atlántico en el mismo viaje.”</div><div class="hook">“Cuánto cuesta realmente ir y volver a una playa desde São Paulo: guardé cada gasto.”</div></div>
+      <div class="block"><h4>Voz en off base</h4><div class="script">“Quería documentar lo académico, pero también necesitaba registrar esto: descansar no borra la ambición. Poder aprender, crear y detenerme frente al mar también forma parte de una experiencia internacional completa.”</div><div class="outputs"><span class="output">GRWM</span><span class="output">Reel costos reales</span><span class="output">Photo diary</span></div></div>
+    </div></div>
+  </article>
+
+  <article class="place" data-cat="tech life access">
+    <div class="place-head"><span class="place-emoji">🌿</span><div class="place-main"><div class="place-name">Capibaras y ecología urbana</div><div class="place-sub">Parque Linear Bruno Covas, Villa-Lobos o Parque Ecológico do Tietê, sin prometer avistamientos.</div><div class="tags"><span class="tag tech">Ciudad y datos</span><span class="tag life">Naturaleza</span><span class="tag access">Educación</span></div></div><span class="arrow">›</span></div>
+    <div class="place-body"><div class="place-grid">
+      <div class="block"><span class="priority">Bonus · 1–2 piezas</span><h4>Enfoque responsable</h4><p>Las capibaras son fauna silvestre: obsérvalas a distancia, no las alimentes, no intentes tocarlas y no conviertas el contenido en una persecución. La ausencia del animal también puede ser parte honesta del relato.</p></div>
+      <div class="block"><h4>Grabación obligatoria</h4><ul><li>Relación entre río, ciclovía, vegetación y ciudad.</li><li>Señales o reglas del parque.</li><li>Plano con zoom óptico, nunca acercándote.</li><li>Mapa simple de corredores ecológicos.</li><li>Cierre: “no vimos / sí vimos, y esto aprendimos”.</li></ul></div>
+      <div class="block"><h4>Hooks</h4><div class="hook">“Fui a buscar capibaras en São Paulo y terminé aprendiendo por qué viven junto a la infraestructura de la ciudad.”</div><div class="hook">“El contenido responsable también sabe cuándo no acercarse.”</div></div>
+      <div class="block"><h4>Voz en off base</h4><div class="script">“Una ciudad no es solo edificios y personas. También tiene corredores de agua, vegetación y especies que se adaptan a espacios transformados. Hoy vine a observar, no a intervenir. Ver fauna silvestre no nos da derecho a convertirla en utilería.”</div><div class="outputs"><span class="output">Reel búsqueda</span><span class="output">Carrusel ética</span></div></div>
+    </div></div>
+  </article>
+
+  <article class="place" data-cat="access life women">
+    <div class="place-head"><span class="place-emoji">🐾</span><div class="place-main"><div class="place-name">CasAdote y proyectos con impacto social</div><div class="place-sub">Un respiro lifestyle que puede convertirse en contenido sobre emprendimiento, comunidad y adopción responsable.</div><div class="tags"><span class="tag access">Impacto</span><span class="tag life">Lifestyle</span><span class="tag women">Comunidad</span></div></div><span class="arrow">›</span></div>
+    <div class="place-body"><div class="place-grid">
+      <div class="block"><span class="priority">Opcional · 1 pieza</span><h4>Enfoque</h4><p>Pregunta primero qué se puede grabar, cómo protegen el bienestar de los animales y si alguna persona responsable desea explicar el modelo. No presentes una visita a una cafetería como apoyo directo si no realizaste una acción concreta.</p><a class="source-link" href="https://casadote.org.br/" target="_blank" rel="noopener">Fuente oficial</a></div>
+      <div class="block"><h4>Grabación obligatoria</h4><ul><li>Reglas de interacción.</li><li>Espacio y señalética de adopción.</li><li>Entrevista breve solo con consentimiento.</li><li>CTA real: adoptar, donar, difundir o informarse.</li></ul></div>
+      <div class="block"><h4>Hook</h4><div class="hook">“Este café no usa animales como decoración: intenta convertir una visita en una adopción responsable.”</div></div>
+      <div class="block"><h4>Voz en off base</h4><div class="script">“El impacto no se mide por lo bonito que se ve el lugar, sino por lo que ocurre después. Antes de grabar pregunté cuáles son sus reglas, cómo trabajan la adopción y qué puede hacer una persona que no está lista para adoptar.”</div><div class="outputs"><span class="output">Reel social</span><span class="output">Stories CTA</span></div></div>
+    </div></div>
+  </article>
+</section>
+
+<section id="banco" class="section">
+  <p class="slabel">05 · Banco de contenido</p>
+  <h2>Más de 40 videos posibles <em>sin repetir la misma idea</em></h2>
+  <p class="sec-lead">No es obligatorio producirlos todos. Graba la materia prima y decide después cuáles tienen mejor historia, evidencia y emoción.</p>
+  <div class="idea-grid">
+    <article class="idea"><div class="idea-top"><span class="idea-type">Mujeres STEM</span><h3>La primera vez que dejé de sentir que debía elegir entre arte e informática</h3></div><p>Monólogo desde un banco o habitación; no necesita un gran lugar, necesita honestidad.</p><div class="mini">Cámara directa · 45–60 s</div></article>
+    <article class="idea"><div class="idea-top"><span class="idea-type">Mujeres STEM</span><h3>¿Cuántas mujeres hablan en clase y quién recibe preguntas?</h3></div><p>Observa dinámicas sin grabar personas ni convertirlas en estadísticas improvisadas; comparte patrones solo con contexto.</p><div class="mini">Diario reflexivo</div></article>
+    <article class="idea"><div class="idea-top"><span class="idea-type">Mujeres STEM</span><h3>Preguntas que haría una niña de 15 años sobre trabajar en tecnología</h3></div><p>Responde con lo que aprendiste en el programa y admite lo que aún no sabes.</p><div class="mini">Serie de 5 microreels</div></article>
+    <article class="idea"><div class="idea-top"><span class="idea-type">Tech simple</span><h3>Una clase de IA explicada sin usar cinco palabras de moda</h3></div><p>Un concepto, un ejemplo cotidiano, una limitación y una pregunta ética.</p><div class="mini">Voz en off + apuntes</div></article>
+    <article class="idea"><div class="idea-top"><span class="idea-type">Tech simple</span><h3>Qué aprendí de UX en un museo, no en una app</h3></div><p>Compara señalética, accesibilidad, interacción y carga cognitiva.</p><div class="mini">Catavento / Futebol / Língua</div></article>
+    <article class="idea"><div class="idea-top"><span class="idea-type">Tech simple</span><h3>Un museo también es una base de datos</h3></div><p>Objetos, metadatos, búsqueda, preservación, versiones y acceso público.</p><div class="mini">Ipiranga / Zoologia / Bunkyo</div></article>
+    <article class="idea"><div class="idea-top"><span class="idea-type">Tech simple</span><h3>Archivo versus algoritmo: dos maneras de decidir qué vemos</h3></div><p>Una reflexión sobre curaduría institucional y recomendación digital.</p><div class="mini">Reel conceptual</div></article>
+    <article class="idea"><div class="idea-top"><span class="idea-type">Tech simple</span><h3>Pix desde la mirada de una chilena</h3></div><p>Graba usos reales y explica después con fuentes oficiales; no publiques datos financieros sensibles.</p><div class="mini">Carrusel comparativo</div></article>
+    <article class="idea"><div class="idea-top"><span class="idea-type">Arte</span><h3>Una paleta de color por barrio</h3></div><p>Luz, Beco, Liberdade, Paulista, Ipiranga y Guarujá convertidos en seis mini paletas.</p><div class="mini">Serie visual</div></article>
+    <article class="idea"><div class="idea-top"><span class="idea-type">Arte</span><h3>Dibujo lo que vi en 60 segundos</h3></div><p>Time-lapse de boceto + una frase sobre el lugar.</p><div class="mini">6 episodios</div></article>
+    <article class="idea"><div class="idea-top"><span class="idea-type">Arte</span><h3>Las firmas que casi nadie mira en el Beco do Batman</h3></div><p>Investiga autoría antes de publicar y etiqueta correctamente.</p><div class="mini">Carrusel de artistas</div></article>
+    <article class="idea"><div class="idea-top"><span class="idea-type">Arte</span><h3>Cuatro artistas mujeres que descubrí en São Paulo</h3></div><p>Una obra, una idea y una fuente por artista; no una lista superficial.</p><div class="mini">MASP + Pinacoteca</div></article>
+    <article class="idea"><div class="idea-top"><span class="idea-type">Arte</span><h3>Por qué el espacio vacío del MASP importa</h3></div><p>Arquitectura, uso público y diseño de Lina Bo Bardi.</p><div class="mini">Voz en off arquitectónica</div></article>
+    <article class="idea"><div class="idea-top"><span class="idea-type">GRWM</span><h3>GRWM para estudiar IA y caminar 15.000 pasos</h3></div><p>Outfit bonito con decisiones prácticas: capas, calzado, batería y libreta.</p><div class="mini">Reel dinámico</div></article>
+    <article class="idea"><div class="idea-top"><span class="idea-type">GRWM</span><h3>Qué llevo en mi bolso de creadora durante una visita académica</h3></div><p>Celular, power bank, micrófono, documento, agua, libreta y límites de peso.</p><div class="mini">Checklist guardable</div></article>
+    <article class="idea"><div class="idea-top"><span class="idea-type">GRWM</span><h3>De ingeniera a artista en el mismo outfit</h3></div><p>Transición clase → museo, sin fingir que ambas identidades son opuestas.</p><div class="mini">Trend adaptable</div></article>
+    <article class="idea"><div class="idea-top"><span class="idea-type">GRWM</span><h3>GRWM de playa desde São Paulo</h3></div><p>Incluye ruta, clima real, costo comprobado y el cansancio del regreso.</p><div class="mini">Vlog útil</div></article>
+    <article class="idea"><div class="idea-top"><span class="idea-type">Acceso</span><h3>La carta de motivación que me trajo hasta aquí</h3></div><p>Cuenta estructura, decisiones y errores; no publiques información privada ni prometas una fórmula.</p><div class="mini">Carrusel de alto guardado</div></article>
+    <article class="idea"><div class="idea-top"><span class="idea-type">Acceso</span><h3>Todos los costos que no aparecían en la convocatoria</h3></div><p>Registra gastos por categoría y separa lo cubierto, lo opcional y lo indispensable.</p><div class="mini">Carrusel transparente</div></article>
+    <article class="idea"><div class="idea-top"><span class="idea-type">Acceso</span><h3>Postulé con dudas: estas eran exactamente</h3></div><p>Idioma, dinero, capacidad técnica, viajar y sentir que no eras “el perfil”.</p><div class="mini">Monólogo cercano</div></article>
+    <article class="idea"><div class="idea-top"><span class="idea-type">Acceso</span><h3>Cómo buscar oportunidades internacionales sin esperar que te lleguen</h3></div><p>Fuentes, alertas, oficina de relaciones internacionales y red académica.</p><div class="mini">Tutorial pantalla</div></article>
+    <article class="idea"><div class="idea-top"><span class="idea-type">Acceso</span><h3>Qué habría querido saber antes de mi primer programa internacional</h3></div><p>Serie post-viaje de respuestas breves construida con preguntas reales.</p><div class="mini">10 episodios</div></article>
+    <article class="idea"><div class="idea-top"><span class="idea-type">Curiosidad</span><h3>El fútbol femenino brasileño sobrevivió a una prohibición</h3></div><p>Usa el archivo del museo y evita simplificar décadas de historia en un dato aislado.</p><div class="mini">Reel 45 s</div></article>
+    <article class="idea"><div class="idea-top"><span class="idea-type">Curiosidad</span><h3>Una técnica de madera puede ser tecnología</h3></div><p>KIGUMI como conocimiento material, precisión y transmisión intergeneracional.</p><div class="mini">Japan House</div></article>
+    <article class="idea"><div class="idea-top"><span class="idea-type">Curiosidad</span><h3>Cómo una comunidad convirtió listas de barcos en una base de datos</h3></div><p>Proyecto ASHIATO y memoria colaborativa.</p><div class="mini">Bunkyo</div></article>
+    <article class="idea"><div class="idea-top"><span class="idea-type">Curiosidad</span><h3>Liberdade no cabe en una sola etiqueta</h3></div><p>Contrasta la postal turística con la exposición “bairro plural”.</p><div class="mini">Reel + carrusel</div></article>
+    <article class="idea"><div class="idea-top"><span class="idea-type">Curiosidad</span><h3>Cómo una ciudad convive con capibaras</h3></div><p>Ecología urbana y observación responsable, sin prometer avistamientos.</p><div class="mini">Reel búsqueda</div></article>
+    <article class="idea"><div class="idea-top"><span class="idea-type">Comida</span><h3>Lo probé, pero también investigué de dónde viene</h3></div><p>Una reacción + una fuente verificada, evitando repetir mitos gastronómicos.</p><div class="mini">Serie de snacks</div></article>
+    <article class="idea"><div class="idea-top"><span class="idea-type">Comida</span><h3>Ramen en Liberdade: expectativa, precio y fila real</h3></div><p>Incluye hora, espera, opción elegida y evaluación honesta.</p><div class="mini">Vlog práctico</div></article>
+    <article class="idea"><div class="idea-top"><span class="idea-type">Comida</span><h3>Una comida completa con presupuesto de estudiante</h3></div><p>No generalices desde un local; muestra carta y fecha.</p><div class="mini">Reel guardable</div></article>
+    <article class="idea"><div class="idea-top"><span class="idea-type">Vida real</span><h3>El día que no grabé todo</h3></div><p>Habla de cansancio, presencia y límites de convertir cada experiencia en contenido.</p><div class="mini">Monólogo honesto</div></article>
+    <article class="idea"><div class="idea-top"><span class="idea-type">Vida real</span><h3>Lo que salió mal y cómo lo resolví</h3></div><p>Transporte, idioma, batería, clima o cambio de plan; no inventes conflicto.</p><div class="mini">Storytime</div></article>
+    <article class="idea"><div class="idea-top"><span class="idea-type">Vida real</span><h3>Un día completo sin narrarlo como si todo fuera perfecto</h3></div><p>Clase, trayecto, comida, museo, cansancio y pequeña victoria.</p><div class="mini">Day in the life</div></article>
+    <article class="idea"><div class="idea-top"><span class="idea-type">Post-viaje</span><h3>Pinté Brasil después de volver</h3></div><p>Proceso, referencias visuales y qué elemento pertenece a cada lugar.</p><div class="mini">Cierre de arco</div></article>
+    <article class="idea"><div class="idea-top"><span class="idea-type">Post-viaje</span><h3>Lo que aprendí que no estaba en el programa</h3></div><p>Tres aprendizajes concretos, no “me cambió la vida” sin evidencia.</p><div class="mini">Reel reflexión</div></article>
+    <article class="idea"><div class="idea-top"><span class="idea-type">Post-viaje</span><h3>Q&A para futuras postulantes</h3></div><p>Recolecta preguntas por stories y conviértelas en un destacado ordenado.</p><div class="mini">Serie + live</div></article>
+    <article class="idea"><div class="idea-top"><span class="idea-type">Post-viaje</span><h3>Cómo presentar una charla en tu universidad</h3></div><p>Del correo de propuesta a la estructura y materiales accesibles.</p><div class="mini">Behind the scenes</div></article>
+    <article class="idea"><div class="idea-top"><span class="idea-type">Post-viaje</span><h3>Un año después: qué sí cambió</h3></div><p>Contrasta promesas con acciones y resultados medibles en 2027.</p><div class="mini">Rendición de cuentas</div></article>
+  </div>
+</section>
+
+<section id="produccion" class="section">
+  <p class="slabel">06 · Sistema de producción</p>
+  <h2>Graba suficiente sin convertir el viaje <em>en una jornada laboral</em></h2>
+  <p class="sec-lead">El objetivo es capturar material flexible. La edición compleja y la mayoría de las voces en off pueden esperar hasta Chile.</p>
+
+  <div class="system-grid">
+    <div class="check" data-check="shot1"><span class="box"></span><div><h3>1. Exterior y letrero</h3><p>3–5 segundos, vertical, quieto. Prueba que realmente estuviste allí y ubica al espectador.</p></div></div>
+    <div class="check" data-check="shot2"><span class="box"></span><div><h3>2. Llegada en movimiento</h3><p>Caminar, abrir una puerta, subir escaleras o entrar al encuadre.</p></div></div>
+    <div class="check" data-check="shot3"><span class="box"></span><div><h3>3. Plano general</h3><p>Espacio completo sin paneos rápidos. Mantén cada clip al menos 5 segundos.</p></div></div>
+    <div class="check" data-check="shot4"><span class="box"></span><div><h3>4. Tres detalles</h3><p>Textura, texto, objeto, interfaz, pincelada o material constructivo.</p></div></div>
+    <div class="check" data-check="shot5"><span class="box"></span><div><h3>5. Interacción real</h3><p>Leer, tocar una estación permitida, dibujar, preguntar, probar o tomar notas.</p></div></div>
+    <div class="check" data-check="shot6"><span class="box"></span><div><h3>6. Tú en contexto</h3><p>Plano medio o cuerpo completo; no solo posar: muestra una acción.</p></div></div>
+    <div class="check" data-check="shot7"><span class="box"></span><div><h3>7. Reacción al salir</h3><p>15 segundos: qué te sorprendió, qué no entendiste y qué investigarás.</p></div></div>
+    <div class="check" data-check="shot8"><span class="box"></span><div><h3>8. Audio ambiente</h3><p>10 segundos sin hablar. Sirve para dar respiración y presencia al montaje.</p></div></div>
+    <div class="check" data-check="shot9"><span class="box"></span><div><h3>9. Nota de voz</h3><p>Nombre del lugar, tres hechos, emoción real, duda pendiente y posible hook.</p></div></div>
+  </div>
+
+  <div class="matrix">
+    <table>
+      <thead><tr><th>Una visita</th><th>Pieza principal</th><th>Recortes</th><th>Stories</th><th>Recurso futuro</th></tr></thead>
+      <tbody>
+        <tr><td>MASP</td><td>Reel “4 artistas mujeres”</td><td>Lina Bo Bardi + obra favorita</td><td>Encuesta y mini tour</td><td>Slide para charla de arte/tech</td></tr>
+        <tr><td>Museu do Futebol</td><td>Reel prohibición/resistencia</td><td>UX interactiva + Marta</td><td>Quiz histórico</td><td>Caso de representación</td></tr>
+        <tr><td>Ipiranga</td><td>Reel museo como base de datos</td><td>Bairro plural + objetos/género</td><td>Antes/después físico-digital</td><td>Ejemplo de patrimonio digital</td></tr>
+        <tr><td>Liberdade/Bunkyo</td><td>Reel listas digitalizadas</td><td>Food diary + barrio</td><td>Preguntas migración</td><td>Capítulo de internacionalización</td></tr>
+        <tr><td>Guarujá</td><td>GRWM/ruta real</td><td>Costos + reflexión</td><td>Clima, viaje y comida</td><td>Presupuesto del programa</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="grid">
+    <article class="card"><span class="icon">📁</span><h3>Nombres de archivos</h3><p><strong>2026-07-20_PINACOTECA_01_EXTERIOR</strong>. Fecha + lugar + número + tipo. La organización posterior vale más que un filtro perfecto.</p></article>
+    <article class="card"><span class="icon">🎙️</span><h3>Voz en off después</h3><p>Escribe con tus notas, verifica datos y graba en un espacio silencioso. No memorices discursos largos dentro del museo.</p></article>
+    <article class="card"><span class="icon">🔋</span><h3>Límite diario</h3><p>Dos bloques de 10 minutos para grabación dirigida y el resto material espontáneo. Publica poco; conserva energía y experiencia.</p></article>
+    <article class="card"><span class="icon">📝</span><h3>Ficha rápida</h3><p>Qué vi · qué sentí · qué aprendí · qué debo verificar · qué pregunta le sirve a otra estudiante.</p></article>
+  </div>
+
+  <div class="callout warn"><strong>Seguridad y ética:</strong> no publiques tu ubicación en tiempo real; evita mostrar credenciales, documentos, pantallas privadas o rutas del hospedaje. No grabes menores ni personas identificables sin consentimiento. Las normas del museo están por encima del plan: sin flash, trípode, micrófono o filmación cuando no esté permitido. Usa subtítulos, contraste legible y texto alternativo.</div>
+</section>
+
+<section id="retorno" class="section">
+  <p class="slabel">07 · Retorno y compromiso</p>
+  <h2>El viaje termina en julio. El impacto debe llegar <em>hasta 2027</em></h2>
+  <p class="sec-lead">La carta no promete solo publicar fotos. Promete devolver lo aprendido a la comunidad académica. Esta hoja de ruta convierte esa frase en evidencia.</p>
+  <div class="timeline">
+    <div class="tl"><div class="tl-date">Agosto–octubre 2026</div><h3>Ordenar y publicar la primera biblioteca</h3><p>Respaldar material, editar la serie principal, crear destacado “Brasil”, publicar guía de postulación y abrir un formulario de preguntas anónimo.</p></div>
+    <div class="tl"><div class="tl-date">Noviembre 2026–marzo 2027</div><h3>Convertir preguntas en recursos</h3><p>Realizar un live o Q&A; producir la serie “Lo que habría querido saber”; documentar costos y actualizar la web con respuestas verificadas.</p></div>
+    <div class="tl"><div class="tl-date">Abril–junio 2027</div><h3>Proponer la actividad académica</h3><p>Enviar una propuesta breve a escuela, relaciones internacionales, agrupación STEM o centro de estudiantes: título, público, objetivos, duración, accesibilidad y material descargable.</p></div>
+    <div class="tl"><div class="tl-date">Semestre de otoño 2027</div><h3>Realizar charla o conversatorio</h3><p>“De la duda a una oportunidad internacional: tecnología, creatividad y cómo postular”. Incluir experiencia real, herramientas, errores, preguntas y una sección pensada para niñas y mujeres en STEM.</p></div>
+    <div class="tl"><div class="tl-date">Después del evento</div><h3>Publicar resultados y mantener el recurso abierto</h3><p>Compartir presentación accesible, preguntas frecuentes, contactos institucionales, aprendizajes y próximos pasos. Medir asistencia e intención de postular, no solo likes.</p></div>
+  </div>
+
+  <div class="kpi-grid">
+    <div class="kpi"><div class="big">20</div><h3>Reels planificados</h3><p>Indicador de producción; no obliga a publicar material débil.</p></div>
+    <div class="kpi"><div class="big">10</div><h3>Carruseles útiles</h3><p>Aplicación, costos, mujeres, tecnología, arte y aprendizajes.</p></div>
+    <div class="kpi"><div class="big">1</div><h3>Guía abierta</h3><p>Web o PDF actualizado, con fuentes y fecha de verificación.</p></div>
+    <div class="kpi"><div class="big">1+</div><h3>Actividad académica</h3><p>Charla, conversatorio o taller realizado antes del plazo.</p></div>
+    <div class="kpi"><div class="big">Preguntas</div><h3>Señal de impacto</h3><p>DMs y comentarios sobre cómo postular, no solo reacciones.</p></div>
+    <div class="kpi"><div class="big">Acciones</div><h3>Resultado principal</h3><p>Personas que descargan, asisten, piden orientación o deciden postular.</p></div>
+  </div>
+
+  <div class="callout"><strong>Título recomendado para la charla:</strong> “De la duda a São Paulo: cómo una mujer informática convirtió una oportunidad internacional en aprendizaje, contenido y comunidad”.</div>
+</section>
+
+<section id="fuentes" class="section">
+  <p class="slabel">08 · Verificación</p>
+  <h2>Fuentes oficiales y <em>control de calidad</em></h2>
+  <p class="sec-lead">Programación revisada el 14 de julio de 2026. Antes de publicar un dato, conserva el enlace o una captura de la fuente y registra la fecha. Precios, horarios, permisos de grabación y exposiciones pueden cambiar.</p>
+  <div class="sources">
+    <a href="https://pinacoteca.org.br/programacao/" target="_blank" rel="noopener">Pinacoteca · programación</a>
+    <a href="https://www.museudalinguaportuguesa.org.br/" target="_blank" rel="noopener">Museu da Língua Portuguesa</a>
+    <a href="https://museudofutebol.org.br/" target="_blank" rel="noopener">Museu do Futebol</a>
+    <a href="https://masp.org.br/exposicoes" target="_blank" rel="noopener">MASP · exposiciones</a>
+    <a href="https://museudoipiranga.org.br/" target="_blank" rel="noopener">Museu do Ipiranga</a>
+    <a href="https://japanhousesp.com.br/programacao/" target="_blank" rel="noopener">Japan House · programación</a>
+    <a href="https://ims.com.br/unidade/sao-paulo/" target="_blank" rel="noopener">IMS Paulista</a>
+    <a href="https://www.itaucultural.org.br/" target="_blank" rel="noopener">Itaú Cultural</a>
+    <a href="https://bunkyo.org.br/br/museu-historico/" target="_blank" rel="noopener">Museu da Imigração Japonesa</a>
+    <a href="https://museucatavento.org.br/" target="_blank" rel="noopener">Museu Catavento</a>
+    <a href="https://mz.usp.br/" target="_blank" rel="noopener">Museu de Zoologia USP</a>
+    <a href="https://casadote.org.br/" target="_blank" rel="noopener">CasAdote</a>
+  </div>
+</section>
+</main>
+
+<footer>@karenartc · Plan de Medios Brasil 2026 · Tecnología, mujeres, arte e internacionalización</footer>
+<script>
+document.querySelectorAll('.place-head').forEach(head=>{
+  head.addEventListener('click',()=>head.closest('.place').classList.toggle('open'));
+});
+document.querySelectorAll('.filter').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.filter').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    const f=btn.dataset.filter;
+    document.querySelectorAll('.place').forEach(p=>{
+      p.style.display=(f==='all'||p.dataset.cat.split(' ').includes(f))?'block':'none';
+    });
+  });
+});
+document.querySelectorAll('.check').forEach(item=>{
+  const key='brasil-plan-'+item.dataset.check;
+  if(localStorage.getItem(key)==='1') item.classList.add('done');
+  item.addEventListener('click',()=>{
+    item.classList.toggle('done');
+    localStorage.setItem(key,item.classList.contains('done')?'1':'0');
+  });
+});
+</script>
+</body>
+</html>
